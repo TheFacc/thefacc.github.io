@@ -76,6 +76,8 @@ export default {
     const mainCx = 375
     const mainCy = 250
     const mainR = 150
+    const mainCircle = document.querySelector('.circle-main')
+    const baseColor = mainCircle.style.stroke
     const areaGs = document.querySelectorAll('svg a g')
     const areasNo = areaGs.length
     areaGs.forEach((areaG, index) => {
@@ -94,6 +96,13 @@ export default {
       areaText.setAttribute('y', (mainR + 50) * cy + mainCy)
       // set right text anchor for leftie texts
       if (cx < 0) areaText.style.textAnchor = 'end'
+      // color main circle on small circle hover
+      areaG.addEventListener('mouseover', function () {
+        mainCircle.style.stroke = areaCircle.style.stroke
+      })
+      areaG.addEventListener('mouseout', function () {
+        mainCircle.style.stroke = baseColor
+      })
     })
   },
 }
