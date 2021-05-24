@@ -17,7 +17,7 @@
       <a
         v-for="(area, areaIndex) of areas"
         :key="'area-' + areaIndex"
-        :href="area.path"
+        @click="goTo(`/to/${area.path}`)"
       >
         <g>
           <circle
@@ -96,11 +96,11 @@ export default {
       const areaCircle = areaG.querySelector('svg circle')
       areaCircle.setAttribute('cx', mainR * cx + mainCx)
       areaCircle.setAttribute('cy', mainR * cy + mainCy)
-      // set text centers + 50px away from the main center
+      // set text centers + 60px away from the main center
       const areaTexts = areaG.querySelectorAll('svg tspan')
       areaTexts.forEach((areaText) => {
-        areaText.setAttribute('x', (mainR + 50) * cx + mainCx)
-        areaText.setAttribute('y', (mainR + 50) * cy + mainCy)
+        areaText.setAttribute('x', (mainR + 60) * cx + mainCx)
+        areaText.setAttribute('y', (mainR + 60) * cy + mainCy)
         // set right text anchor for leftie texts
         if (cx < 0) areaText.style.textAnchor = 'end'
       })
@@ -113,6 +113,11 @@ export default {
       })
     })
   },
+  methods: {
+    goTo(path) {
+      this.$router.push({ path })
+    },
+  },
 }
 </script>
 
@@ -123,6 +128,9 @@ export default {
 .circle-area,
 .circle-main {
   fill: white;
+}
+g:hover {
+  cursor: pointer;
 }
 g:not(:hover) .circle-area {
   stroke: #47494e !important;
@@ -135,7 +143,7 @@ g:not(:hover) .circle-area {
   transition: 0.3s;
 }
 g:hover .circle-area {
-  stroke-width: 15px;
+  stroke-width: 20px;
 }
 svg text,
 svg tspan {
