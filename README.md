@@ -10,10 +10,16 @@ Hypermedia project @ Polimi
 
 Who did what?
 
-### Technical documentation
+### Technical documentation blueprint
 - Server and DB technologies used
 - Components developed, their functionalities and structure
 - Plugins used (router, store, ...)
 - Comments about how your usage fo the framework was complaint to the best practices for the specific application domain of your website (discussed during the course)
 
 Deadline: 23:59 of the chosen exam date 
+
+### Server and DB technologies used
+### Components developed
+### Plugins used
+- Nuxt svg module - to import svg files as raw data in order to support css animations (https://github.com/nuxt-community/svg-module)
+### Comments

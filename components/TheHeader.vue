@@ -4,31 +4,9 @@
       <div class="title" @click="goToHome"><h3>MouBE</h3></div>
       <div class="search"></div>
       <nav class="right">
-        <!-- <button
-          class="nav__toggle"
-          aria-expanded="false"
-          type="button"
-          @click="navToggle"
-        > -->
-        <!-- <svg
-          class="nav__toggle ham hamRotate ham8"
-          aria-expanded="false"
-          @click="navToggle"
-        >
-          <path
-            class="line top"
-            d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20"
-          />
-          <path class="line middle" d="m 30,50 h 40" />
-          <path
-            class="line bottom"
-            d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20"
-          />
-        </svg> -->
         <div class="nav__toggle" aria-expanded="false" @click="navToggle">
           <span class="menu-text">MENU</span>
         </div>
-        <!-- </button> -->
         <ul class="nav__wrapper">
           <li
             v-for="(item, itemIndex) of menuOptions"
@@ -36,8 +14,14 @@
             class="nav__item"
           >
             <nuxt-link :to="item.path">
-              <img :src="item.icon" />
+              <div v-html="item.icon" />
+              <!-- <img :src="item.icon" /> -->
               <span>{{ item.name }}</span>
+              <!-- <div v-html="item.icon" /> -->
+              <!-- <header-icon
+                :iconfile="item.icon"
+                :icontext="item.name"
+              ></header-icon> -->
             </nuxt-link>
           </li>
         </ul>
@@ -47,43 +31,40 @@
 </template>
 
 <script>
+// import HeaderIcon from './HeaderIcon.vue'
+
 export default {
+  // components: { HeaderIcon },
   data() {
     return {
       menuOptions: [
         {
           name: 'Areas',
           path: '/areas',
-          icon: require('~/assets/icons/areas.svg'),
+          icon: require('~/assets/icons/areas.svg?raw'),
         },
         {
           name: 'Solutions',
           path: '/solutions',
-          icon: require('~/assets/icons/solutions.svg'),
+          icon: require('~/assets/icons/solutions.svg?raw'),
         },
         {
           name: 'Blog',
           path: '/blog',
-          icon: require('~/assets/icons/blog.svg'),
+          icon: require('~/assets/icons/blog.svg?raw'),
         },
         {
           name: 'About',
           path: '/about',
-          icon: require('~/assets/icons/about.svg'),
+          icon: require('~/assets/icons/about.svg?raw'),
         },
         {
           name: 'Contact',
           path: '/contact',
-          icon: require('~/assets/icons/contact.svg'),
+          icon: require('~/assets/icons/contact.svg?raw'),
         },
       ],
     }
-  },
-  mounted() {
-    // // $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
-    // this.$el
-    //   .querySelector(`nav a[href="/' + location.pathname.split("/")[1] + '"]`)
-    //   .classList.add('active')
   },
   methods: {
     goToHome() {
@@ -148,6 +129,10 @@ export default {
   .nav__item:not(:last-child) {
     margin-right: 0.5rem;
   }
+  .nav__item a {
+    display: block;
+    padding: 7px 1rem 2px;
+  }
 }
 
 @media (max-width: 799px) {
@@ -174,10 +159,17 @@ export default {
     transform: scaleY(1);
   }
   .nav__item a {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
     border-right: 4px solid transparent;
+    padding: 10px 1rem;
   }
   .nav__item a.nuxt-link-active {
     border-right-color: #222;
+  }
+  .nav__item span {
+    margin: 0 10px;
   }
 }
 /**/
@@ -202,19 +194,18 @@ export default {
   margin: auto;
 }
 .nav__item a {
-  display: block;
   text-decoration: none;
-  padding: 10px 1rem;
+}
+.nav__item a.nuxt-link-active {
+  font-weight: bold;
 }
 nav ul {
   list-style-type: none;
 }
-.nav__item img {
+.nav__item svg {
   display: inline-block;
   vertical-align: middle;
-  width: 28px;
   height: 28px;
-  margin-right: 1rem;
 }
 @media (min-width: 800px) {
   .nav__item a {
@@ -222,19 +213,19 @@ nav ul {
     border-left: 0;
     border-bottom: 4px solid transparent;
   }
-  .nav__item img {
+  .nav__item svg {
     display: block;
     margin: 0 auto 0.5rem;
   }
   .nav__item a.nuxt-link-active {
     border-bottom-color: #222;
   }
+  .nav__toggle {
+    display: none;
+  }
 }
-.nav__toggle {
-  display: none;
-}
+/* hamburger menu v2 (text) */
 @media (max-width: 799px) {
-  /* hamburger menu v2 (text) */
   /*OPEN*/
   @keyframes topBar_open {
     0% {
@@ -435,4 +426,163 @@ nav ul {
     animation-fill-mode: forwards;
   }
 }
+/*nav hover fx v1 (::after)
+li.nav__item::after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 4px;
+  background: #ced7db;
+  bottom: 0;
+  transform: scaleX(0);
+  transition: transform 0.3s;
+  transform-origin: right top;
+  background-image: linear-gradient(120deg, #ff5722 0, #ff5722 100%);
+}
+li.nav__item:hover::after {
+  transform-origin: left top;
+  transform: scaleX(1);
+}*/
+/*nav hover fx v2 (border) */
+/* .border-animation {
+  --border-width: 0.1em;
+  --animation-speed: 0.5s;
+  --color: #222;
+  color: var(--color);
+  position: relative;
+  display: inline-block;
+  border: var(--border-width) solid transparent;
+}
+.border-animation .border-animation__inner {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  z-index: 1;
+  border: solid var(--border-width) transparent;
+}
+.border-animation:before,
+.border-animation:after {
+  content: '';
+  position: absolute;
+  background: var(--color);
+}
+.border-animation:focus:before,
+.border-animation:hover:before {
+  animation: beforeBorders var(--animation-speed) forwards ease-in-out;
+}
+.border-animation:focus:after,
+.border-animation:hover:after {
+  animation: afterBorders var(--animation-speed) forwards ease-in-out;
+}
+.border-animation:focus,
+.border-animation:hover {
+  animation: borderColors var(--animation-speed) steps(10) forwards;
+  outline: none;
+} */
+/*.border-animation:focus .border-animation__inner,
+.border-animation:hover .border-animation__inner {
+  animation: background calc(var(--animation-speed) / 5 * 3) forwards
+    ease-in-out;
+  animation-delay: calc(var(--animation-speed) / 5 * 2);
+}*/
+/* @keyframes beforeBorders {
+  0% {
+    top: calc(var(--border-width) * -1);
+    left: 50%;
+    bottom: auto;
+    right: auto;
+    width: 0;
+    height: 0;
+  }
+  33% {
+    top: calc(var(--border-width) * -1);
+    left: calc(var(--border-width) * -1);
+    bottom: auto;
+    right: auto;
+    width: calc(var(--border-width) + 50%);
+    height: 2px;
+  }
+  66% {
+    top: calc(var(--border-width) * -1);
+    left: calc(var(--border-width) * -1);
+    bottom: auto;
+    right: auto;
+    width: var(--border-width);
+    height: 3px;
+  }
+  100% {
+    top: auto;
+    left: calc(var(--border-width) * -1);
+    bottom: calc(var(--border-width) * -1);
+    right: auto;
+    width: calc(var(--border-width) + 50%);
+    height: 4px;
+  }
+}
+@keyframes afterBorders {
+  0% {
+    top: calc(var(--border-width) * -1);
+    left: auto;
+    bottom: auto;
+    right: 50%;
+    width: 0;
+    height: var(--border-width);
+  }
+  33% {
+    top: calc(var(--border-width) * -1);
+    left: auto;
+    bottom: auto;
+    right: calc(var(--border-width) * -1);
+    width: calc(var(--border-width) + 50%);
+    height: var(--border-width);
+  }
+  66% {
+    top: calc(var(--border-width) * -1);
+    left: auto;
+    bottom: auto;
+    right: calc(var(--border-width) * -1);
+    width: var(--border-width);
+    height: calc((var(--border-width) * 2) + 100%);
+  }
+  100% {
+    top: auto;
+    left: auto;
+    bottom: calc(var(--border-width) * -1);
+    right: calc(var(--border-width) * -1);
+    width: calc(var(--border-width) + 50%);
+    height: calc((var(--border-width) * 2) + 100%);
+  }
+}
+@keyframes borderColors {
+  0% {
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  33% {
+    border-top-color: var(--color);
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  66% {
+    border-top-color: var(--color);
+    border-right-color: var(--color);
+    border-bottom-color: transparent;
+    border-left-color: var(--color);
+  }
+  100% {
+    border-top-color: var(--color);
+    border-right-color: var(--color);
+    border-bottom-color: var(--color);
+    border-left-color: var(--color);
+  }
+}
+@keyframes background {
+  to {
+    background: #aaa;
+  }
+} */
 </style>
