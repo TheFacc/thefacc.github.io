@@ -6,12 +6,12 @@
       version="1.1"
       x="0px"
       y="0px"
-      viewBox="0 0 774.3 314.3"
-      style="enable-background: new 0 0 774.3 314.3"
+      viewBox="0 0 750 500"
+      style="enable-background: new 0 0 750 500"
       xml:space="preserve"
     >
       <g>
-        <circle class="circle-main" cx="387.1" cy="157.1" r="149.5" />
+        <circle class="circle-main" cx="375" cy="250" r="149.5" />
       </g>
 
       <a
@@ -22,17 +22,12 @@
         <g>
           <circle
             class="circle-area"
-            :cx="area.cx"
-            :cy="area.cy"
-            r="28.5"
+            :cx="mainCx"
+            :cy="mainCy"
+            r="30"
             :style="'stroke:' + area.color"
           />
-          <!-- :x="'calc(' + area.cx + (area.cx < 300 ? -1 : 1) * 50 + ')'" -->
-          <text
-            :x="area.cx"
-            :y="area.cy"
-            :style="'text-anchor:' + (area.cx < 300 ? 'end' : 'start')"
-          >
+          <text :x="mainCx" :y="mainCy">
             {{ area.name }}
           </text>
         </g>
@@ -47,53 +42,67 @@ export default {
     return {
       areas: [
         {
-          name: 'Analytics',
-          path: '#',
-          cx: '278.1',
-          cy: '54.1',
-          color: '#4CAF50',
-        },
-        {
           name: 'Cloud computing',
           path: '#',
-          cx: '278.1',
-          cy: '259.1',
           color: '#F44336',
+        },
+        {
+          name: 'Analytics',
+          path: '#',
+          color: '#4CAF50',
         },
         {
           name: 'Machine learning',
           path: '#',
-          cx: '497.1',
-          cy: '54.1',
           color: '#FFC107',
         },
         {
           name: 'Blockchain',
           path: '#',
-          cx: '497.1',
-          cy: '259.1',
           color: '#00BCD4',
         },
       ],
+      mainCx: 375,
+      mainCy: 250,
     }
   },
-  // mounted() {
-  //   // adjust area-circles positions around the main big circle
-  //   const areaCircles = document.querySelectorAll('svg a g')
-  //   const areasNo = areaCircles.length
-  //   areaCircles.forEach((areaG) => {
-  //     areaG.querySelector('circle').setAttribute('cx', '300')
-  //   })
-  // },
   head() {
     return {
       title: 'Areas',
     }
   },
+  mounted() {
+    // adjust area-circles positions around the main big circle: c(375,250),r=150
+    const mainCx = 375
+    const mainCy = 250
+    const mainR = 150
+    const areaGs = document.querySelectorAll('svg a g')
+    const areasNo = areaGs.length
+    areaGs.forEach((areaG, index) => {
+      //  calculate #areasNo evenly spaced points around the main circle,
+      //  (starting from bottom and rotating by 45deg)
+      // compute centers direction
+      const cx = Math.cos(((2 * Math.PI) / areasNo) * (index + 1.5))
+      const cy = Math.sin(((2 * Math.PI) / areasNo) * (index + 1.5))
+      // set circles centers
+      const areaCircle = areaG.querySelector('svg circle')
+      areaCircle.setAttribute('cx', mainR * cx + mainCx)
+      areaCircle.setAttribute('cy', mainR * cy + mainCy)
+      // set text centers + 50px away from the main center
+      const areaText = areaG.querySelector('svg text')
+      areaText.setAttribute('x', (mainR + 50) * cx + mainCx)
+      areaText.setAttribute('y', (mainR + 50) * cy + mainCy)
+      // set right text anchor for leftie texts
+      if (cx < 0) areaText.style.textAnchor = 'end'
+    })
+  },
 }
 </script>
 
 <style scoped>
+.container {
+  margin: 0 auto;
+}
 .circle-area,
 .circle-main {
   fill: #ffffff;
