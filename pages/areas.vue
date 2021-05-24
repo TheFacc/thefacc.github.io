@@ -6,12 +6,12 @@
       version="1.1"
       x="0px"
       y="0px"
-      viewBox="0 0 750 500"
-      style="enable-background: new 0 0 750 500"
+      viewBox="0 0 900 500"
+      style="enable-background: new 0 0 900 500"
       xml:space="preserve"
     >
       <g>
-        <circle class="circle-main" cx="375" cy="250" r="149.5" />
+        <circle class="circle-main" :cx="mainCx" :cy="mainCy" :r="mainR" />
       </g>
 
       <a
@@ -25,10 +25,11 @@
             :cx="mainCx"
             :cy="mainCy"
             r="30"
-            :style="'stroke:' + area.color"
+            :style="'stroke:' + area.color + ';fill:' + area.color"
           />
-          <text :x="mainCx" :y="mainCy">
-            {{ area.name }}
+          <text>
+            <tspan :x="mainCx" :y="mainCy">{{ area.name }}</tspan>
+            <tspan :x="mainCx" :y="mainCy" dy="1.5em">{{ area.desc }}</tspan>
           </text>
         </g>
       </a>
@@ -43,27 +44,32 @@ export default {
       areas: [
         {
           name: 'Cloud computing',
+          desc: 'Some area description',
           path: '#',
           color: '#F44336',
         },
         {
           name: 'Analytics',
+          desc: 'Some area description',
           path: '#',
           color: '#4CAF50',
         },
         {
           name: 'Machine learning',
+          desc: 'Some area description',
           path: '#',
           color: '#FFC107',
         },
         {
           name: 'Blockchain',
+          desc: 'Some area description',
           path: '#',
           color: '#00BCD4',
         },
       ],
-      mainCx: 375,
+      mainCx: 450,
       mainCy: 250,
+      mainR: 150,
     }
   },
   head() {
@@ -73,7 +79,7 @@ export default {
   },
   mounted() {
     // adjust area-circles positions around the main big circle: c(375,250),r=150
-    const mainCx = 375
+    const mainCx = 450
     const mainCy = 250
     const mainR = 150
     const mainCircle = document.querySelector('.circle-main')
@@ -91,11 +97,13 @@ export default {
       areaCircle.setAttribute('cx', mainR * cx + mainCx)
       areaCircle.setAttribute('cy', mainR * cy + mainCy)
       // set text centers + 50px away from the main center
-      const areaText = areaG.querySelector('svg text')
-      areaText.setAttribute('x', (mainR + 50) * cx + mainCx)
-      areaText.setAttribute('y', (mainR + 50) * cy + mainCy)
-      // set right text anchor for leftie texts
-      if (cx < 0) areaText.style.textAnchor = 'end'
+      const areaTexts = areaG.querySelectorAll('svg tspan')
+      areaTexts.forEach((areaText) => {
+        areaText.setAttribute('x', (mainR + 50) * cx + mainCx)
+        areaText.setAttribute('y', (mainR + 50) * cy + mainCy)
+        // set right text anchor for leftie texts
+        if (cx < 0) areaText.style.textAnchor = 'end'
+      })
       // color main circle on small circle hover
       areaG.addEventListener('mouseover', function () {
         mainCircle.style.stroke = areaCircle.style.stroke
@@ -114,10 +122,11 @@ export default {
 }
 .circle-area,
 .circle-main {
-  fill: #ffffff;
+  fill: white;
 }
 g:not(:hover) .circle-area {
   stroke: #47494e !important;
+  fill: white !important;
 }
 .circle-main,
 .circle-area {
@@ -128,13 +137,21 @@ g:not(:hover) .circle-area {
 g:hover .circle-area {
   stroke-width: 15px;
 }
-g:hover text {
-  transform: scale(1.05);
-}
-svg text {
-  font-size: 24px;
+svg text,
+svg tspan {
   alignment-baseline: middle;
   transition: 0.3s;
   transform-origin: center;
+}
+svg tspan:first-child {
+  font-size: 28px;
+  font-weight: 600;
+}
+g:hover text {
+  transform: scale(1.02);
+}
+g:hover tspan:first-child {
+  font-size: 34px;
+  font-weight: 900;
 }
 </style>
