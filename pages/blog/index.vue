@@ -12,7 +12,7 @@
         v-for="(article, articleIndex) of articles"
         :key="'art-' + articleIndex"
         class="article"
-        @click="goToArticle(`/blog/${article.id}`)"
+        @click="goTo(`/blog/${article.id}`)"
       >
         <article-mini
           :title="article.title"
@@ -50,7 +50,7 @@ export default {
     }, 1000)
   },
   methods: {
-    goToArticle(path) {
+    goTo(path) {
       this.$router.push({ path })
     },
   },

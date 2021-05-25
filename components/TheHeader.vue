@@ -66,6 +66,12 @@ export default {
       ],
     }
   },
+  mounted() {
+    // set container margin-top the same as nav height
+    document.body.style.marginTop = window
+      .getComputedStyle(document.querySelector('header'))
+      .getPropertyValue('height')
+  },
   methods: {
     goToHome() {
       this.$router.push('/')
@@ -94,10 +100,11 @@ export default {
 
 <style>
 .header {
-  position: relative;
+  position: fixed;
+  width: 100%;
+  top: 0;
   height: auto;
-  background: #d2d2d28f;
-  /*backdrop-filter: blur(5px);*/
+  background: rgba(210, 210, 210, 0.6);
   color: #222;
   display: flex;
   justify-content: space-between;
@@ -116,6 +123,9 @@ export default {
   align-items: center;
 }
 @media (min-width: 800px) {
+  .header {
+    backdrop-filter: blur(5px);
+  }
   .header-content {
     padding-top: 0;
     padding-bottom: 0;
@@ -136,6 +146,9 @@ export default {
 }
 
 @media (max-width: 799px) {
+  .header {
+    background: rgb(230, 230, 230);
+  }
   .nav__wrapper {
     position: absolute;
     display: flex;

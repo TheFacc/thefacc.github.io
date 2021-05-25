@@ -1,5 +1,5 @@
 <template>
-  <main class="container"></main>
+  <main class="container">this is an area</main>
 </template>
 
 <script>
