@@ -1,6 +1,6 @@
 <template>
   <svg
-    id="areas"
+    :id="svgid"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     version="1.1"
@@ -16,7 +16,7 @@
     <a
       v-for="(item, index) of items"
       :key="'area-' + index"
-      @click="goTo(`/areas/${index}`)"
+      @click="goTo(item.path)"
     >
       <g>
         <circle
@@ -37,7 +37,20 @@
 
 <script>
 export default {
-  props: ['vbox', 'items', 'mainCx', 'mainCy', 'mainR', 'spacing'],
+  props: {
+    svgid: { type: String, default: 'svg' },
+    vbox: { type: String, default: '0 0 900 451' },
+    items: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+    mainCx: { type: Number, default: 450 },
+    mainCy: { type: Number, default: 250 },
+    mainR: { type: Number, default: 150 },
+    spacing: { type: String, default: 'even' },
+  },
   mounted() {
     // adjust area-circles positions around the main big circle: c(375,250),r=150
     let cx = 0
@@ -47,45 +60,41 @@ export default {
     const mainR = 150
     const mainCircle = document.querySelector('.circle-main')
     const baseColor = mainCircle.style.stroke
-    const areaGs = document.querySelectorAll('svg#areas a g')
-    const areasNo = areaGs.length
-    areaGs.forEach((areaG, index) => {
-      //  calculate #areasNo evenly spaced points around the main circle,
+    const itemGs = document.querySelectorAll('svg#' + this.svgid + ' a g')
+    const itemNo = itemGs.length
+    itemGs.forEach((itemG, index) => {
+      //  calculate #itemNo evenly spaced points around the main circle,
       //  (starting from bottom and rotating by 45deg)
       // compute centers directions
       if (this.spacing === 'even') {
-        cx = Math.cos(((2 * Math.PI) / areasNo) * (index + 1.5))
-        cy = Math.sin(((2 * Math.PI) / areasNo) * (index + 1.5))
+        cx = Math.cos(((2 * Math.PI) / itemNo) * (index + 1.5))
+        cy = Math.sin(((2 * Math.PI) / itemNo) * (index + 1.5))
       } else if (this.spacing === 'left') {
-        // works with any areasNo (+ reversed rendering for mental order)
-        cx = Math.cos(
-          ((2 * Math.PI) / 3 / areasNo) * (2 * areasNo - index - 0.5)
-        )
-        cy = Math.sin(
-          ((2 * Math.PI) / 3 / areasNo) * (2 * areasNo - index - 0.5)
-        )
+        // works with any itemNo (+ reversed rendering for mental order)
+        cx = Math.cos(((2 * Math.PI) / 3 / itemNo) * (2 * itemNo - index - 0.5))
+        cy = Math.sin(((2 * Math.PI) / 3 / itemNo) * (2 * itemNo - index - 0.5))
       } else if (this.spacing === 'right') {
         // wrong for other than 4 somehow
-        cx = Math.cos(((2 * Math.PI) / 3 / areasNo) * (index + areasNo - 5.5))
-        cy = Math.sin(((2 * Math.PI) / 3 / areasNo) * (index + areasNo - 5.5))
+        cx = Math.cos(((2 * Math.PI) / 3 / itemNo) * (index + itemNo - 5.5))
+        cy = Math.sin(((2 * Math.PI) / 3 / itemNo) * (index + itemNo - 5.5))
       }
       // set circles centers
-      const areaCircle = areaG.querySelector('svg#areas circle')
-      areaCircle.setAttribute('cx', mainR * cx + mainCx)
-      areaCircle.setAttribute('cy', mainR * cy + mainCy)
+      const itemCircle = itemG.querySelector('svg#' + this.svgid + ' circle')
+      itemCircle.setAttribute('cx', mainR * cx + mainCx)
+      itemCircle.setAttribute('cy', mainR * cy + mainCy)
       // set text centers + 60px away from the main center
-      const areaTexts = areaG.querySelectorAll('svg#areas tspan')
-      areaTexts.forEach((areaText) => {
-        areaText.setAttribute('x', (mainR + 60) * cx + mainCx)
-        areaText.setAttribute('y', (mainR + 60) * cy + mainCy)
+      const itemTexts = itemG.querySelectorAll('svg#' + this.svgid + ' tspan')
+      itemTexts.forEach((itemText) => {
+        itemText.setAttribute('x', (mainR + 60) * cx + mainCx)
+        itemText.setAttribute('y', (mainR + 60) * cy + mainCy)
         // set right text anchor for leftie texts
-        if (cx < 0) areaText.style.textAnchor = 'end'
+        if (cx < 0) itemText.style.textAnchor = 'end'
       })
       // color main circle on small circle hover
-      areaG.addEventListener('mouseover', function () {
-        mainCircle.style.stroke = areaCircle.style.stroke
+      itemG.addEventListener('mouseover', function () {
+        mainCircle.style.stroke = itemCircle.style.stroke
       })
-      areaG.addEventListener('mouseout', function () {
+      itemG.addEventListener('mouseout', function () {
         mainCircle.style.stroke = baseColor
       })
     })

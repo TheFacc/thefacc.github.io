@@ -1,46 +1,47 @@
 <template>
   <main class="container">
-    <circle-even
+    <circle-svg
+      svgid="areas"
       :vbox="vbox"
       :items="areas"
       :main-cx="mainCx"
       :main-cy="mainCy"
       :main-r="mainR"
       spacing="even"
-    ></circle-even>
+    ></circle-svg>
   </main>
 </template>
 
 <script>
-import CircleEven from '~/components/CircleEven.vue'
+import CircleSvg from '~/components/CircleSvg.vue'
 
 export default {
-  components: { CircleEven },
+  components: { CircleSvg },
   data() {
     return {
       areas: [
         {
           name: 'Cloud computing',
           desc: 'Some area description',
-          path: '#',
+          path: '/areas/1',
           color: '#F44336',
         },
         {
           name: 'Analytics',
           desc: 'Some area description',
-          path: '#',
+          path: '/areas/2',
           color: '#4CAF50',
         },
         {
           name: 'Machine learning',
           desc: 'Some area description',
-          path: '#',
+          path: '/areas/3',
           color: '#FFC107',
         },
         {
           name: 'Blockchain',
           desc: 'Some area description',
-          path: '#',
+          path: '/areas/4',
           color: '#00BCD4',
         },
       ],

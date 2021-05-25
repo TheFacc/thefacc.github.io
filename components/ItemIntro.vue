@@ -5,14 +5,15 @@
       <p>{{ intro }}</p>
     </div>
     <div class="intro-right">
-      <circle-even
+      <circle-svg
+        svgid="intro"
         :vbox="vbox"
         :items="areas"
         :main-cx="mainCx"
         :main-cy="mainCy"
         :main-r="mainR"
         spacing="left"
-      ></circle-even>
+      ></circle-svg>
     </div>
   </section>
 </template>
