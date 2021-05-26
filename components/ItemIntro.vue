@@ -1,8 +1,8 @@
 <template>
   <section class="item-intro">
     <div class="intro-left">
-      <h1>{{ title }}</h1>
-      <p>{{ intro }}</p>
+      <h1>{{ item.title }}</h1>
+      <p>{{ item.intro }}</p>
     </div>
     <div class="intro-right">
       <circle-svg
@@ -20,10 +20,16 @@
 
 <script>
 export default {
+  props: {
+    item: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
+  },
   data() {
     return {
-      title: 'sometitle',
-      intro: 'someintro',
       areas: [
         {
           name: 'Cloud computing',
@@ -49,9 +55,13 @@ export default {
       mainCx: 450,
       mainCy: 250,
       mainR: 150,
-      vbox: '-50 0 700 500',
+      vbox: '-50 0 680 500',
+      // item: { title: 'tit', intro: 'dxx' }, // to be later retrieved from db
     }
   },
+  // mounted() {
+  //   this.$nuxt.$emit('item', this.item) // pass retrieved item to item-layout
+  // },
 }
 </script>
 

@@ -18,6 +18,7 @@
       :key="'area-' + index"
       @click="goTo(item.path)"
     >
+      <!-- with db implemented: @click="goTo(`/${svgid}/${item.id}`)" -->
       <g>
         <circle
           class="circle-area"
