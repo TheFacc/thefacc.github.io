@@ -30,6 +30,12 @@ export default {
           'https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap',
         rel: 'stylesheet',
       },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href:
+          'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css',
+      },
     ],
   },
 
