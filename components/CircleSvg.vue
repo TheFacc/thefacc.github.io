@@ -27,6 +27,13 @@
           r="30"
           :style="'stroke:' + item.color + ';fill:' + item.color"
         />
+        <g
+          :style="
+            'transform:translate' +
+            `(${mainCx}px,${mainCy}px) scale(0); transition-duration:.3s;`
+          "
+          v-html="item.icon"
+        />
         <text>
           <tspan :x="mainCx" :y="mainCy">{{ item.name }}</tspan>
           <tspan :x="mainCx" :y="mainCy" dy="1.5em">{{ item.desc }}</tspan>
@@ -40,7 +47,7 @@
 export default {
   props: {
     svgid: { type: String, default: 'svg' },
-    vbox: { type: String, default: '0 0 900 451' },
+    vbox: { type: String, default: '0 0 900 450' },
     items: {
       type: Array,
       default() {
@@ -61,7 +68,7 @@ export default {
     const mainR = 150
     const mainCircle = document.querySelector('.circle-main')
     const baseColor = mainCircle.style.stroke
-    const itemGs = document.querySelectorAll('svg#' + this.svgid + ' a g')
+    const itemGs = document.querySelectorAll('svg#' + this.svgid + ' a>g')
     const itemNo = itemGs.length
     itemGs.forEach((itemG, index) => {
       //  calculate #itemNo evenly spaced points around the main circle,
@@ -71,11 +78,11 @@ export default {
         cx = Math.cos(((2 * Math.PI) / itemNo) * (index + 1.5))
         cy = Math.sin(((2 * Math.PI) / itemNo) * (index + 1.5))
       } else if (this.spacing === 'left') {
-        // works with any itemNo (+ reversed rendering for mental order)
+        // works with any itemNo (+ reversed rendering for mental top-down order)
         cx = Math.cos(((2 * Math.PI) / 3 / itemNo) * (2 * itemNo - index - 0.5))
         cy = Math.sin(((2 * Math.PI) / 3 / itemNo) * (2 * itemNo - index - 0.5))
       } else if (this.spacing === 'right') {
-        // wrong for other than 4 somehow
+        // wrong for !=4 somehow
         cx = Math.cos(((2 * Math.PI) / 3 / itemNo) * (index + itemNo - 5.5))
         cy = Math.sin(((2 * Math.PI) / 3 / itemNo) * (index + itemNo - 5.5))
       }
@@ -83,6 +90,11 @@ export default {
       const itemCircle = itemG.querySelector('svg#' + this.svgid + ' circle')
       itemCircle.setAttribute('cx', mainR * cx + mainCx)
       itemCircle.setAttribute('cy', mainR * cy + mainCy)
+      // set icon centers (minus 50% (own half-size) because looks like we got no centered anchor)
+      const itemIcon = itemG.querySelector('svg#' + this.svgid + ' a>g>g')
+      itemIcon.style.transform = `translate(${mainR * cx + mainCx}px,${
+        mainR * cy + mainCy
+      }px) scale(0.07) translate(-50%,-50%)`
       // set text centers + 60px away from the main center
       const itemTexts = itemG.querySelectorAll('svg#' + this.svgid + ' tspan')
       itemTexts.forEach((itemText) => {
@@ -94,9 +106,11 @@ export default {
       // color main circle on small circle hover
       itemG.addEventListener('mouseover', function () {
         mainCircle.style.stroke = itemCircle.style.stroke
+        itemIcon.style.fill = '#222'
       })
       itemG.addEventListener('mouseout', function () {
         mainCircle.style.stroke = baseColor
+        itemIcon.style.fill = itemCircle.style.stroke
       })
     })
   },
