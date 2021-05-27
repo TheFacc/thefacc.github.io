@@ -92,6 +92,7 @@ export default {
       itemCircle.setAttribute('cy', mainR * cy + mainCy)
       // set icon centers (minus 50% (own half-size) because looks like we got no centered anchor)
       const itemIcon = itemG.querySelector('svg#' + this.svgid + ' a>g>g')
+      itemIcon.style.fill = itemCircle.style.stroke
       itemIcon.style.transform = `translate(${mainR * cx + mainCx}px,${
         mainR * cy + mainCy
       }px) scale(0.07) translate(-50%,-50%)`
@@ -134,7 +135,7 @@ svg a:hover {
 }
 g:not(:hover) .circle-area {
   stroke: #47494e !important;
-  fill: white !important;
+  fill: #222 !important;
 }
 .circle-main,
 .circle-area {
