@@ -3,17 +3,21 @@
     <item-intro :item="item"></item-intro>
     <div class="container">
       <p>this is area {{ $route.params.id }}</p>
-      <section class="card-grid">
-        <div
-          v-for="(card, cardIndex) of cards"
-          :key="'card-' + cardIndex"
-          @click="goTo(`/blog/${article.id}`)"
-        >
-          <card
-            :title="card.title"
-            :summary="card.summary"
-            :image="card.image"
-          ></card>
+      <section>
+        <h1>Products &amp; Services</h1>
+        <div class="card-grid">
+          <div
+            v-for="(card, cardIndex) of cards"
+            :key="'card-' + cardIndex"
+            @click="goTo(`/blog/${article.id}`)"
+          >
+            <card
+              :title="card.title"
+              :summary="card.summary"
+              :image="card.image"
+              :shape="shape"
+            ></card>
+          </div>
         </div>
       </section>
     </div>
@@ -71,7 +75,14 @@ export default {
             'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
         },
       ],
+      shape: 'circle',
     } // to be retrieved from db based on type(area,product) and route.params.id
+  },
+  mounted() {
+    // if (this.shape === 'circle') {
+    //   document.querySelector('.card-grid').style.gridTemplateColumns =
+    //     'repeat(3, calc(100% / 3))'
+    // }
   },
 }
 </script>
@@ -83,6 +94,10 @@ export default {
   grid-gap: 10px;
   margin-top: 40px;
 }
+/* .card-grid > div {
+  display: flex;
+  justify-content: center;
+} */
 @media screen and (max-width: 768px) {
   .card-grid {
     grid-template-columns: repeat(3, calc(100% / 3));

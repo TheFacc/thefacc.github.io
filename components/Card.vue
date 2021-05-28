@@ -12,6 +12,38 @@ export default {
     title: { type: String, default: () => '' },
     image: { type: String, default: () => '' },
     summary: { type: String, default: () => '' },
+    shape: { type: String, default: () => '' },
+  },
+  mounted() {
+    const cards = document.querySelectorAll('.card-grid .card')
+    const cardImgs = document.querySelectorAll('.card-grid .card .img')
+    if (this.shape === 'rectangle') {
+      cards.forEach((card) => {
+        card.style.padding = '20px 10px'
+      })
+      cardImgs.forEach((img) => {
+        img.style.height = '150px'
+      })
+    } else if (this.shape === 'circle') {
+      cards.forEach((card) => {
+        card.style.borderRadius = '150px'
+        card.style.height = '200px'
+        card.style.width = '200px'
+      })
+      cardImgs.forEach((img) => {
+        img.style.height = '120px'
+      })
+      const grid = document.querySelector('.card-grid')
+      grid.style.gridTemplateColumns = 'repeat(3, calc(100% / 3))'
+      grid.style.gridGap = '0'
+      const lowCircles = document.querySelectorAll(
+        '.card-grid :nth-child(n+4) .card'
+      ) // requires displaying 3 items per row (always with circles)
+      lowCircles.forEach((lowCircle) => {
+        lowCircle.style.marginLeft = '50%'
+        lowCircle.style.marginTop = '-20px'
+      })
+    }
   },
 }
 </script>
@@ -24,7 +56,7 @@ export default {
 }
 .card {
   background: #eeeeee;
-  padding: 20px 10px;
+  /* padding: 20px 10px; */
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
@@ -41,12 +73,11 @@ h3 {
 
 .img {
   width: 100%;
-  height: 200px;
   max-width: 600px;
   margin: auto;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 </style>
