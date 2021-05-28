@@ -18,11 +18,30 @@ body {
   max-width: 800px;
   text-align: center;
 }
+.container.raised {
+  background: white;
+  width: 90%;
+  max-width: 100%;
+  padding: 50px 10%;
+  border-radius: 20px;
+  box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+}
+@media screen and (max-width: 768px) {
+  .container.raised {
+    padding: 20px 3%;
+  }
+}
+.container section {
+  margin-bottom: 50px;
+}
 a {
   color: white;
 }
 img {
   width: 100%;
+}
+h1 {
+  margin: 0 0 0.67em 0;
 }
 /*SFPD font*/
 /*ultralight thin light regular - medium - semibold bold heavy black*/
