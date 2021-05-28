@@ -27,9 +27,9 @@ Deadline: 23:59 of the chosen exam date
 
 ### Components developed
 
-- <circle-svg>
-- <item-intro>
-- <card>
+- &lt;circle-svg&gt;
+- &lt;item-intro&gt;
+- &lt;card&gt;
 
 ### Plugins used
 
