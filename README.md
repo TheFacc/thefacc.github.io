@@ -27,6 +27,10 @@ Deadline: 23:59 of the chosen exam date
 
 ### Components developed
 
+- <circle-svg>
+- <item-intro>
+- <card>
+
 ### Plugins used
 
 - Nuxt svg module - to import svg files as raw data in order to support css animations (https://github.com/nuxt-community/svg-module)
