@@ -13,6 +13,7 @@
         :main-cy="mainCy"
         :main-r="mainR"
         spacing="left"
+        @itemClicked="onClickChild"
       ></circle-svg>
     </div>
   </section>
@@ -33,25 +34,25 @@ export default {
       areas: [
         {
           name: 'Cloud computing',
-          path: '#',
+          path: '/areas/1',
           color: '#F44336',
           icon: require('~/assets/icons/area-cloud-computing.svg?raw'),
         },
         {
           name: 'Analytics',
-          path: '#',
+          path: '/areas/2',
           color: '#4CAF50',
-          icon: require('~/assets/icons/area-analytics.svg?raw'),
+          icon: require('~/assets/icons/area-analytics-2.svg?raw'),
         },
         {
           name: 'Machine learning',
-          path: '#',
+          path: '/areas/3',
           color: '#FFC107',
           icon: require('~/assets/icons/area-machine-learning.svg?raw'),
         },
         {
           name: 'Blockchain',
-          path: '#',
+          path: '/areas/4',
           color: '#00BCD4',
           icon: require('~/assets/icons/area-blockchain.svg?raw'),
         },
@@ -63,9 +64,19 @@ export default {
       // item: { title: 'tit', intro: 'dxx' }, // to be later retrieved from db
     }
   },
-  // mounted() {
-  //   this.$nuxt.$emit('item', this.item) // pass retrieved item to item-layout
-  // },
+  mounted() {
+    // this.$nuxt.$emit('item', this.item) // pass retrieved item to item-layout
+    // set bg color based on current area: (also highlight current area in circle)
+    // document.querySelector('.item-intro').style.background = 'linear-gradient(130deg,#ff7a18,#af002d 41.07%,#319197 76.05%)'
+  },
+  methods: {
+    goTo(path) {
+      this.$router.push({ path })
+    },
+    onClickChild(item) {
+      this.goTo(item.path)
+    },
+  },
 }
 </script>
 
@@ -87,8 +98,11 @@ export default {
 }
 .item-intro svg {
   height: 300px;
-}
-.item-intro svg {
   fill: #ddd;
+}
+@media screen and (max-width: 768px) {
+  .intro-right svg {
+    display: none;
+  }
 }
 </style>

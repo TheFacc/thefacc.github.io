@@ -8,6 +8,7 @@
       :main-cy="mainCy"
       :main-r="mainR"
       spacing="even"
+      @itemClicked="onClickChild"
     ></circle-svg>
   </main>
 </template>
@@ -63,6 +64,9 @@ export default {
   methods: {
     goTo(path) {
       this.$router.push({ path })
+    },
+    onClickChild(item) {
+      this.goTo(item.path)
     },
   },
 }
