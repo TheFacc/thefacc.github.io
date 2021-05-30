@@ -1,9 +1,9 @@
 <template>
-  <div class="card" ref="thisCard">
+  <div ref="thisCard" class="card">
     <div
+      ref="thisCardImg"
       class="img"
       :style="{ 'background-image': `url(${image})` }"
-      ref="thisCardImg"
     ></div>
     <h3>{{ title }}</h3>
     <p>{{ summary }}</p>
@@ -109,7 +109,8 @@ export default {
   .card.card-rectangle {
     width: 22%;
   }
-  .card.card-circle {
+  .card.card-circle,
+  .selector-items .card {
     width: 30%;
   }
 }

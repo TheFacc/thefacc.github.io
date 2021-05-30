@@ -1,5 +1,5 @@
 <template>
-  <div class="card-grid" ref="thisGrid">
+  <div ref="thisGrid" class="card-grid">
     <card
       v-for="(card, cardIndex) of cards"
       :key="'card-' + cardIndex"
