@@ -16,22 +16,25 @@
     <a
       v-for="(item, index) of items"
       :key="'area-' + index"
-      @click="goTo(item.path)"
+      @click="
+        itemClick(item)
+        activeItem = activeItem == index ? -1 : index
+      "
     >
       <!-- with db implemented: @click="goTo(`/${svgid}/${item.id}`)" -->
-      <g>
+      <g :class="{ active: activeItem == index }">
         <circle
           class="circle-area"
           :cx="mainCx"
           :cy="mainCy"
           r="30"
-          :style="'stroke:' + item.color + ';fill:' + item.color"
+          :style="`stroke:${activeItem == index ? item.color : '#47494e'};
+                   fill:${activeItem == index ? item.color : '#222'}`"
         />
         <g
-          :style="
-            'transform:translate' +
-            `(${mainCx}px,${mainCy}px) scale(0); transition-duration:.3s;`
-          "
+          :style="`transform:translate(${mainCx}px,${mainCy}px) scale(0);
+                   transition-duration:.3s;
+                   fill:${activeItem == index ? '#222' : item.color}`"
           v-html="item.icon"
         />
         <text>
@@ -57,19 +60,25 @@ export default {
     mainCx: { type: Number, default: 450 },
     mainCy: { type: Number, default: 250 },
     mainR: { type: Number, default: 150 },
-    spacing: { type: String, default: 'even' },
+    spacing: { type: String, default: 'even' }, // even/left/right
+  },
+  data() {
+    return { activeItem: -1 } // we'll only have 1 active item at a time (-1 = none active)
   },
   mounted() {
-    // adjust area-circles positions around the main big circle: c(375,250),r=150
+    // adjust area-circles positions around the main big circle: c(mainCx,mainCy),r=mainR
+    // const vm = this
     let cx = 0
     let cy = 0
-    const mainCx = 450
+    const mainCx = this.mainCx
     const mainCy = 250
     const mainR = 150
     const mainCircle = document.querySelector('.circle-main')
-    const baseColor = mainCircle.style.stroke
+    const baseGrey = mainCircle.style.stroke // default circle grey
+    let baseColor = baseGrey // main circle color (grey or active-item-color)
     const itemGs = document.querySelectorAll('svg#' + this.svgid + ' a>g')
     const itemNo = itemGs.length
+
     itemGs.forEach((itemG, index) => {
       //  calculate #itemNo evenly spaced points around the main circle,
       //  (starting from bottom and rotating by 45deg)
@@ -92,10 +101,11 @@ export default {
       itemCircle.setAttribute('cy', mainR * cy + mainCy)
       // set icon centers (minus 50% (own half-size) because looks like we got no centered anchor)
       const itemIcon = itemG.querySelector('svg#' + this.svgid + ' a>g>g')
-      itemIcon.style.fill = itemCircle.style.stroke
+      const itemColor = itemIcon.style.fill // save item color for later use
+      // itemIcon.style.fill = itemColor
       itemIcon.style.transform = `translate(${mainR * cx + mainCx}px,${
         mainR * cy + mainCy
-      }px) scale(0.07) translate(-50%,-50%)`
+      }px) scale(.07) translate(-50%,-50%)`
       // set text centers + 60px away from the main center
       const itemTexts = itemG.querySelectorAll('svg#' + this.svgid + ' tspan')
       itemTexts.forEach((itemText) => {
@@ -104,20 +114,43 @@ export default {
         // set right text anchor for leftie texts
         if (cx < 0) itemText.style.textAnchor = 'end'
       })
-      // color main circle on small circle hover
+      // add/remove .hover class (if inactive) + color main circle on small circle hover
       itemG.addEventListener('mouseover', function () {
-        mainCircle.style.stroke = itemCircle.style.stroke
-        itemIcon.style.fill = '#222'
+        if (!itemG.classList.contains('active')) {
+          // if (this.activeItem !== index) {
+          itemG.classList.add('hover')
+          mainCircle.style.stroke = itemColor
+          itemCircle.style.fill = itemColor
+          itemCircle.style.stroke = itemColor
+          itemIcon.style.fill = '#222'
+        }
       })
       itemG.addEventListener('mouseout', function () {
-        mainCircle.style.stroke = baseColor
-        itemIcon.style.fill = itemCircle.style.stroke
+        if (!itemG.classList.contains('active')) {
+          // if (this.activeItem !== index) {
+          itemG.classList.remove('hover')
+          mainCircle.style.stroke = baseColor
+          itemCircle.style.stroke = baseGrey
+          itemCircle.style.fill = '#222'
+          itemIcon.style.fill = itemColor
+        }
+      })
+      // update base color on item click (main circle coloring)
+      itemG.addEventListener('click', function () {
+        if (!itemG.classList.contains('active')) {
+          baseColor = itemColor
+        } else {
+          baseColor = baseGrey
+        }
       })
     })
   },
   methods: {
     goTo(path) {
       this.$router.push({ path })
+    },
+    itemClick(item) {
+      this.$emit('itemClicked', item)
     },
   },
 }
@@ -133,18 +166,15 @@ export default {
 svg a:hover {
   cursor: pointer;
 }
-g:not(:hover) .circle-area {
-  stroke: #47494e !important;
-  fill: #222 !important;
+g:not(.hover) .circle-area {
+  /* stroke: #47494e !important; */
+  /* fill: #222 !important; */
 }
 .circle-main,
 .circle-area {
   stroke: #47494e;
   stroke-width: 10px;
   transition: 0.3s;
-}
-g:hover .circle-area {
-  stroke-width: 20px;
 }
 svg text,
 svg tspan {
@@ -156,10 +186,25 @@ svg tspan:first-child {
   font-size: 28px;
   font-weight: 600;
 }
-g:hover text {
+/* g hover */
+g.hover .circle-area {
+  stroke-width: 20px;
+}
+g.hover text {
   transform: scale(1.02);
 }
-g:hover tspan:first-child {
+g.hover tspan:first-child {
+  font-size: 34px;
+  font-weight: 900;
+}
+/* g active (filter toggle) */
+g.active .circle-area {
+  stroke-width: 20px;
+}
+g.active text {
+  transform: scale(1.02);
+}
+g.active tspan:first-child {
   font-size: 34px;
   font-weight: 900;
 }
