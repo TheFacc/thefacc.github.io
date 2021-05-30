@@ -68,9 +68,9 @@ export default {
   },
   mounted() {
     // set container margin-top the same as nav height
-    document.body.style.marginTop = window
-      .getComputedStyle(document.querySelector('header'))
-      .getPropertyValue('height')
+    // document.body.style.marginTop = window
+    //   .getComputedStyle(document.querySelector('header'))
+    //   .getPropertyValue('height')
   },
   methods: {
     goToHome() {
@@ -100,7 +100,7 @@ export default {
 
 <style>
 .header {
-  position: fixed;
+  position: sticky;
   width: 100%;
   top: 0;
   height: auto;
