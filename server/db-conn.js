@@ -7,13 +7,10 @@ const { Sequelize, DataTypes } = require('sequelize')
 // Production
 const pg = require('pg')
 pg.defaults.ssl = true
-const db = new Sequelize(
-  'postgres://rblpnlhbtsndov:50017dcabbac05d9956ef295e52fa714b5dd343dfa0674b5f8d96de5f1745732@ec2-34-253-116-145.eu-west-1.compute.amazonaws.com:5432/dbsfmjg1pct24l',
-  {
-    ssl: true,
-    dialectOptions: { ssl: { require: true, rejectUnauthorized: false } },
-  }
-)
+const db = new Sequelize('', {
+  ssl: true,
+  dialectOptions: { ssl: { require: true, rejectUnauthorized: false } },
+})
 
 /**
  * Function to define the structure of the database
