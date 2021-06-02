@@ -7,7 +7,7 @@ const { Sequelize, DataTypes } = require('sequelize')
 // Production
 const pg = require('pg')
 pg.defaults.ssl = true
-const db = new Sequelize('', {
+const db = new Sequelize(process.env.DATABASE_URL, {
   ssl: true,
   dialectOptions: { ssl: { require: true, rejectUnauthorized: false } },
 })
@@ -176,7 +176,7 @@ async function initializeDatabase() {
   // Call the function for the database structure definition
   defineDatabaseStructure()
   // Synchronize Sequelize with the actual database
-  await db.sync({ force: true }) // !! resets the db !! set to 'false' for production
+  await db.sync({ force: false }) // !! resets the db !! set to 'false' for production
   // Call the function to insert some fake data
   //await insertFakeData()
   return db
