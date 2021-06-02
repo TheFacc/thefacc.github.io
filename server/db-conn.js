@@ -7,28 +7,38 @@ const { Sequelize, DataTypes } = require('sequelize')
 // Production
 const pg = require('pg')
 pg.defaults.ssl = true
-const db = new Sequelize(process.env.DATABASE_URL, {
-  ssl: true,
-  dialectOptions: { ssl: { require: true, rejectUnauthorized: false } },
-})
+const db = new Sequelize(
+  'postgres://rblpnlhbtsndov:50017dcabbac05d9956ef295e52fa714b5dd343dfa0674b5f8d96de5f1745732@ec2-34-253-116-145.eu-west-1.compute.amazonaws.com:5432/dbsfmjg1pct24l',
+  {
+    ssl: true,
+    dialectOptions: { ssl: { require: true, rejectUnauthorized: false } },
+  }
+)
 
 /**
  * Function to define the structure of the database
  */
 function defineDatabaseStructure() {
+  // area
   const Area = db.define(
-    'areas',
+    'area',
     {
-      title: DataTypes.STRING,
+      name: DataTypes.STRING,
+      subtitle: DataTypes.STRING,
+      shortIntro: DataTypes.TEXT,
       introduction: DataTypes.TEXT,
+
+      path: DataTypes.STRING,
+      color: DataTypes.STRING,
     },
     {
       underscored: true,
       freezeTableName: true,
     }
   )
+  //Person
   const Person = db.define(
-    'persons',
+    'person',
     {
       name: DataTypes.STRING,
       role: {
@@ -46,8 +56,9 @@ function defineDatabaseStructure() {
       freezeTableName: true,
     }
   )
+  //product
   const Product = db.define(
-    'products',
+    'product',
     {
       name: DataTypes.STRING,
       description: DataTypes.TEXT,
@@ -61,22 +72,46 @@ function defineDatabaseStructure() {
       freezeTableName: true,
     }
   )
-  // Creating the 1 -> N association between Area and Person
+  //use case
+  const UseCase = db.define(
+    'useCase',
+    {
+      name: DataTypes.STRING,
+      description: DataTypes.TEXT,
+      image_src: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+    },
+    {
+      underscored: true,
+      freezeTableName: true,
+    }
+  )
   // More on association: https://sequelize.org/master/manual/assocs.html
-  Area.hasMany(Person, { foreignKey: 'worker_id' })
+
+  // Creating the 1 -> N association between Area and People
+  Area.hasMany(Person)
   db._tables = {
     Area,
     Person,
   }
-  // Creating the 1 -> N association between Area and Preoducts
-  Area.hasMany(Product, { foreignKey: 'product_id' })
+
+  // Creating the 1 -> N association between Area and Products
+  Area.hasMany(Product)
   db._tables = {
     Area,
     Product,
   }
-  // Creating the 1 -> 1 association between Preoducts and Person
+  // Creating the 1 -> N association between Products and UseCase
+  Product.hasMany(UseCase)
+  db._tables = {
+    UseCase,
+    Product,
+  }
+  // Creating the 1 -> 1 association between Products and Person
   // the product has one referent
-  Product.hasOne(Person, { foreignKey: 'referent_id' })
+  Person.hasOne(Product, { foreignKey: 'referentId' })
   db._tables = {
     Product,
     Person,
@@ -84,7 +119,7 @@ function defineDatabaseStructure() {
 
   // Creating the 1 -> 1 association between Area and Person
   // the area has one manager
-  Area.hasOne(Person, { foreignKey: 'manager_id' })
+  Area.hasOne(Person, { foreignKey: 'managerOf' })
   db._tables = {
     Area,
     Person,
@@ -146,7 +181,7 @@ async function initializeDatabase() {
   // Synchronize Sequelize with the actual database
   await db.sync({ force: true }) // !! resets the db !! set to 'false' for production
   // Call the function to insert some fake data
-  await insertFakeData()
+  //await insertFakeData()
   return db
 }
 
