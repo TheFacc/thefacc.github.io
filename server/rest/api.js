@@ -10,7 +10,7 @@ async function init() {
   const db = await initializeDatabase()
 
   // Let's extract all the objects we need to perform queries inside the endpoints
-  const { Area, person, product, use_case } = db._tables
+  const { Area, Person, Product, useCase } = db._tables
   // API to get all the areas
   app.get('/area', async (req, res) => {
     const area = await Area.findAll()
@@ -21,7 +21,7 @@ async function init() {
     const { id } = req.params
     const area = await Area.findOne({
       where: { id },
-      include: { model: Person }, // -> this is the way we "include" also people inside area
+      //include: { model: Person }, // -> this is the way we "include" also people inside area
       include: { model: Product }, // -> this is the way we "include" also products inside area
     })
     return res.json(area)
@@ -38,8 +38,8 @@ async function init() {
     const product = await Product.findOne({
       where: { id },
       include: { model: Person }, // -> this is the way we "include" also the referent of a product
-      include: { model: Area }, // -> this is the way we "include" also the area of a product
-      include: { model: Use_case }, // -> this include also the use cases of a product
+      //include: { model: Area }, // -> this is the way we "include" also the area of a product
+      //include: { model: Use_case }, // -> this include also the use cases of a product
     })
     return res.json(product)
   })
@@ -55,7 +55,7 @@ async function init() {
     const person = await Person.findOne({
       where: { id },
       include: { model: Product }, // -> this include the product which he/she manages
-      include: { model: Area }, // -> this include the area which he/she manages
+      //include: { model: Area }, // -> this include the area which he/she manages
     })
     return res.json(person)
   })
