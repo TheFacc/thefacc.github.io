@@ -8,6 +8,7 @@
         :main-cx="mainCx"
         :main-cy="mainCy"
         :main-r="mainR"
+        :text="text"
         spacing="right"
         @itemClicked="onClickChild"
       ></circle-svg>
@@ -70,7 +71,7 @@ export default {
           active: false,
         },
         {
-          name: 'Machine learning',
+          name: 'Machine Learning',
           path: '#',
           color: '#FFC107',
           icon: require('~/assets/icons/area-machine-learning.svg?raw'),
@@ -176,40 +177,13 @@ export default {
           image:
             'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
         },
-        {
-          title: 'Product B',
-          summary: 'Some area description',
-          area: 'Blockchain',
-          image:
-            'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
-        },
-        {
-          title: 'Product B',
-          summary: 'Some area description',
-          area: 'Blockchain',
-          image:
-            'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
-        },
-        {
-          title: 'Product B',
-          summary: 'Some area description',
-          area: 'Blockchain',
-          image:
-            'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
-        },
-        {
-          title: 'Product B',
-          summary: 'Some area description',
-          area: 'Blockchain',
-          image:
-            'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
-        },
       ],
       // circle svg params
       mainCx: 450,
       mainCy: 250,
       mainR: 115,
       vbox: '330 70 625 350',
+      text: ['Select area to', 'filter its products'],
       // for filtering
       filteredData: [],
       search: '',
