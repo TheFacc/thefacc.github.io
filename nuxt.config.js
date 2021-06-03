@@ -30,12 +30,12 @@ export default {
           'https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap',
         rel: 'stylesheet',
       },
-      // {
-      //   rel: 'stylesheet',
-      //   type: 'text/css',
-      //   href:
-      //     'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css',
-      // },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href:
+          'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css',
+      },
     ],
   },
 
@@ -52,13 +52,13 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    '@nuxtjs/svg', // import svg as raw files (to support css animations) //npm install --save-dev @nuxtjs/svg
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/svg', // import svg as raw files (to support css animations) //npm install --save-dev @nuxtjs/svg
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
