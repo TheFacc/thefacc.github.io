@@ -12,6 +12,19 @@
     <g>
       <circle class="circle-main" :cx="mainCx" :cy="mainCy" :r="mainR" />
     </g>
+    <g>
+      <text class="text-main">
+        <tspan
+          v-for="(line, index) in text"
+          :key="'line-' + index"
+          :x="mainCx"
+          :y="mainCy"
+          :dy="`${index * 1.5 - 0.6}em`"
+        >
+          {{ line }}
+        </tspan>
+      </text>
+    </g>
 
     <a
       v-for="(item, index) of items"
@@ -37,7 +50,7 @@
                    fill:${activeItem == index ? '#222' : item.color}`"
           v-html="item.icon"
         />
-        <text>
+        <text class="text-item">
           <tspan :x="mainCx" :y="mainCy">{{ item.name }}</tspan>
           <tspan :x="mainCx" :y="mainCy" dy="1.5em">{{ item.desc }}</tspan>
         </text>
@@ -60,12 +73,25 @@ export default {
     mainCx: { type: Number, default: 450 },
     mainCy: { type: Number, default: 250 },
     mainR: { type: Number, default: 150 },
+    text: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
     spacing: { type: String, default: 'even' }, // even/left/right
+    activateItem: { type: Number, default: -1 }, // receive item to activate by default on load
   },
   data() {
     return { activeItem: -1 } // we'll only have 1 active item at a time (-1 = none active)
   },
   mounted() {
+    if (this.activateItem !== -1) {
+      // activate item at load
+      this.activeItem = this.activateItem
+      // prevent disactivating
+      // const activatedOnLoad = true // TODO: actually use this
+    }
     // adjust area-circles positions around the main big circle: c(mainCx,mainCy),r=mainR
     // const vm = this
     let cx = 0
@@ -182,18 +208,23 @@ svg tspan {
   transition: 0.3s;
   transform-origin: center;
 }
-svg tspan:first-child {
+svg .text-item tspan:first-child {
   font-size: 28px;
   font-weight: 600;
+}
+svg .text-main tspan {
+  font-size: 24px;
+  text-anchor: middle;
+  dominant-baseline: middle;
 }
 /* g hover */
 g.hover .circle-area {
   stroke-width: 20px;
 }
-g.hover text {
+g.hover .text-item {
   transform: scale(1.02);
 }
-g.hover tspan:first-child {
+g.hover .text-item tspan:first-child {
   font-size: 34px;
   font-weight: 900;
 }
