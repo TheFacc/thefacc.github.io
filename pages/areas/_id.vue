@@ -1,12 +1,11 @@
 <template>
   <main>
-    <item-intro :item="item"></item-intro>
+    <item-intro :item="items[$route.params.id - 1]"></item-intro>
+    <page-anchors></page-anchors>
     <div class="container">
       <section class="overview raised">
         <div>
-          <img
-            src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
-          />
+          <img :src="items[$route.params.id - 1].image" />
         </div>
         <div>
           <h2>This is area {{ $route.params.id }}</h2>
@@ -32,13 +31,15 @@
     </div>
   </main>
 </template>
-:title="card.title" :summary="card.summary" :image="card.image"
+
 <script>
+// :title="card.title" :summary="card.summary" :image="card.image"
 import ItemIntro from '~/components/ItemIntro.vue'
 import CardGrid from '~/components/CardGrid.vue'
+import PageAnchors from '~/components/PageAnchors.vue'
 
 export default {
-  components: { ItemIntro, CardGrid },
+  components: { ItemIntro, CardGrid, PageAnchors },
   asyncData({ $axios, route }) {
     // const { id } = route.params
     // const { data } = await $axios.get(
@@ -51,7 +52,35 @@ export default {
   },
   data() {
     return {
-      item: { title: 'item title', intro: 'some intro' }, // to be retrieved from db based on type(area,product) and route.params.id
+      items: [
+        {
+          title: 'Cloud computing',
+          intro: 'some intro',
+          image:
+            'https://imgcdn.agendadigitale.eu/wp-content/uploads/sites/3/2017/04/15191852/cloud_611605280.jpg',
+          color: '#F44336',
+        },
+        {
+          title: 'Analytics',
+          intro: 'some intro',
+          image: 'https://media.engage.it/2020/11/analytics-730x416_305079.jpg',
+          color: '#4CAF50',
+        },
+        {
+          title: 'Machine Learning',
+          intro: 'some intro',
+          image:
+            'https://www.ionos.it/digitalguide/fileadmin/DigitalGuide/Teaser/deep-learning-vs-machine-learning-t.jpg',
+          color: '#FFC107',
+        },
+        {
+          title: 'Blockchain',
+          intro: 'some intro',
+          image:
+            'https://www.almaviva.it/dam/jcr:6212e8ef-1ed6-40e2-a75f-b6fa7c814662/Blockchain_1280x720.jpg',
+          color: '#00BCD4',
+        },
+      ], // to be retrieved from db based on type(area,product) and route.params.id
       cards: [
         {
           title: 'Product 1',
@@ -79,6 +108,18 @@ export default {
         },
         {
           title: 'Product 5',
+          summary: 'Some area description',
+          image:
+            'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
+        },
+        {
+          title: 'Product 6',
+          summary: 'Some area description',
+          image:
+            'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
+        },
+        {
+          title: 'Product 7',
           summary: 'Some area description',
           image:
             'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
