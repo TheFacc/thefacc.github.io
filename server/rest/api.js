@@ -10,7 +10,7 @@ async function init() {
   const db = await initializeDatabase()
 
   // Let's extract all the objects we need to perform queries inside the endpoints
-  const { Area, Person, Product, useCase } = db._tables
+  const { Area } = db._tables
   // API to get all the areas
   app.get('/area', async (req, res) => {
     const area = await Area.findAll()
@@ -27,39 +27,39 @@ async function init() {
     return res.json(area)
   })
 
-  // API to get all the products
-  app.get('/product', async (req, res) => {
-    const product = await Product.findAll()
-    return res.json(product)
-  })
-  // API to get an product by ID.
-  app.get('/product/:id', async (req, res) => {
-    const { id } = req.params
-    const product = await Product.findOne({
-      where: { id },
-      include: { model: Person }, // -> this is the way we "include" also the referent of a product
-      //include: { model: Area }, // -> this is the way we "include" also the area of a product
-      //include: { model: Use_case }, // -> this include also the use cases of a product
-    })
-    return res.json(product)
-  })
+//   // API to get all the products
+//   app.get('/product', async (req, res) => {
+//     const product = await Product.findAll()
+//     return res.json(product)
+//   })
+//   // API to get an product by ID.
+//   app.get('/product/:id', async (req, res) => {
+//     const { id } = req.params
+//     const product = await Product.findOne({
+//       where: { id },
+//       include: { model: Person }, // -> this is the way we "include" also the referent of a product
+//       //include: { model: Area }, // -> this is the way we "include" also the area of a product
+//       //include: { model: Use_case }, // -> this include also the use cases of a product
+//     })
+//     return res.json(product)
+//   })
 
-  // API to get all the people
-  app.get('/person', async (req, res) => {
-    const person = await Person.findAll()
-    return res.json(person)
-  })
-  // API to get an product by ID.
-  app.get('/person/:id', async (req, res) => {
-    const { id } = req.params
-    const person = await Person.findOne({
-      where: { id },
-      include: { model: Product }, // -> this include the product which he/she manages
-      //include: { model: Area }, // -> this include the area which he/she manages
-    })
-    return res.json(person)
-  })
-  //API to get all the people by area_id
+//   // API to get all the people
+//   app.get('/person', async (req, res) => {
+//     const person = await Person.findAll()
+//     return res.json(person)
+//   })
+//   // API to get an product by ID.
+//   app.get('/person/:id', async (req, res) => {
+//     const { id } = req.params
+//     const person = await Person.findOne({
+//       where: { id },
+//       include: { model: Product }, // -> this include the product which he/she manages
+//       //include: { model: Area }, // -> this include the area which he/she manages
+//     })
+//     return res.json(person)
+//   })
+//   //API to get all the people by area_id
 
   // This one is just an example
   app.get('/ad', (req, res) => {
