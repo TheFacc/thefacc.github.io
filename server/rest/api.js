@@ -37,19 +37,14 @@ async function init() {
     const { id } = req.params
     const product = await Product.findOne({
       where: { id },
-      include: [{ model: Person }, { model: Area }, { model: useCase }],
+      include: [
+        { model: Person },
+        // { model: useCase } // I can't make it work
+      ],
     })
     return res.json(product)
   })
-  // by area
-  app.get('/area/product-:id', async (req, res) => {
-    const { id } = req.params
-    const product = await Product.findAll({
-      where: { area_id: id },
-      include: [{ model: Person }, { model: Area }, { model: useCase }],
-    })
-    return res.json(product)
-  })
+  // by area - get it from areas[i].products[:]
 
   //*****   API: get people   *****//
   // all
@@ -60,36 +55,16 @@ async function init() {
   // single
   app.get('/person/:id', async (req, res) => {
     const { id } = req.params
-    const person = await Person.findOne({
-      where: { id },
-      include: [{ model: Product }, { model: Area }],
-    })
+    const person = await Person.findOne({ where: { id } })
     return res.json(person)
   })
-  // by area_id
-  app.get('/area/:id/people', async (req, res) => {
-    const { id } = req.params
-    const area_People = await Person.findAll({
-      where: { area_id: id },
-    })
-    return res.json(area_People)
-  })
+  // by area_id - get it from areas[i].people[:]
 
   //*****   API: get use cases of a product   *****//
-  app.get('/product/:id/usecases', async (req, res) => {
+  app.get('/usecases/:id', async (req, res) => {
     const { id } = req.params
-    const product_useCases = await useCase.findAll({
-      where: { product_id: id },
-    })
-    return res.json(product_useCases)
-  })
-
-  // This one is just an example
-  app.get('/ad', (req, res) => {
-    return res.json({
-      url:
-        'https://wordstream-files-prod.s3.amazonaws.com/s3fs-public/styles/simple_image/public/images/media/images/google-display-ads-example-2-final.png?oV7qevVB2XtFyF_O64TG6L27AFM3M2oL&itok=TBfuuTM_',
-    })
+    const usecases = await useCase.findAll({ where: { usecase_of: id } }) // DOESNT WORK EVEN THO ITS THE FREAKIN SAME
+    return res.json(usecases)
   })
 }
 

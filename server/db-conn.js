@@ -7,11 +7,13 @@ const { Sequelize, DataTypes } = require('sequelize')
 // Production
 const pg = require('pg')
 pg.defaults.ssl = true
+
 // HEROKU:
-const db = new Sequelize(process.env.DATABASE_URL, {
-  // LOCAL:
-  // const db = new Sequelize( 'longlink',
-  //   {
+const dburl = process.env.DATABASE_URL
+// LOCAL:
+// const dburl = 'longlink'
+
+const db = new Sequelize(dburl, {
   ssl: true,
   dialectOptions: { ssl: { require: true, rejectUnauthorized: false } },
 })
@@ -20,7 +22,7 @@ const db = new Sequelize(process.env.DATABASE_URL, {
  * Function to define the structure of the database
  */
 function defineDatabaseStructure() {
-  // area
+  // Area
   const Area = db.define(
     'area',
     {
@@ -37,7 +39,33 @@ function defineDatabaseStructure() {
       freezeTableName: true,
     }
   )
-  //Person
+  // Product
+  const Product = db.define(
+    'product',
+    {
+      name: DataTypes.STRING,
+      description: DataTypes.TEXT,
+      image_src: DataTypes.STRING,
+    },
+    {
+      underscored: true,
+      freezeTableName: true,
+    }
+  )
+  // Product use cases
+  const UseCase = db.define(
+    'useCase',
+    {
+      name: DataTypes.STRING,
+      description: DataTypes.TEXT,
+      image_src: DataTypes.STRING,
+    },
+    {
+      underscored: true,
+      freezeTableName: true,
+    }
+  )
+  // Person
   const Person = db.define(
     'person',
     {
@@ -46,10 +74,7 @@ function defineDatabaseStructure() {
         type: Sequelize.ENUM,
         values: ['manager', 'referent'],
       },
-      image_src: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
+      image_src: DataTypes.STRING,
       in_link: DataTypes.STRING,
     },
     {
@@ -57,52 +82,20 @@ function defineDatabaseStructure() {
       freezeTableName: true,
     }
   )
-  //product
-  const Product = db.define(
-    'product',
-    {
-      name: DataTypes.STRING,
-      description: DataTypes.TEXT,
-      image_src: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-    },
-    {
-      underscored: true,
-      freezeTableName: true,
-    }
-  )
-  //use case
-  const UseCase = db.define(
-    'useCase',
-    {
-      name: DataTypes.STRING,
-      description: DataTypes.TEXT,
-      image_src: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-    },
-    {
-      underscored: true,
-      freezeTableName: true,
-    }
-  )
-  // More on association: https://sequelize.org/master/manual/assocs.html
 
+  // More on association: https://sequelize.org/master/manual/assocs.html
   // Creating the 1 -> N association between Area and People
   Area.hasMany(Person)
   // Creating the 1 -> N association between Area and Products
   Area.hasMany(Product)
-  // Creating the 1 -> N association between Products and UseCase
-  Product.hasMany(UseCase)
-  // Creating the 1 -> 1 association between Products and Person
-  // the product has one referent
-  Person.hasOne(Product, { foreignKey: 'referentId' })
-  // Creating the 1 -> 1 association between Area and Person
-  // the area has one manager
+  // Creating the 1 -> 1 association between Area and Manager
   Area.hasOne(Person, { foreignKey: 'managerOf' })
+  // Creating the 1 -> N association between Products and UseCase
+  Product.hasMany(UseCase, { foreignKey: 'usecaseOf' })
+  // Creating the 1 -> 1 association between Product and ProductReferent
+  Product.hasOne(Person, { foreignKey: 'referentOf' })
+
+  // Filling DB
   db._tables = {
     Area,
     Person,
