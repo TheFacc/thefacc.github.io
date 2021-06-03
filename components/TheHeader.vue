@@ -13,16 +13,18 @@
             :key="'menu-item-' + itemIndex"
             class="nav__item"
           >
-            <nuxt-link :to="item.path">
+            <nuxt-link
+              :to="item.path"
+              @mouseover="item.dropdownOpen = true"
+              @mouseout="item.dropdownOpen = false"
+            >
               <div v-html="item.icon" />
-              <!-- <img :src="item.icon" /> -->
               <span>{{ item.name }}</span>
-              <!-- <div v-html="item.icon" /> -->
-              <!-- <header-icon
-                :iconfile="item.icon"
-                :icontext="item.name"
-              ></header-icon> -->
             </nuxt-link>
+            <nav-dropdown
+              v-show="item.dropdownOpen"
+              :items="item.options"
+            ></nav-dropdown>
           </li>
         </ul>
       </nav>
@@ -31,10 +33,10 @@
 </template>
 
 <script>
-// import HeaderIcon from './HeaderIcon.vue'
+import NavDropdown from './NavDropdown.vue'
 
 export default {
-  // components: { HeaderIcon },
+  components: { NavDropdown },
   data() {
     return {
       menuOptions: [
@@ -55,8 +57,21 @@ export default {
         },
         {
           name: 'About',
-          path: '/about',
+          path: '/company',
           icon: require('~/assets/icons/about.svg?raw'),
+          dropdownOpen: false,
+          options: [
+            {
+              name: 'Company',
+              path: '/company',
+              icon: require('~/assets/icons/about.svg?raw'),
+            },
+            {
+              name: 'People',
+              path: '/people',
+              icon: require('~/assets/icons/about.svg?raw'),
+            },
+          ],
         },
         {
           name: 'Contact',
@@ -64,6 +79,7 @@ export default {
           icon: require('~/assets/icons/contact.svg?raw'),
         },
       ],
+      itemHover: null,
     }
   },
   mounted() {
@@ -92,6 +108,11 @@ export default {
         hamButton.classList.add('open')
         e.currentTarget.setAttribute('aria-label', 'close menu')
         e.currentTarget.setAttribute('aria-expanded', 'true')
+      }
+    },
+    navHover(item) {
+      if (item.options) {
+        item.dropdownOpen = !item.dropdownOpen
       }
     },
   },
