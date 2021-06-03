@@ -126,48 +126,48 @@ function defineDatabaseStructure() {
  * Function to insert some fake info in the database
  */
 // NOTA problema: come associo le persone all'area?
-async function insertFakeData() {
-  const { Person, Area, Product } = db._tables
-  // Create the first Person
-  const person1 = await Person.create({
-    name: 'Bob Minion',
-    role: 'manager',
-    image_src: '~./assets/people/Bob_Minion.jpg',
-  })
+// async function insertFakeData() {
+//   const { Person, Area, Product } = db._tables
+//   // Create the first Person
+//   const person1 = await Person.create({
+//     name: 'Bob Minion',
+//     role: 'manager',
+//     image_src: '~./assets/people/Bob_Minion.jpg',
+//   })
 
-  // create the second person
-  const person2 = await Person.create({
-    name: 'Wllie Space',
-    role: 'referent',
-    image_src: '~./assets/people/Wallie_Space.jpg',
-  })
+//   // create the second person
+//   const person2 = await Person.create({
+//     name: 'Wllie Space',
+//     role: 'referent',
+//     image_src: '~./assets/people/Wallie_Space.jpg',
+//   })
 
-  //create Areas
-  const analysis = await Area.create({
-    title: 'Analytiscs',
-    introduction: 'Analytics is very cool, you can do lots of stuff! Enjoy us',
-  })
-  const blockchain = await Area.create({
-    title: 'Block Chain',
-    introduction:
-      'Block Chain is very cool, you can do lots of stuff! Enjoy us',
-  })
-  const cloud = await Area.create({
-    title: 'Cloud computation',
-    introduction:
-      'Cloud computation is very cool, you can do lots of stuff! Enjoy us',
-  })
-  const machine = await Area.create({
-    title: 'Machine Learning',
-    introduction:
-      'Machine Learning is very cool, you can do lots of stuff! Enjoy us',
-  })
+//   //create Areas
+//   const analysis = await Area.create({
+//     title: 'Analytiscs',
+//     introduction: 'Analytics is very cool, you can do lots of stuff! Enjoy us',
+//   })
+//   const blockchain = await Area.create({
+//     title: 'Block Chain',
+//     introduction:
+//       'Block Chain is very cool, you can do lots of stuff! Enjoy us',
+//   })
+//   const cloud = await Area.create({
+//     title: 'Cloud computation',
+//     introduction:
+//       'Cloud computation is very cool, you can do lots of stuff! Enjoy us',
+//   })
+//   const machine = await Area.create({
+//     title: 'Machine Learning',
+//     introduction:
+//       'Machine Learning is very cool, you can do lots of stuff! Enjoy us',
+//   })
 
-  // Adding the people to area
-  await analysis.addPerson(person1.id)
-  // Adding the second comment to the first article
-  await cloud.addComment(person2.id)
-}
+//   // Adding the people to area
+//   await analysis.addPerson(person1.id)
+//   // Adding the second comment to the first article
+//   await cloud.addComment(person2.id)
+// }
 /**
  * Function to initialize the database. This is exported and called in the main api.js file
  */
