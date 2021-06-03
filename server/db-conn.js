@@ -33,93 +33,92 @@ function defineDatabaseStructure() {
       freezeTableName: true,
     }
   )
-  //Person
-  const Person = db.define(
-    'person',
-    {
-      name: DataTypes.STRING,
-      role: {
-        type: Sequelize.ENUM,
-        values: ['manager', 'referent'],
-      },
-      image_src: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      in_link: DataTypes.STRING,
-    },
-    {
-      underscored: true,
-      freezeTableName: true,
-    }
-  )
-  //product
-  const Product = db.define(
-    'product',
-    {
-      name: DataTypes.STRING,
-      description: DataTypes.TEXT,
-      image_src: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-    },
-    {
-      underscored: true,
-      freezeTableName: true,
-    }
-  )
-  //use case
-  const UseCase = db.define(
-    'useCase',
-    {
-      name: DataTypes.STRING,
-      description: DataTypes.TEXT,
-      image_src: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-    },
-    {
-      underscored: true,
-      freezeTableName: true,
-    }
-  )
+//   //Person
+//   const Person = db.define(
+//     'person',
+//     {
+//       name: DataTypes.STRING,
+//       role: {
+//         type: Sequelize.ENUM,
+//         values: ['manager', 'referent'],
+//       },
+//       image_src: {
+//         type: DataTypes.STRING,
+//         allowNull: true,
+//       },
+//       in_link: DataTypes.STRING,
+//     },
+//     {
+//       underscored: true,
+//       freezeTableName: true,
+//     }
+//   )
+//   //product
+//   const Product = db.define(
+//     'product',
+//     {
+//       name: DataTypes.STRING,
+//       description: DataTypes.TEXT,
+//       image_src: {
+//         type: DataTypes.STRING,
+//         allowNull: true,
+//       },
+//     },
+//     {
+//       underscored: true,
+//       freezeTableName: true,
+//     }
+//   )
+//   //use case
+//   const UseCase = db.define(
+//     'useCase',
+//     {
+//       name: DataTypes.STRING,
+//       description: DataTypes.TEXT,
+//       image_src: {
+//         type: DataTypes.STRING,
+//         allowNull: true,
+//       },
+//     },
+//     {
+//       underscored: true,
+//       freezeTableName: true,
+//     }
+//   )
   // More on association: https://sequelize.org/master/manual/assocs.html
 
-  // Creating the 1 -> N association between Area and People
-  Area.hasMany(Person)
-  db._tables = {
-    Area,
-    Person,
-  }
+//   // Creating the 1 -> N association between Area and People
+//   Area.hasMany(Person)
+//   db._tables = {
+//     Area,
+//     Person,
+//   }
 
-  // Creating the 1 -> N association between Area and Products
-  Area.hasMany(Product)
-  db._tables = {
-    Area,
-    Product,
-  }
-  // Creating the 1 -> N association between Products and UseCase
-  Product.hasMany(UseCase)
-  db._tables = {
-    UseCase,
-    Product,
-  }
-  // Creating the 1 -> 1 association between Products and Person
-  // the product has one referent
-  Person.hasOne(Product, { foreignKey: 'referentId' })
-  db._tables = {
-    Product,
-    Person,
-  }
+//   // Creating the 1 -> N association between Area and Products
+//   Area.hasMany(Product)
+//   db._tables = {
+//     Area,
+//     Product,
+//   }
+//   // Creating the 1 -> N association between Products and UseCase
+//   Product.hasMany(UseCase)
+//   db._tables = {
+//     UseCase,
+//     Product,
+//   }
+//   // Creating the 1 -> 1 association between Products and Person
+//   // the product has one referent
+//   Person.hasOne(Product, { foreignKey: 'referentId' })
+//   db._tables = {
+//     Product,
+//     Person,
+//   }
 
-  // Creating the 1 -> 1 association between Area and Person
-  // the area has one manager
-  Area.hasOne(Person, { foreignKey: 'managerOf' })
+//   // Creating the 1 -> 1 association between Area and Person
+//   // the area has one manager
+//   Area.hasOne(Person, { foreignKey: 'managerOf' })
   db._tables = {
-    Area,
-    Person,
+    Area
   }
 }
 
