@@ -1,20 +1,21 @@
 <template>
   <section class="item-intro">
     <div class="intro-left">
-      <h1>{{ item.title }}</h1>
-      <p>{{ item.intro }}</p>
+      <h1>{{ items[itemId].name }}</h1>
+      <p>{{ items[itemId].introShort }}</p>
     </div>
     <div class="intro-right">
       <circle-svg
-        svgid="intro"
+        svgid="svg-intro"
         :vbox="vbox"
-        :items="areas"
+        :items="items"
         :main-cx="mainCx"
         :main-cy="mainCy"
         :main-r="mainR"
-        :activate-item="$route.params.id - 1"
+        :activate-item="itemId"
         :text="['Area', 'switcher']"
         spacing="left"
+        :display="[1, 0, 0]"
         @itemClicked="onClickChild"
       ></circle-svg>
     </div>
@@ -22,62 +23,35 @@
 </template>
 
 <script>
-const chroma = require('chroma-js')
+// import { Linear } from 'gsap'
 
 export default {
   props: {
-    item: {
-      type: Object,
+    items: {
+      type: Array,
       default() {
-        return {}
+        return []
       },
+    },
+    itemId: {
+      type: Number,
+      default: 1,
     },
   },
   data() {
     return {
-      areas: [
-        {
-          // name: 'Cloud computing',
-          path: '/areas/1',
-          color: '#F44336',
-          icon: require('~/assets/icons/area-cloud-computing.svg?raw'),
-        },
-        {
-          // name: 'Analytics',
-          path: '/areas/2',
-          color: '#4CAF50',
-          icon: require('~/assets/icons/area-analytics-2.svg?raw'),
-        },
-        {
-          // name: 'Machine learning',
-          path: '/areas/3',
-          color: '#FFC107',
-          icon: require('~/assets/icons/area-machine-learning.svg?raw'),
-        },
-        {
-          // name: 'Blockchain',
-          path: '/areas/4',
-          color: '#00BCD4',
-          icon: require('~/assets/icons/area-blockchain.svg?raw'),
-        },
-      ],
       mainCx: 450,
       mainCy: 250,
       mainR: 150,
       vbox: '240 0 400 500',
-      // item: { title: 'tit', intro: 'dxx' }, // to be later retrieved from db
     }
   },
   mounted() {
-    // this.$nuxt.$emit('item', this.item) // pass retrieved item to item-layout
+    // COLOR
+    const chroma = this.$chromajs
     // set bg color based on current area: (also highlight current area in circle)
-    const color0 = chroma(this.item.color).set('hsl.l', 0.2).hex()
-    // const color1 = chroma(this.item.color)
-    //   .set('hsl.h', 20)
-    //   .set('hsl.s', 0.5)
-    //   .set('hsl.l', 0.3)
-    //   .hex()
-    const color2 = chroma(this.item.color)
+    const color0 = chroma(this.items[this.itemId].color).set('hsl.l', 0.2).hex()
+    const color2 = chroma(this.items[this.itemId].color)
       // .set('hsl.h', 0)
       .set('hsl.s', 0.8)
       .set('hsl.l', 0.1)
@@ -86,13 +60,28 @@ export default {
       '.item-intro'
     ).style.background = `linear-gradient(130deg, ${color0} 50%, ${color2} 50.05%)`
     // ).style.background = `linear-gradient(130deg, #ff7a18,#af002d 41%, #319197 75%)` // original
+
+    // // PARALLAX SCROLL
+    // require('animation.gsap')
+    // require('debug.addIndicators')
+    // const controller = new this.$scrollmagic.Controller({
+    //   globalSceneOptions: { triggerHook: 'onEnter', duration: '120%' },
+    // })
+    // new this.$scrollmagic.Scene({
+    //   duration: 30, // the scene should last for a scroll distance of 100px
+    //   // offset: 0, // start this scene after scrolling for 50px
+    // })
+    //   // .setPin('.item-intro') // pins the element for the the scene's duration
+    //   .setTween('.item-intro', { y: '80%', ease: Linear.easeInOut })
+    //   .addIndicators() // DEBUG
+    //   .addTo(controller) // assign the scene to the controller
   },
   methods: {
     goTo(path) {
       this.$router.push({ path })
     },
     onClickChild(item) {
-      this.goTo(item.path)
+      this.goTo('/areas/' + item.id)
     },
   },
 }
@@ -103,13 +92,36 @@ export default {
   width: 100%;
   height: 300px;
   padding: 20px;
-  background: #222;
   color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   /* box-shadow: inset 0 0 5em -2em #000; */
+}
+/* .item-intro::before {
+  content: '';
+  position: absolute;
+  height: 70%;
+  width: 100%;
+  z-index: -1;
+  background: linear-gradient(
+    130deg,
+    rgba(0, 0, 0, 0.2) 50%,
+    transparent 50.05%
+  );
+} */
+.item-intro::after {
+  content: '';
+  position: absolute;
+  height: 500%;
+  width: 100%;
+  z-index: -9999;
+  background: linear-gradient(
+    130deg,
+    rgb(112, 112, 112) 50%,
+    transparent 50.05%
+  );
 }
 .intro-left,
 .intro-right {
