@@ -17,10 +17,15 @@
     "chroma-js": "^2.1.2",
     "core-js": "^3.9.1",
     "express": "^4.17.1",
+    "gsap": "^3.6.1",
+    "jquery": "^3.6.0",
     "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
     "nuxt": "^2.15.3",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
+    "scrollmagic": "^2.0.8",
+    "scrollmagic-plugin-gsap": "^1.0.4",
     "sequelize": "^6.6.2",
     "sharp": "^0.28.2"
   },
@@ -33,6 +38,7 @@
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.7.0",
+    "imports-loader": "^0.8.0",
     "prettier": "^2.2.1",
     "raw-loader": "^4.0.2"
   }
