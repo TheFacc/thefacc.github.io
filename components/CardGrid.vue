@@ -3,9 +3,9 @@
     <card
       v-for="(card, cardIndex) of cards"
       :key="'card-' + cardIndex"
-      :title="card.title"
-      :summary="card.summary"
-      :image="card.image"
+      :title="card.name"
+      :summary="card.description"
+      :image="card.image_src"
       :shape="shape"
       :indent="cardIndex > 2"
       @click="goTo(`/blog/${article.id}`)"
@@ -17,7 +17,7 @@
 export default {
   props: {
     cards: { type: Array, default: () => [] },
-    shape: { type: String, default: () => '' },
+    shape: { type: String, default: 'rectangle' },
   },
   mounted() {
     // if (this.shape === 'circle') {

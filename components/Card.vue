@@ -39,7 +39,6 @@ export default {
     //     card.style.marginTop = '-20px'
     //   }
     // }
-
     if (this.shape === 'rectangle') {
       this.$refs.thisCard.classList.add('card-rectangle')
     } else if (this.shape === 'circle') {

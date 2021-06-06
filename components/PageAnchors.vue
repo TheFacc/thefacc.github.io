@@ -38,11 +38,9 @@ import { TweenMax, Cubic } from 'gsap'
 
 export default {
   props: {
-    item: {
-      type: Object,
-      default() {
-        return {}
-      },
+    itemColor: {
+      type: String,
+      default: '#222',
     },
     sections: {
       type: Array,
@@ -62,20 +60,17 @@ export default {
   //   },
   // },
   mounted() {
-    // Require ScrollMagic
-    // if (!process.isClient) return
-    // const ScrollMagic = require('ScrollMagic')
-    require('animation.gsap')
-    require('debug.addIndicators')
-
     // COLOR
     const chroma = this.$chromajs
-    const color0 = chroma(this.item.color).set('hsl.l', 0.2).hex()
+    const color0 = chroma(this.itemColor).set('hsl.l', 0.2).hex()
     document.querySelector('.page-anchors').style.background = `rgba(${chroma(
       color0
     ).rgb()},0.8)`
 
-    // PARALLAX
+    // ANCHORS highlight on scroll - https://codepen.io/grayghostvisuals/pen/EtdwL
+    // if (!process.isClient) return
+    require('animation.gsap')
+    require('debug.addIndicators')
     this.$nextTick(() => {
       // init
       const controller = new this.$scrollmagic.Controller({
@@ -90,8 +85,9 @@ export default {
       Object.keys(this.$parent.$refs).forEach((ref) => {
         durs.push(this.$parent.$refs[ref].clientHeight)
       })
-      this.sceneDurations = durs // save locally to be able to watch: it
       // console.log('calculated heights:', durs)
+      this.sceneDurations = durs // save locally to be able to watch: it
+
       // Create and set each scene (fill this.scenes variable)
       this.sections.forEach((section, index) => {
         // skip loop if the property is from prototype
@@ -107,11 +103,12 @@ export default {
         })
           .duration(this.sceneDurations[index])
           .setClassToggle('#' + section.anchorId, 'active')
-          // .addIndicators() // DEBUG
+          .addIndicators() // DEBUG
           .addTo(controller)
-        this.scenes[section.sectionId] = s
+        this.scenes[section.sectionId] = s // fill variable
         // }
       })
+
       // Change behaviour of controller
       // to animate scroll instead of jump
       controller.scrollTo(function (target) {
@@ -161,7 +158,7 @@ export default {
   text-align: center;
   height: 50px;
   position: sticky;
-  top: 65px;
+  top: 67px;
   backdrop-filter: blur(5px);
   box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
   z-index: 9999;
@@ -172,8 +169,7 @@ export default {
   font-weight: 200;
   transition: 0.2s ease-out;
 }
-.page-anchors a:hover,
-.page-anchors a:focus {
+.page-anchors a:hover {
   font-weight: 500;
 }
 /* @media screen and (min-width: 768px) { */
