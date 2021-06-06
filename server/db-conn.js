@@ -72,7 +72,16 @@ function defineDatabaseStructure() {
       name: DataTypes.STRING,
       role: {
         type: Sequelize.ENUM,
-        values: ['manager', 'referent'],
+        values: [
+          'Chief Executive Officer',
+          'General Manager',
+          'Chief Financial Officer',
+          'Human Resources',
+          'Chief Marketing Officer',
+          'Area manager',
+          'Chief Research Officer',
+          'Engineer',
+        ],
       },
       image_src: DataTypes.STRING,
       in_link: DataTypes.STRING,
