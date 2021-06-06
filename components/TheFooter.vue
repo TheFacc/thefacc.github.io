@@ -6,4 +6,12 @@
 export default {}
 </script>
 
-<style></style>
+<style>
+footer {
+  color: white;
+  background: #222;
+  text-align: center;
+  height: 100px;
+  width: 100%;
+}
+</style>
