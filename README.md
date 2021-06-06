@@ -34,6 +34,10 @@ Deadline: 23:59 of the chosen exam date
 ### Plugins used
 
 - Nuxt svg module - to import svg files as raw data in order to support css animations (https://github.com/nuxt-community/svg-module)
-- Animate.css library (https://github.com/animate-css/animate.css)
+- Webpack.js (https://webpack.js.org/) - to import jQuery (https://jquery.com/)
+- chroma.js - to dynamically edit colors in various ways (eg. darken, hue, ...) (https://gka.github.io/chroma.js/)
+- GSAP - js animation library (https://greensock.com/gsap/)
+- ScrollMagic - for highlighting nav items while scrolling + parallax scrolling (https://scrollmagic.io/)
+- (maybe later: Animate.css library (https://github.com/animate-css/animate.css) )
 
 ### Comments
