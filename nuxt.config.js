@@ -1,3 +1,6 @@
+const webpack = require('webpack')
+var path = require('path')
+
 export default {
   ssr: true,
   target: 'server',
@@ -30,11 +33,35 @@ export default {
           'https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap',
         rel: 'stylesheet',
       },
+      // {
+      //   rel: 'stylesheet',
+      //   type: 'text/css',
+      //   href:
+      //     'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css',
+      // },
+      // page loading
+      // {
+      //   rel: 'stylesheet',
+      //   type: 'text/css',
+      //   href: 'https://unpkg.com/nprogress@0.2.0/nprogress.css',
+      // },
+    ],
+    script: [
+      // page loading
+      // {
+      //   src: 'https://unpkg.com/nprogress@0.2.0/nprogress.js',
+      //   type: 'text/javascript',
+      // },
+      // jQuery
       {
-        rel: 'stylesheet',
-        type: 'text/css',
-        href:
-          'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css',
+        // src: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
+        src: 'https://code.jquery.com/jquery-3.6.0.min.js',
+        type: 'text/javascript',
+      },
+      // gsap
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js',
+        type: 'text/javascript',
       },
     ],
   },
@@ -43,7 +70,10 @@ export default {
   css: ['normalize.css/normalize.css', '~assets/styles/global.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    { src: '~/plugins/ScrollMagic.js', mode: 'client' },
+    { src: '~/plugins/Chroma.js', mode: 'client' },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -60,10 +90,78 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
   ],
-
+  // alias: {
+  // TweenLite: 'gsap/src/minified/TweenLite.min.js',
+  // TweenMax: 'gsap/src/minified/TweenMax.min.js',
+  // TimelineLite: 'gsap/src/minified/TimelineLite.min.js',
+  // TimelineMax: 'gsap/src/minified/TimelineMax.min.js',
+  // ScrollMagic: 'scrollmagic/scrollmagic/minified/ScrollMagic.min.js',
+  // 'animation.gsap':
+  //   'scrollmagic/scrollmagic/minified/plugins/animation.gsap.min.js',
+  // 'debug.addIndicators':
+  //   'scrollmagic/scrollmagic/minified/plugins/debug.addIndicators.min.js',
+  // },
+  // alias: {
+  //   TweenLite: resolve('node_modules', 'gsap/src/uncompressed/TweenLite.js'),
+  //   TweenMax: resolve('node_modules', 'gsap/src/uncompressed/TweenMax.js'),
+  //   TimelineLite: resolve(
+  //     'node_modules',
+  //     'gsap/src/uncompressed/TimelineLite.js'
+  //   ),
+  //   TimelineMax: resolve(
+  //     'node_modules',
+  //     'gsap/src/uncompressed/TimelineMax.js'
+  //   ),
+  //   ScrollMagic: resolve(
+  //     'node_modules',
+  //     'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'
+  //   ),
+  //   'animation.gsap': resolve(
+  //     'node_modules',
+  //     'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'
+  //   ),
+  //   'debug.addIndicators': resolve(
+  //     'node_modules',
+  //     'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js'
+  //   ),
+  // },
+  alias: {
+    TweenLite: path.resolve(
+      'node_modules',
+      'gsap/src/uncompressed/TweenLite.js'
+    ),
+    TweenMax: path.resolve('node_modules', 'gsap/src/uncompressed/TweenMax.js'),
+    TimelineLite: path.resolve(
+      'node_modules',
+      'gsap/src/uncompressed/TimelineLite.js'
+    ),
+    TimelineMax: path.resolve(
+      'node_modules',
+      'gsap/src/uncompressed/TimelineMax.js'
+    ),
+    ScrollMagic: path.resolve(
+      'node_modules',
+      'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'
+    ),
+    'animation.gsap': path.resolve(
+      'node_modules',
+      'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'
+    ),
+    'debug.addIndicators': path.resolve(
+      'node_modules',
+      'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js'
+    ),
+  },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+      }),
+    ],
+    transpile: ['gsap'], // https://greensock.com/forums/topic/26104-nuxt-gsapdraggable-cannot-use-import-statement-outside-a-module/
+  },
 }
