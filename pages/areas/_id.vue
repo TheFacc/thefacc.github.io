@@ -1,9 +1,12 @@
 <template>
   <main>
     <item-intro :item="items[$route.params.id - 1]"></item-intro>
-    <page-anchors></page-anchors>
+    <page-anchors
+      :item="items[$route.params.id - 1]"
+      :sections="sections"
+    ></page-anchors>
     <div class="container">
-      <section class="overview raised">
+      <section id="intro" ref="intro" class="overview raised anchored">
         <div>
           <img :src="items[$route.params.id - 1].image" />
         </div>
@@ -17,15 +20,18 @@
           </p>
         </div>
       </section>
-      <section class="items">
-        <h1>Products &amp; Services</h1>
+      <section id="products" ref="products" class="items anchored">
+        <h1>Solutions</h1>
+        <h4>Products &amp; Services</h4>
         <card-grid :cards="cards" shape="rectangle"></card-grid>
       </section>
-      <section class="people raised dark">
+      <section id="people" ref="people" class="people raised dark anchored">
         <h1>People</h1>
         <!-- leaderboard -->
+        <h4>Leaderboard</h4>
         <card-grid :cards="teamLeaders" shape="circle"></card-grid>
         <!-- team -->
+        <h4>Team</h4>
         <card-grid :cards="team" shape="rectangle"></card-grid>
       </section>
     </div>
@@ -34,6 +40,9 @@
 
 <script>
 // :title="card.title" :summary="card.summary" :image="card.image"
+import { Linear } from 'gsap'
+// import { Linear, TweenMax, TimelineMax } from 'gsap'
+// import $ from 'jquery'
 import ItemIntro from '~/components/ItemIntro.vue'
 import CardGrid from '~/components/CardGrid.vue'
 import PageAnchors from '~/components/PageAnchors.vue'
@@ -52,6 +61,23 @@ export default {
   },
   data() {
     return {
+      sections: [
+        {
+          name: 'Introduction',
+          sectionId: 'intro',
+          anchorId: 'intro-anchor',
+        },
+        {
+          name: 'Solutions',
+          sectionId: 'products',
+          anchorId: 'products-anchor',
+        },
+        {
+          name: 'People',
+          sectionId: 'people',
+          anchorId: 'people-anchor',
+        },
+      ],
       items: [
         {
           title: 'Cloud computing',
@@ -165,9 +191,7 @@ export default {
             'https://icon-icons.com/downloadimage.php?id=149317&root=2468/PNG/256/&file=user_user_profile_user_icon_user_thump_icon_149317.png',
         },
       ],
-      shape: 'rectangle',
-      styles: {},
-      debounceTimeout: 6, // for parallax scrolling
+      shape: 'rectangle', // cards
     }
   },
   mounted() {
@@ -175,6 +199,36 @@ export default {
     //   document.querySelector('.card-grid').style.gridTemplateColumns =
     //     'repeat(3, calc(100% / 3))'
     // }
+    // PARALLAX SCROLL
+    require('animation.gsap')
+    require('debug.addIndicators')
+    const controller = new this.$scrollmagic.Controller({
+      globalSceneOptions: {
+        triggerHook: 0.3,
+        reverse: true,
+      },
+    })
+    new this.$scrollmagic.Scene({ duration: '50%' })
+      .setTween('.page-anchors', {
+        y: '-100%',
+        ease: Linear.easeInOut,
+        top: 50 + 65,
+      })
+      .addIndicators() // DEBUG
+      .addTo(controller) // assign the scene to the controller
+    new this.$scrollmagic.Scene({
+      duration: '100%',
+      // offset: 0, // start this scene after scrolling for 50px
+    })
+      // .setPin('.item-intro') // pins the element for the scene's duration
+      .setTween('.container', {
+        y: '-20%',
+        top: -200,
+        marginBottom: -200,
+        ease: Linear.easeInOut,
+      })
+      .addIndicators() // DEBUG
+      .addTo(controller) // assign the scene to the controller
   },
 }
 </script>
