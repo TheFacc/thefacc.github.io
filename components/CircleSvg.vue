@@ -13,7 +13,7 @@
       <circle class="circle-main" :cx="mainCx" :cy="mainCy" :r="mainR" />
     </g>
     <g>
-      <text class="text-main">
+      <text v-if="display[0]" class="text-main">
         <tspan
           v-for="(line, index) in text"
           :key="'line-' + index"
@@ -27,7 +27,7 @@
     </g>
 
     <a
-      v-for="(item, index) of items"
+      v-for="(item, index) of orderBy(items, 'id')"
       :key="'area-' + index"
       @click="
         itemClick(item)
@@ -48,11 +48,15 @@
           :style="`transform:translate(${mainCx}px,${mainCy}px) scale(0);
                    transition-duration:.3s;
                    fill:${activeItem == index ? '#222' : item.color}`"
-          v-html="item.icon"
+          v-html="require('~/assets/icons/' + item.icon + '?raw')"
         />
         <text class="text-item">
-          <tspan :x="mainCx" :y="mainCy">{{ item.name }}</tspan>
-          <tspan :x="mainCx" :y="mainCy" dy="1.5em">{{ item.desc }}</tspan>
+          <tspan v-if="display[1]" :x="mainCx" :y="mainCy">
+            {{ item.name }}
+          </tspan>
+          <tspan v-if="display[2]" :x="mainCx" :y="mainCy" dy="1.5em">
+            {{ item.subtitle }}
+          </tspan>
         </text>
       </g>
     </a>
@@ -60,7 +64,10 @@
 </template>
 
 <script>
+import Vue2Filters from 'vue2-filters' // to sort items by id
+
 export default {
+  mixins: [Vue2Filters.mixin],
   props: {
     svgid: { type: String, default: 'svg' },
     vbox: { type: String, default: '0 0 900 450' },
@@ -70,16 +77,29 @@ export default {
         return []
       },
     },
+    // main circle coordinates
     mainCx: { type: Number, default: 450 },
     mainCy: { type: Number, default: 250 },
     mainR: { type: Number, default: 150 },
+    // center text (array of strings)
     text: {
       type: Array,
       default() {
         return []
       },
     },
-    spacing: { type: String, default: 'even' }, // even/left/right
+    // choose where to display mini-circles around the main circle
+    spacing: {
+      type: String,
+      default: 'even', // even/left/right
+    },
+    // choose which texts to display
+    display: {
+      type: Array,
+      default() {
+        return [1, 1, 1] // [center, item titles, item subtitles]
+      },
+    },
     activateItem: { type: Number, default: -1 }, // receive item to activate by default on load
   },
   data() {
