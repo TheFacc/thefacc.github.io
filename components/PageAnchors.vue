@@ -69,8 +69,10 @@ export default {
 
     // ANCHORS highlight on scroll - https://codepen.io/grayghostvisuals/pen/EtdwL
     // if (!process.isClient) return
-    require('animation.gsap')
-    require('debug.addIndicators')
+    // require('animation.gsap')
+    // require('debug.addIndicators') // these work only locally somehow
+    require('scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js')
+    require('scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js')
     this.$nextTick(() => {
       // init
       const controller = new this.$scrollmagic.Controller({
