@@ -49,8 +49,8 @@ img {
   width: 100%;
   flex: 0 0 40%;
   align-self: flex-start;
-  top: 50px;
-  backdrop-filter: blur(5px) saturate(0.2);
+  top: 67px;
+  backdrop-filter: blur(5px) saturate(0.5);
 }
 @media screen and (min-width: 768px) {
   .selector {
