@@ -5,6 +5,7 @@
         v-for="(item, itemIndex) of items"
         :key="'menu-item-' + itemIndex"
         class="dropdown-item"
+        @click="$emit('dropdown-clicked', true)"
       >
         <nuxt-link :to="item.path">
           <div v-html="item.icon" class="dropdown-svg" />
@@ -149,7 +150,7 @@ export default {
 @keyframes dropdownMobile {
   from {
     opacity: 0;
-    transform: translate(-100px, -65%);
+    transform: translate(180px, -65%);
   }
   to {
     opacity: 1;
