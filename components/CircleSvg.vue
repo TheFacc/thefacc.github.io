@@ -9,13 +9,14 @@
     :viewBox="vbox"
     xml:space="preserve"
   >
+    <!-- main circle and text -->
     <g>
       <circle class="circle-main" :cx="mainCx" :cy="mainCy" :r="mainR" />
     </g>
     <g>
       <text v-if="display[0]" class="text-main">
         <tspan
-          v-for="(line, index) in text"
+          v-for="(line, index) in svgText"
           :key="'line-' + index"
           :x="mainCx"
           :y="mainCy"
@@ -26,6 +27,7 @@
       </text>
     </g>
 
+    <!-- ITEMS on the circle -->
     <a
       v-for="(item, index) of orderBy(items, 'id')"
       :key="'area-' + index"
@@ -34,8 +36,20 @@
         activeItem = activeItem == index ? -1 : index
       "
     >
-      <!-- with db implemented: @click="goTo(`/${svgid}/${item.id}`)" -->
-      <g :class="{ active: activeItem == index }">
+      <g
+        :class="{ active: activeItem == index }"
+        @mouseover="
+          if (centerInfo) {
+            svgText = [item.name]
+          }
+        "
+        @mouseleave="
+          if (centerInfo) {
+            svgText = text
+          }
+        "
+      >
+        <!-- ITEM ~ circle -->
         <circle
           class="circle-area"
           :cx="mainCx"
@@ -44,12 +58,14 @@
           :style="`stroke:${activeItem == index ? item.color : '#47494e'};
                    fill:${activeItem == index ? item.color : '#222'}`"
         />
+        <!-- ITEM ~ icon -->
         <g
           :style="`transform:translate(${mainCx}px,${mainCy}px) scale(0);
                    transition-duration:.3s;
                    fill:${activeItem == index ? '#222' : item.color}`"
           v-html="require('~/assets/icons/' + item.icon + '?raw')"
         />
+        <!-- ITEM ~ text(s) -->
         <text class="text-item">
           <tspan v-if="display[1]" :x="mainCx" :y="mainCy">
             {{ item.name }}
@@ -81,7 +97,7 @@ export default {
     mainCx: { type: Number, default: 450 },
     mainCy: { type: Number, default: 250 },
     mainR: { type: Number, default: 150 },
-    // center text (array of strings)
+    // default center text (array of strings)
     text: {
       type: Array,
       default() {
@@ -100,10 +116,14 @@ export default {
         return [1, 1, 1] // [center, item titles, item subtitles]
       },
     },
+    centerInfo: { type: Boolean, default: false }, // display hovering info in center text
     activateItem: { type: Number, default: -1 }, // receive item to activate by default on load
   },
   data() {
-    return { activeItem: -1 } // we'll only have 1 active item at a time (-1 = none active)
+    return {
+      svgText: this.text, // default center text - can be later changed on item hover or else (see mounted())
+      activeItem: -1, // we'll only have 1 active item at a time (-1 = none active)
+    }
   },
   mounted() {
     if (this.activateItem !== -1) {
@@ -124,7 +144,6 @@ export default {
     let baseColor = baseGrey // main circle color (grey or active-item-color)
     const itemGs = document.querySelectorAll('svg#' + this.svgid + ' a>g')
     const itemNo = itemGs.length
-
     itemGs.forEach((itemG, index) => {
       //  calculate #itemNo evenly spaced points around the main circle,
       //  (starting from bottom and rotating by 45deg)
