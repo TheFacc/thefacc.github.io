@@ -75,7 +75,7 @@ export default {
       // init
       const controller = new this.$scrollmagic.Controller({
         globalSceneOptions: {
-          triggerHook: 0.3,
+          triggerHook: 0.5,
           reverse: true,
           // immediateRender: false,
         },
@@ -161,7 +161,7 @@ export default {
   top: 67px;
   backdrop-filter: blur(5px);
   box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
-  z-index: 9999;
+  z-index: 1;
 }
 .page-anchors a {
   text-decoration: none;
