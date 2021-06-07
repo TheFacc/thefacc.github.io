@@ -85,12 +85,12 @@ export default {
             {
               name: 'Company',
               path: '/about/company',
-              icon: require('~/assets/icons/about.svg?raw'),
+              icon: require('~/assets/icons/company.svg?raw'),
             },
             {
               name: 'People',
               path: '/about/people',
-              icon: require('~/assets/icons/about.svg?raw'),
+              icon: require('~/assets/icons/people.svg?raw'),
             },
           ],
         },
@@ -215,7 +215,7 @@ export default {
     margin-right: 45%;
   }
   .nav__item.active .dropdown-menu {
-    transform: translate(5px, -65%);
+    transform: translate(5px, -50%);
     transition: 1s;
   }
   .nav__item span {
