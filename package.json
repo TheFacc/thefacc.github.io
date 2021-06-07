@@ -24,7 +24,6 @@
     "nuxt": "^2.15.3",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
-    "scrollmagic": "^2.0.8",
     "scrollmagic-plugin-gsap": "^1.0.4",
     "sequelize": "^6.6.2",
     "sharp": "^0.28.2",
