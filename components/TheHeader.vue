@@ -23,12 +23,11 @@
             v-for="(item, itemIndex) of menuOptions"
             :key="'menu-item-' + itemIndex"
             class="nav__item"
+            :class="{ active: item.options && item.dropdownOpen }"
+            @mouseover="item.dropdownOpen = true"
+            @mouseleave="item.dropdownOpen = false"
           >
-            <nuxt-link
-              :to="item.path"
-              @mouseover="item.dropdownOpen = true"
-              @mouseout="item.dropdownOpen = false"
-            >
+            <nuxt-link :to="item.path">
               <div v-html="item.icon" />
               <span>{{ item.name }}</span>
             </nuxt-link>
@@ -67,27 +66,27 @@ export default {
           icon: require('~/assets/icons/blog.svg?raw'),
         },
         {
+          name: 'Contact',
+          path: '/contact',
+          icon: require('~/assets/icons/contact.svg?raw'),
+        },
+        {
           name: 'About',
-          path: '/company',
+          path: '#',
           icon: require('~/assets/icons/about.svg?raw'),
           dropdownOpen: false,
           options: [
             {
               name: 'Company',
-              path: '/company',
+              path: '/about/company',
               icon: require('~/assets/icons/about.svg?raw'),
             },
             {
               name: 'People',
-              path: '/people',
+              path: '/about/people',
               icon: require('~/assets/icons/about.svg?raw'),
             },
           ],
-        },
-        {
-          name: 'Contact',
-          path: '/contact',
-          icon: require('~/assets/icons/contact.svg?raw'),
         },
       ],
       mobileMenuOpen: false,
@@ -126,6 +125,17 @@ export default {
   text-align: center;
   z-index: 9001;
 }
+.header:before,
+.nav__wrapper:before {
+  content: '';
+  position: absolute;
+  backdrop-filter: blur(5px) saturate(0.5);
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 .header a {
   color: #222;
 }
@@ -137,10 +147,7 @@ export default {
   margin: 0 auto;
   align-items: center;
 }
-@media (min-width: 800px) {
-  .header {
-    backdrop-filter: blur(5px);
-  }
+@media (min-width: 768px) {
   .header-content {
     padding-top: 0;
     padding-bottom: 0;
@@ -160,21 +167,18 @@ export default {
   }
 }
 
-@media (max-width: 799px) {
-  .header {
-    background: rgb(230, 230, 230);
-  }
+@media (max-width: 767px) {
   .nav__wrapper {
     position: absolute;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    /* align-items: flex-end; */
+    padding: 0;
     top: 100%;
     right: 0;
     left: 0;
     z-index: -1;
-    background-color: #d2d2d28f;
-    backdrop-filter: blur(5px);
+    background-color: rgba(210, 210, 210, 0.5);
     visibility: hidden;
     opacity: 0;
     transform: scaleY(0);
@@ -186,6 +190,13 @@ export default {
     opacity: 1;
     transform: scaleY(1);
   }
+  .nav__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    transition: 0.5s;
+  }
   .nav__item a {
     display: flex;
     flex-direction: row-reverse;
@@ -194,10 +205,24 @@ export default {
     padding: 10px 1rem;
   }
   .nav__item a.nuxt-link-active {
-    border-right-color: #222;
+    border-right-color: rgba(0, 0, 0, 0.85);
+  }
+  .nav__item.active {
+    margin-right: 45%;
+  }
+  .nav__item.active .dropdown-menu {
+    transform: translate(5px, -65%);
+    transition: 1s;
   }
   .nav__item span {
     margin: 0 10px;
+  }
+  .selector-filter {
+    background: rgba(210, 210, 210, 0.6);
+  }
+  .container {
+    margin: 0 auto;
+    padding: 0 10px;
   }
 }
 /**/
@@ -235,25 +260,30 @@ nav ul {
   vertical-align: middle;
   height: 28px;
 }
-@media (min-width: 800px) {
+@media (min-width: 768px) {
   .nav__item a {
     text-align: center;
     border-left: 0;
     border-bottom: 4px solid transparent;
+    transition: 0.5s;
   }
   .nav__item svg {
     display: block;
     margin: 0 auto 0.5rem;
   }
+  .nav__item:hover a {
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+    transition: 0s;
+  }
   .nav__item a.nuxt-link-active {
-    border-bottom-color: #222;
+    border-bottom-color: rgba(0, 0, 0, 0.85);
   }
   .nav__toggle {
     display: none;
   }
 }
 /* hamburger menu v2 (text) */
-@media (max-width: 799px) {
+@media (max-width: 767px) {
   /*OPEN*/
   @keyframes topBar_open {
     0% {
