@@ -71,8 +71,8 @@ export default {
     // if (!process.isClient) return
     // require('animation.gsap')
     // require('debug.addIndicators') // these work only locally somehow
-    require('scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js')
-    require('scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js')
+    require('~/node_modules/scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js')
+    require('~/node_modules/scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js')
     this.$nextTick(() => {
       // init
       const controller = new this.$scrollmagic.Controller({
