@@ -1,13 +1,24 @@
 <template>
   <header class="header">
     <div class="header-content">
+      <!-- main logo -->
       <div class="title" @click="goToHome"><h3>MouBE</h3></div>
+      <!-- search form (not there yet) -->
       <div class="search"></div>
+      <!-- nav menu -->
       <nav class="right">
-        <div class="nav__toggle" aria-expanded="false" @click="navToggle">
+        <!-- mobile toggle -->
+        <div
+          class="nav__toggle"
+          :class="{ open: mobileMenuOpen, close: !mobileMenuOpen }"
+          :aria-expanded="mobileMenuOpen"
+          :aria-label="mobileMenuOpen ? 'close menu' : 'menu'"
+          @click="mobileMenuOpen = !mobileMenuOpen"
+        >
           <span class="menu-text">MENU</span>
         </div>
-        <ul class="nav__wrapper">
+        <!-- menu items -->
+        <ul class="nav__wrapper" :class="{ active: mobileMenuOpen }">
           <li
             v-for="(item, itemIndex) of menuOptions"
             :key="'menu-item-' + itemIndex"
@@ -79,6 +90,7 @@ export default {
           icon: require('~/assets/icons/contact.svg?raw'),
         },
       ],
+      mobileMenuOpen: false,
       itemHover: null,
     }
   },
@@ -91,24 +103,6 @@ export default {
   methods: {
     goToHome() {
       this.$router.push('/')
-    },
-    navToggle(e) {
-      // open/close mobile menu on button click (in mobile mode)
-      const navWrapper = this.$el.querySelector('.nav__wrapper')
-      const hamButton = this.$el.querySelector('.nav__toggle')
-      if (navWrapper.classList.contains('active')) {
-        e.currentTarget.setAttribute('aria-expanded', 'false')
-        e.currentTarget.setAttribute('aria-label', 'menu')
-        navWrapper.classList.remove('active')
-        hamButton.classList.remove('open')
-        hamButton.classList.add('close')
-      } else {
-        navWrapper.classList.add('active')
-        hamButton.classList.remove('close')
-        hamButton.classList.add('open')
-        e.currentTarget.setAttribute('aria-label', 'close menu')
-        e.currentTarget.setAttribute('aria-expanded', 'true')
-      }
     },
     navHover(item) {
       if (item.options) {
@@ -402,7 +396,7 @@ nav ul {
     position: relative;
     text-align: center;
     width: 60px;
-    height: 65px;
+    height: 67px;
     transform: scale(0.6);
   }
   .nav__toggle:before,
@@ -460,163 +454,4 @@ nav ul {
     animation-fill-mode: forwards;
   }
 }
-/*nav hover fx v1 (::after)
-li.nav__item::after {
-  position: absolute;
-  content: '';
-  width: 100%;
-  height: 4px;
-  background: #ced7db;
-  bottom: 0;
-  transform: scaleX(0);
-  transition: transform 0.3s;
-  transform-origin: right top;
-  background-image: linear-gradient(120deg, #ff5722 0, #ff5722 100%);
-}
-li.nav__item:hover::after {
-  transform-origin: left top;
-  transform: scaleX(1);
-}*/
-/*nav hover fx v2 (border) */
-/* .border-animation {
-  --border-width: 0.1em;
-  --animation-speed: 0.5s;
-  --color: #222;
-  color: var(--color);
-  position: relative;
-  display: inline-block;
-  border: var(--border-width) solid transparent;
-}
-.border-animation .border-animation__inner {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-  z-index: 1;
-  border: solid var(--border-width) transparent;
-}
-.border-animation:before,
-.border-animation:after {
-  content: '';
-  position: absolute;
-  background: var(--color);
-}
-.border-animation:focus:before,
-.border-animation:hover:before {
-  animation: beforeBorders var(--animation-speed) forwards ease-in-out;
-}
-.border-animation:focus:after,
-.border-animation:hover:after {
-  animation: afterBorders var(--animation-speed) forwards ease-in-out;
-}
-.border-animation:focus,
-.border-animation:hover {
-  animation: borderColors var(--animation-speed) steps(10) forwards;
-  outline: none;
-} */
-/*.border-animation:focus .border-animation__inner,
-.border-animation:hover .border-animation__inner {
-  animation: background calc(var(--animation-speed) / 5 * 3) forwards
-    ease-in-out;
-  animation-delay: calc(var(--animation-speed) / 5 * 2);
-}*/
-/* @keyframes beforeBorders {
-  0% {
-    top: calc(var(--border-width) * -1);
-    left: 50%;
-    bottom: auto;
-    right: auto;
-    width: 0;
-    height: 0;
-  }
-  33% {
-    top: calc(var(--border-width) * -1);
-    left: calc(var(--border-width) * -1);
-    bottom: auto;
-    right: auto;
-    width: calc(var(--border-width) + 50%);
-    height: 2px;
-  }
-  66% {
-    top: calc(var(--border-width) * -1);
-    left: calc(var(--border-width) * -1);
-    bottom: auto;
-    right: auto;
-    width: var(--border-width);
-    height: 3px;
-  }
-  100% {
-    top: auto;
-    left: calc(var(--border-width) * -1);
-    bottom: calc(var(--border-width) * -1);
-    right: auto;
-    width: calc(var(--border-width) + 50%);
-    height: 4px;
-  }
-}
-@keyframes afterBorders {
-  0% {
-    top: calc(var(--border-width) * -1);
-    left: auto;
-    bottom: auto;
-    right: 50%;
-    width: 0;
-    height: var(--border-width);
-  }
-  33% {
-    top: calc(var(--border-width) * -1);
-    left: auto;
-    bottom: auto;
-    right: calc(var(--border-width) * -1);
-    width: calc(var(--border-width) + 50%);
-    height: var(--border-width);
-  }
-  66% {
-    top: calc(var(--border-width) * -1);
-    left: auto;
-    bottom: auto;
-    right: calc(var(--border-width) * -1);
-    width: var(--border-width);
-    height: calc((var(--border-width) * 2) + 100%);
-  }
-  100% {
-    top: auto;
-    left: auto;
-    bottom: calc(var(--border-width) * -1);
-    right: calc(var(--border-width) * -1);
-    width: calc(var(--border-width) + 50%);
-    height: calc((var(--border-width) * 2) + 100%);
-  }
-}
-@keyframes borderColors {
-  0% {
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-  }
-  33% {
-    border-top-color: var(--color);
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-  }
-  66% {
-    border-top-color: var(--color);
-    border-right-color: var(--color);
-    border-bottom-color: transparent;
-    border-left-color: var(--color);
-  }
-  100% {
-    border-top-color: var(--color);
-    border-right-color: var(--color);
-    border-bottom-color: var(--color);
-    border-left-color: var(--color);
-  }
-}
-@keyframes background {
-  to {
-    background: #aaa;
-  }
-} */
 </style>
