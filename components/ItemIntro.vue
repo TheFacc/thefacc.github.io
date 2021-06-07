@@ -16,6 +16,7 @@
         :text="['Area', 'switcher']"
         spacing="left"
         :display="[1, 0, 0]"
+        :centerInfo="true"
         @itemClicked="onClickChild"
       ></circle-svg>
     </div>
