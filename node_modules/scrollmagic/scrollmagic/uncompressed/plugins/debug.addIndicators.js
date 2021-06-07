@@ -18,6 +18,9 @@
  * To have access to this extension, please include `plugins/debug.addIndicators.js`.
  * @mixin debug.addIndicators
  */
+// https://github.com/janpaepke/ScrollMagic/issues/665#issuecomment-558239420
+import ScrollMagic from "scrollmagic";
+
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
@@ -27,7 +30,7 @@
 		factory(require('scrollmagic'));
 	} else {
 		// no browser global export needed, just execute
-		factory(root.ScrollMagic || (root.jQuery && root.jQuery.ScrollMagic));
+		factory(ScrollMagic || (jQuery && jQuery.ScrollMagic));
 	}
 }(this, function (ScrollMagic) {
 	"use strict";
