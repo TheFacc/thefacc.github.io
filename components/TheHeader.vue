@@ -13,7 +13,7 @@
           :class="{ open: mobileMenuOpen, close: !mobileMenuOpen }"
           :aria-expanded="mobileMenuOpen"
           :aria-label="mobileMenuOpen ? 'close menu' : 'menu'"
-          @click="mobileMenuOpen = !mobileMenuOpen"
+          @click="toggleMobileMenu"
         >
           <span class="menu-text">MENU</span>
         </div>
@@ -26,14 +26,20 @@
             :class="{ active: item.options && item.dropdownOpen }"
             @mouseover="item.dropdownOpen = true"
             @mouseleave="item.dropdownOpen = false"
+            @click="
+              if (!item.options) {
+                toggleMobileMenu()
+              }
+            "
           >
             <nuxt-link :to="item.path">
               <div v-html="item.icon" />
               <span>{{ item.name }}</span>
             </nuxt-link>
             <nav-dropdown
-              v-show="item.dropdownOpen"
+              v-if="item.options && item.dropdownOpen"
               :items="item.options"
+              @dropdown-clicked="toggleMobileMenu"
             ></nav-dropdown>
           </li>
         </ul>
@@ -103,10 +109,8 @@ export default {
     goToHome() {
       this.$router.push('/')
     },
-    navHover(item) {
-      if (item.options) {
-        item.dropdownOpen = !item.dropdownOpen
-      }
+    toggleMobileMenu() {
+      this.mobileMenuOpen = !this.mobileMenuOpen
     },
   },
 }
@@ -129,7 +133,7 @@ export default {
 .nav__wrapper:before {
   content: '';
   position: absolute;
-  backdrop-filter: blur(5px) saturate(0.5);
+  backdrop-filter: blur(8px) saturate(0.5);
   z-index: -1;
   top: 0;
   bottom: 0;
@@ -178,7 +182,7 @@ export default {
     right: 0;
     left: 0;
     z-index: -1;
-    background-color: rgba(210, 210, 210, 0.5);
+    background-color: rgba(210, 210, 210, 0.6);
     visibility: hidden;
     opacity: 0;
     transform: scaleY(0);
