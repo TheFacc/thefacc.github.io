@@ -5,7 +5,7 @@ export default {
   ssr: true,
   target: 'server',
   env: {
-    BASE_URL: 'https://moube.herokuapp.com', // Production URL
+    BASE_URL: 'http://moube.herokuapp.com', // Production URL
     // BASE_URL: '', // Development URL
   },
   serverMiddleware: [
@@ -39,19 +39,8 @@ export default {
       //   href:
       //     'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css',
       // },
-      // page loading
-      // {
-      //   rel: 'stylesheet',
-      //   type: 'text/css',
-      //   href: 'https://unpkg.com/nprogress@0.2.0/nprogress.css',
-      // },
     ],
     script: [
-      // page loading
-      // {
-      //   src: 'https://unpkg.com/nprogress@0.2.0/nprogress.js',
-      //   type: 'text/javascript',
-      // },
       // jQuery
       {
         // src: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
@@ -90,41 +79,6 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
   ],
-  // alias: {
-  // TweenLite: 'gsap/src/minified/TweenLite.min.js',
-  // TweenMax: 'gsap/src/minified/TweenMax.min.js',
-  // TimelineLite: 'gsap/src/minified/TimelineLite.min.js',
-  // TimelineMax: 'gsap/src/minified/TimelineMax.min.js',
-  // ScrollMagic: 'scrollmagic/scrollmagic/minified/ScrollMagic.min.js',
-  // 'animation.gsap':
-  //   'scrollmagic/scrollmagic/minified/plugins/animation.gsap.min.js',
-  // 'debug.addIndicators':
-  //   'scrollmagic/scrollmagic/minified/plugins/debug.addIndicators.min.js',
-  // },
-  // alias: {
-  //   TweenLite: resolve('node_modules', 'gsap/src/uncompressed/TweenLite.js'),
-  //   TweenMax: resolve('node_modules', 'gsap/src/uncompressed/TweenMax.js'),
-  //   TimelineLite: resolve(
-  //     'node_modules',
-  //     'gsap/src/uncompressed/TimelineLite.js'
-  //   ),
-  //   TimelineMax: resolve(
-  //     'node_modules',
-  //     'gsap/src/uncompressed/TimelineMax.js'
-  //   ),
-  //   ScrollMagic: resolve(
-  //     'node_modules',
-  //     'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'
-  //   ),
-  //   'animation.gsap': resolve(
-  //     'node_modules',
-  //     'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'
-  //   ),
-  //   'debug.addIndicators': resolve(
-  //     'node_modules',
-  //     'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js'
-  //   ),
-  // },
   alias: {
     TweenLite: path.resolve(
       'node_modules',
