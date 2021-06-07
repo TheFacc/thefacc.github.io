@@ -107,10 +107,16 @@ export default {
   .dropdown-menu-wrapper .dropdown-menu {
     animation: dropdown 0.3s ease;
   }
+  .dropdown-menu .dropdown-item {
+    padding: 3px 0;
+  }
 }
 @media (max-width: 767px) {
   .dropdown-menu-wrapper .dropdown-menu {
     animation: dropdownMobile 0.5s ease;
+  }
+  .dropdown-menu .dropdown-item {
+    padding: 7px 0;
   }
 }
 .dropdown-menu-wrapper .dropdown-menu a {
@@ -150,11 +156,11 @@ export default {
 @keyframes dropdownMobile {
   from {
     opacity: 0;
-    transform: translate(180px, -65%);
+    transform: translate(180px, -50%);
   }
   to {
     opacity: 1;
-    transform: translate(5px, -65%);
+    transform: translate(5px, -50%);
   }
 }
 </style>
