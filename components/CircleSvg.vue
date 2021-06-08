@@ -11,20 +11,30 @@
   >
     <!-- main circle and text -->
     <g>
-      <circle class="circle-main" :cx="mainCx" :cy="mainCy" :r="mainR" />
+      <circle
+        ref="circle-main"
+        class="circle-main"
+        :cx="mainCx"
+        :cy="mainCy"
+        :r="mainR"
+      />
     </g>
     <g>
-      <text v-if="display[0]" class="text-main">
-        <tspan
-          v-for="(line, index) in svgText"
-          :key="'line-' + index"
-          :x="mainCx"
-          :y="mainCy"
-          :dy="`${index * 1.5 - 0.6}em`"
-        >
-          {{ line }}
-        </tspan>
-      </text>
+      <transition name="svgText">
+        <text v-if="display[0]" :key="'showing-' + svgText" class="text-main">
+          <tspan
+            v-for="(line, index) in activeText && activeItem > -1
+              ? ['Click again', 'to cancel filter']
+              : svgText"
+            :key="'line-' + line"
+            :x="mainCx"
+            :y="mainCy"
+            :dy="`${index * 1.5 - 0.6}em`"
+          >
+            {{ line }}
+          </tspan>
+        </text>
+      </transition>
     </g>
 
     <!-- ITEMS on the circle -->
@@ -33,24 +43,15 @@
       :key="'area-' + index"
       @click="
         itemClick(item)
-        activeItem = activeItem == index ? -1 : index
+        activeItem = activeItem == index && !activatedOnLoad ? -1 : index
       "
+      @mouseover="onItem(item)"
+      @mouseleave="outItem(item)"
     >
-      <g
-        :class="{ active: activeItem == index }"
-        @mouseover="
-          if (centerInfo) {
-            svgText = [item.name]
-          }
-        "
-        @mouseleave="
-          if (centerInfo) {
-            svgText = text
-          }
-        "
-      >
+      <g ref="svgitems" :class="{ active: activeItem == index }">
         <!-- ITEM ~ circle -->
         <circle
+          ref="svgcircles"
           class="circle-area"
           :cx="mainCx"
           :cy="mainCy"
@@ -60,13 +61,14 @@
         />
         <!-- ITEM ~ icon -->
         <g
+          ref="svgicons"
           :style="`transform:translate(${mainCx}px,${mainCy}px) scale(0);
                    transition-duration:.3s;
                    fill:${activeItem == index ? '#222' : item.color}`"
           v-html="require('~/assets/icons/' + item.icon + '?raw')"
         />
         <!-- ITEM ~ text(s) -->
-        <text class="text-item">
+        <text ref="svg-item-text" class="text-item">
           <tspan v-if="display[1]" :x="mainCx" :y="mainCy">
             {{ item.name }}
           </tspan>
@@ -117,21 +119,17 @@ export default {
       },
     },
     centerInfo: { type: Boolean, default: false }, // display hovering info in center text
+    activeText: { type: Boolean, default: false }, // if non-empty, display cancel-filter text when an item is active
     activateItem: { type: Number, default: -1 }, // receive item to activate by default on load
   },
   data() {
     return {
-      svgText: this.text, // default center text - can be later changed on item hover or else (see mounted())
+      svgText: this.text, // default center text - can be later changed on item hover or else (see methods)
       activeItem: -1, // we'll only have 1 active item at a time (-1 = none active)
+      activatedOnLoad: false,
     }
   },
   mounted() {
-    if (this.activateItem !== -1) {
-      // activate item at load
-      this.activeItem = this.activateItem
-      // prevent disactivating
-      // const activatedOnLoad = true // TODO: actually use this
-    }
     // adjust area-circles positions around the main big circle: c(mainCx,mainCy),r=mainR
     // const vm = this
     let cx = 0
@@ -139,11 +137,29 @@ export default {
     const mainCx = this.mainCx
     const mainCy = 250
     const mainR = 150
-    const mainCircle = document.querySelector('.circle-main')
+    const mainCircle = this.$refs['circle-main']
     const baseGrey = mainCircle.style.stroke // default circle grey
     let baseColor = baseGrey // main circle color (grey or active-item-color)
-    const itemGs = document.querySelectorAll('svg#' + this.svgid + ' a>g')
+    const itemGs = this.$refs.svgitems
     const itemNo = itemGs.length
+    const itemCircles = this.$refs.svgcircles
+    const itemIcons = this.$refs.svgicons
+    const itemColors = []
+    itemIcons.forEach((icon) => {
+      itemColors.push(icon.style.fill) // save item colors for later use
+    })
+
+    // activate item on page load (if asked to)
+    if (this.activateItem !== -1) {
+      this.activeItem = this.activateItem
+      // prevent disactivating
+      this.activatedOnLoad = true
+      // color main circle and set base color
+      mainCircle.style.stroke = itemIcons[this.activeItem].style.fill
+      baseColor = itemIcons[this.activeItem].style.fill
+    }
+
+    // set complex styling the old way
     itemGs.forEach((itemG, index) => {
       //  calculate #itemNo evenly spaced points around the main circle,
       //  (starting from bottom and rotating by 45deg)
@@ -161,14 +177,10 @@ export default {
         cy = Math.sin(((2 * Math.PI) / 3 / itemNo) * (index + itemNo - 5.5))
       }
       // set circles centers
-      const itemCircle = itemG.querySelector('svg#' + this.svgid + ' circle')
-      itemCircle.setAttribute('cx', mainR * cx + mainCx)
-      itemCircle.setAttribute('cy', mainR * cy + mainCy)
+      itemCircles[index].setAttribute('cx', mainR * cx + mainCx)
+      itemCircles[index].setAttribute('cy', mainR * cy + mainCy)
       // set icon centers (minus 50% (own half-size) because looks like we got no centered anchor)
-      const itemIcon = itemG.querySelector('svg#' + this.svgid + ' a>g>g')
-      const itemColor = itemIcon.style.fill // save item color for later use
-      // itemIcon.style.fill = itemColor
-      itemIcon.style.transform = `translate(${mainR * cx + mainCx}px,${
+      itemIcons[index].style.transform = `translate(${mainR * cx + mainCx}px,${
         mainR * cy + mainCy
       }px) scale(.07) translate(-50%,-50%)`
       // set text centers + 60px away from the main center
@@ -184,10 +196,10 @@ export default {
         if (!itemG.classList.contains('active')) {
           // if (this.activeItem !== index) {
           itemG.classList.add('hover')
-          mainCircle.style.stroke = itemColor
-          itemCircle.style.fill = itemColor
-          itemCircle.style.stroke = itemColor
-          itemIcon.style.fill = '#222'
+          mainCircle.style.stroke = itemColors[index]
+          itemCircles[index].style.fill = itemColors[index]
+          itemCircles[index].style.stroke = itemColors[index]
+          itemIcons[index].style.fill = '#222'
         }
       })
       itemG.addEventListener('mouseout', function () {
@@ -195,15 +207,15 @@ export default {
           // if (this.activeItem !== index) {
           itemG.classList.remove('hover')
           mainCircle.style.stroke = baseColor
-          itemCircle.style.stroke = baseGrey
-          itemCircle.style.fill = '#222'
-          itemIcon.style.fill = itemColor
+          itemCircles[index].style.stroke = baseGrey
+          itemCircles[index].style.fill = '#222'
+          itemIcons[index].style.fill = itemColors[index]
         }
       })
       // update base color on item click (main circle coloring)
       itemG.addEventListener('click', function () {
         if (!itemG.classList.contains('active')) {
-          baseColor = itemColor
+          baseColor = itemColors[index]
         } else {
           baseColor = baseGrey
         }
@@ -216,6 +228,16 @@ export default {
     },
     itemClick(item) {
       this.$emit('itemClicked', item)
+    },
+    onItem(item) {
+      if (this.centerInfo && !this.activeText) {
+        this.svgText = [item.name]
+      }
+    },
+    outItem(item) {
+      if (this.centerInfo && !this.activeText) {
+        this.svgText = this.text
+      }
     },
   },
 }
@@ -277,5 +299,15 @@ g.active text {
 g.active tspan:first-child {
   font-size: 34px;
   font-weight: 900;
+}
+/* vue transitions */
+.svgText-enter-active,
+.svgText-leave-active {
+  transition: 0.2s;
+}
+.svgText-enter,
+.svgText-leave-to {
+  opacity: 0;
+  transform: translateX(-20px);
 }
 </style>
