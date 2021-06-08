@@ -9,6 +9,7 @@
         :main-cy="mainCy"
         :main-r="mainR"
         :text="text"
+        :active-text="true"
         spacing="right"
         :display="[1, 1, 0]"
         @itemClicked="onClickChild"
