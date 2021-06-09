@@ -80,109 +80,145 @@ img {
   font-family: 'SFPD';
   font-style: normal;
   font-weight: 100;
-  src: url('~assets/fonts/SFPD/SFPD-Ultralight.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-Ultralight.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-Ultralight.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-Ultralight.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: italic;
   font-weight: 100;
-  src: url('~assets/fonts/SFPD/SFPD-UltralightItalic.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-UltralightItalic.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-UltralightItalic.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-UltralightItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: normal;
   font-weight: 200;
-  src: url('~assets/fonts/SFPD/SFPD-Thin.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-Thin.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-Thin.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-Thin.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: italic;
   font-weight: 200;
-  src: url('~assets/fonts/SFPD/SFPD-ThinItalic.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-ThinItalic.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-ThinItalic.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-ThinItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: normal;
   font-weight: 300;
-  src: url('~assets/fonts/SFPD/SFPD-Light.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-Light.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-Light.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-Light.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: italic;
   font-weight: 300;
-  src: url('~assets/fonts/SFPD/SFPD-LightItalic.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-LightItalic.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-LightItalic.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-LightItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: normal;
   font-weight: 400;
-  src: url('~assets/fonts/SFPD/SFPD-Regular.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-Regular.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-Regular.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-Regular.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: italic;
   font-weight: 400;
-  src: url('~assets/fonts/SFPD/SFPD-RegularItalic.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-RegularItalic.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-RegularItalic.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-RegularItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: normal;
   font-weight: 500;
-  src: url('~assets/fonts/SFPD/SFPD-Medium.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-Medium.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-Medium.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-Medium.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: italic;
   font-weight: 500;
-  src: url('~assets/fonts/SFPD/SFPD-MediumItalic.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-MediumItalic.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-MediumItalic.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-MediumItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: normal;
   font-weight: 600;
-  src: url('~assets/fonts/SFPD/SFPD-Semibold.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-Semibold.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-Semibold.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-Semibold.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: italic;
   font-weight: 600;
-  src: url('~assets/fonts/SFPD/SFPD-SemiboldItalic.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-SemiboldItalic.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-SemiboldItalic.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-SemiboldItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: normal;
   font-weight: 700;
-  src: url('~assets/fonts/SFPD/SFPD-Bold.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-Bold.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-Bold.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-Bold.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: italic;
   font-weight: 700;
-  src: url('~assets/fonts/SFPD/SFPD-BoldItalic.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-BoldItalic.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-BoldItalic.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-BoldItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: normal;
   font-weight: 800;
-  src: url('~assets/fonts/SFPD/SFPD-Heavy.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-Heavy.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-Heavy.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-Heavy.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: italic;
   font-weight: 800;
-  src: url('~assets/fonts/SFPD/SFPD-HeavyItalic.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-HeavyItalic.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-HeavyItalic.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-HeavyItalic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: normal;
   font-weight: 900;
-  src: url('~assets/fonts/SFPD/SFPD-Black.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-Black.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-Black.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-Black.woff2') format('woff2');
 }
 @font-face {
   font-family: 'SFPD';
   font-style: italic;
   font-weight: 900;
-  src: url('~assets/fonts/SFPD/SFPD-BlackItalic.ttf') format('truetype');
+  src: url('~assets/fonts/SFPD/SFPD-BlackItalic.ttf') format('truetype'),
+    url('~assets/fonts/SFPD/SFPD-BlackItalic.woff') format('woff'),
+    url('~assets/fonts/SFPD/SFPD-BlackItalic.woff2') format('woff2');
 }
 /* fancy underlining - https://css-irl.info/animating-underlines/ */
 span.fancyul {
