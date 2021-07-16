@@ -220,6 +220,40 @@ img {
     url('~assets/fonts/SFPD/SFPD-BlackItalic.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-BlackItalic.woff2') format('woff2');
 }
+/* fancy background */
+@-webkit-keyframes wavedient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes wavedient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes wavedient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 /* fancy underlining - https://css-irl.info/animating-underlines/ */
 span.fancyul {
   background: linear-gradient(
