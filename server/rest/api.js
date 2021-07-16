@@ -15,8 +15,10 @@ async function init() {
   //*****   API: get areas   *****//
   app.get('/area', async (req, res) => {
     const area = await Area.findAll()
-    // TODO: ORDER THEM
-    return res.json(area)
+    // Sort by ID. This works well in the api url, but somehow not in the page where the app is used. Computers!
+    return res.json(
+      area.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
+    )
   })
   app.get('/area/:id', async (req, res) => {
     const { id } = req.params

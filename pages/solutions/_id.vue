@@ -61,6 +61,7 @@ export default {
     const { id } = route.params
     // about all areas
     const areas = await $axios.$get(`${process.env.BASE_URL}/api/area`)
+    areas.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
     // current product
     const { product, areaId, referent } = await $axios
       .get(`${process.env.BASE_URL}/api/product/${id}`)

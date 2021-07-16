@@ -7,14 +7,13 @@
       :main-cx="mainCx"
       :main-cy="mainCy"
       :main-r="mainR"
-      spacing="even"
+      :spacing="'even'"
       @itemClicked="onClickChild"
     ></circle-svg>
   </main>
 </template>
 
 <script>
-// import axios from 'axios'
 import CircleSvg from '~/components/CircleSvg.vue'
 
 export default {
@@ -22,6 +21,7 @@ export default {
   async asyncData({ $axios }) {
     const { data } = await $axios.get(`${process.env.BASE_URL}/api/area`)
     const areas = data
+    areas.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
     return {
       areas,
     }

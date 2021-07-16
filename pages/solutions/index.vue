@@ -38,6 +38,7 @@ export default {
   async asyncData({ $axios }) {
     // about all areas
     const areas = await $axios.$get(`${process.env.BASE_URL}/api/area`)
+    areas.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
     // about all products
     const cards = await $axios.$get(`${process.env.BASE_URL}/api/product`)
     return {
