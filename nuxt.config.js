@@ -5,7 +5,7 @@ export default {
   ssr: true,
   target: 'server',
   env: {
-    BASE_URL: 'http://moube.herokuapp.com', // Production URL
+    BASE_URL: 'https://moube.herokuapp.com', // Production URL
     // BASE_URL: '', // Development URL
   },
   serverMiddleware: [
@@ -59,63 +59,61 @@ export default {
   css: ['normalize.css/normalize.css', '~assets/styles/global.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    { src: '~/plugins/ScrollMagic.js', mode: 'client' },
-    { src: '~/plugins/Chroma.js', mode: 'client' },
-  ],
+  // plugins: [
+  // { src: '~/plugins/ScrollMagic.js', mode: 'client' },
+  // { src: '~/plugins/Chroma.js', mode: 'client' },
+  // ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module',
+    '@nuxtjs/eslint-module', // https://go.nuxtjs.dev/eslint
     '@nuxtjs/svg', // import svg as raw files (to support css animations) //npm install --save-dev @nuxtjs/svg
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
+    '@nuxtjs/axios', // https://go.nuxtjs.dev/axios
   ],
-  alias: {
-    TweenLite: path.resolve(
-      'node_modules',
-      'gsap/src/uncompressed/TweenLite.js'
-    ),
-    TweenMax: path.resolve('node_modules', 'gsap/src/uncompressed/TweenMax.js'),
-    TimelineLite: path.resolve(
-      'node_modules',
-      'gsap/src/uncompressed/TimelineLite.js'
-    ),
-    TimelineMax: path.resolve(
-      'node_modules',
-      'gsap/src/uncompressed/TimelineMax.js'
-    ),
-    ScrollMagic: path.resolve(
-      'node_modules',
-      'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'
-    ),
-    'animation.gsap': path.resolve(
-      'node_modules',
-      'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'
-    ),
-    'debug.addIndicators': path.resolve(
-      'node_modules',
-      'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js'
-    ),
-  },
+  // alias: {
+  // TweenLite: path.resolve(
+  //   'node_modules',
+  //   'gsap/src/uncompressed/TweenLite.js'
+  // ),
+  // TweenMax: path.resolve('node_modules', 'gsap/src/uncompressed/TweenMax.js'),
+  // TimelineLite: path.resolve(
+  //   'node_modules',
+  //   'gsap/src/uncompressed/TimelineLite.js'
+  // ),
+  // TimelineMax: path.resolve(
+  //   'node_modules',
+  //   'gsap/src/uncompressed/TimelineMax.js'
+  // ),
+  // ScrollMagic: path.resolve(
+  //   'node_modules',
+  //   'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'
+  // ),
+  // 'animation.gsap': path.resolve(
+  //   'node_modules',
+  //   'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'
+  // ),
+  // 'debug.addIndicators': path.resolve(
+  //   'node_modules',
+  //   'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js'
+  // ),
+  // },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    plugins: [
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-      }),
-    ],
-    transpile: ['gsap'], // https://greensock.com/forums/topic/26104-nuxt-gsapdraggable-cannot-use-import-statement-outside-a-module/
+    // plugins: [
+    //   new webpack.ProvidePlugin({
+    //     $: 'jquery',
+    //   }),
+    // ],
+    // transpile: ['gsap'], // https://greensock.com/forums/topic/26104-nuxt-gsapdraggable-cannot-use-import-statement-outside-a-module/
   },
 }

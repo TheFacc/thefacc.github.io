@@ -38,8 +38,9 @@
     </g>
 
     <!-- ITEMS on the circle -->
+    <!-- (old vfor: of orderBy(items, 'id')) -->
     <a
-      v-for="(item, index) of orderBy(items, 'id')"
+      v-for="(item, index) of items"
       :key="'area-' + index"
       @click="
         itemClick(item)
@@ -82,10 +83,10 @@
 </template>
 
 <script>
-import Vue2Filters from 'vue2-filters' // to sort items by id
+// import Vue2Filters from 'vue2-filters' // to sort items by id
 
 export default {
-  mixins: [Vue2Filters.mixin],
+  // mixins: [Vue2Filters.mixin],
   props: {
     svgid: { type: String, default: 'svg' },
     vbox: { type: String, default: '0 0 900 450' },
@@ -159,7 +160,7 @@ export default {
       baseColor = itemIcons[this.activeItem].style.fill
     }
 
-    // set complex styling the old way
+    // set complex styling
     itemGs.forEach((itemG, index) => {
       //  calculate #itemNo evenly spaced points around the main circle,
       //  (starting from bottom and rotating by 45deg)
@@ -192,6 +193,7 @@ export default {
         if (cx < 0) itemText.style.textAnchor = 'end'
       })
       // add/remove .hover class (if inactive) + color main circle on small circle hover
+      //   (most of hover styling was made in Vue template, but these below were a bit harder to obtain there)
       itemG.addEventListener('mouseover', function () {
         if (!itemG.classList.contains('active')) {
           // if (this.activeItem !== index) {
@@ -222,6 +224,12 @@ export default {
       })
     })
   },
+  // beforeDestroy() {
+  //   // window.removeEventListener('scroll', this.onScrollFunction)
+  //   itemG.removeEventListener('mouseover', function () {})
+  //   itemG.removeEventListener('mouseout', function () {})
+  //   itemG.removeEventListener('click', function () {})
+  // },
   methods: {
     goTo(path) {
       this.$router.push({ path })

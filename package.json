@@ -14,21 +14,15 @@
     "@nuxtjs/axios": "^5.13.1",
     "@nuxtjs/eslint-module": "^3.0.2",
     "axios": "^0.21.1",
-    "chroma-js": "^2.1.2",
     "core-js": "^3.9.1",
     "express": "^4.17.1",
-    "gsap": "^3.6.1",
-    "jquery": "^3.6.0",
+    "morgan": "^1.10.0",
     "normalize.css": "^8.0.1",
-    "nprogress": "^0.2.0",
     "nuxt": "^2.15.3",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
-    "scrollmagic": "git+https://github.com/TheFacc/ScrollMagic.git",
-    "scrollmagic-plugin-gsap": "^1.0.4",
     "sequelize": "^6.6.2",
-    "sharp": "^0.28.2",
-    "vue2-filters": "^0.12.0"
+    "sharp": "^0.28.2"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^6.0.0",

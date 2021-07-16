@@ -12,6 +12,7 @@
 </template>
 
 <script>
+/* [plugin:scrollmagic]
 // import $ from 'jquery'
 import { TweenMax, Cubic } from 'gsap'
 // import 'imports-loader?define=>true!scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators'
@@ -33,8 +34,9 @@ import { TweenMax, Cubic } from 'gsap'
 
 // check if process is on server or client
 // if (process.client) {
-//   gsap.registerPlugin(TweenMax)
+  //   gsap.registerPlugin(TweenMax)
 // }
+[/plugin:scrollmagic] */
 
 export default {
   props: {
@@ -52,21 +54,19 @@ export default {
   data() {
     return { scenes: {}, sceneDurations: [] }
   },
-  // watch: {
-  //   sceneDurations() {
-  //     Object.entries(this.scenes).forEach((scene) => {
-  //       scene[1].refresh()
-  //     })
-  //   },
-  // },
   mounted() {
+    /* [plugin:chromajs]
     // COLOR
     const chroma = this.$chromajs
     const color0 = chroma(this.itemColor).set('hsl.l', 0.2).hex()
     document.querySelector('.page-anchors').style.background = `rgba(${chroma(
       color0
     ).rgb()},0.8)`
+    [/plugin:chromajs] */
+    // ok just use plain color as bg
+    document.querySelector('.page-anchors').style.background = this.itemColor
 
+    /* [plugin:scrollmagic]
     // ANCHORS highlight on scroll - https://codepen.io/grayghostvisuals/pen/EtdwL
     // if (!process.isClient) return
     require('animation.gsap')
@@ -103,7 +103,7 @@ export default {
         })
           .duration(this.sceneDurations[index])
           .setClassToggle('#' + section.anchorId, 'active')
-          .addIndicators() // DEBUG
+          // .addIndicators() // DEBUG
           .addTo(controller)
         this.scenes[section.sectionId] = s // fill variable
         // }
@@ -145,6 +145,7 @@ export default {
     //     resizeObserver.observe(el)
     //   }
     //   observeHeight(vm.$parent.$refs.products)
+    [/plugin:scrollmagic] */
   },
 }
 </script>
@@ -163,18 +164,29 @@ export default {
   box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
   z-index: 1;
 }
+.page-anchors div {
+  transition: 0.2s;
+}
+.page-anchors div:hover {
+  transform: scale(1.1);
+}
 .page-anchors a {
   text-decoration: none;
-  color: white;
-  font-weight: 200;
+  color: #222222;
+  font-weight: 400;
   transition: 0.2s ease-out;
+  /* adding style to overcome scrollmagic plugin missing */
+  padding: 10px 50px;
 }
 .page-anchors a:hover {
   font-weight: 500;
+  /* adding style to overcome scrollmagic plugin missing */
+  background: rgba(255, 255, 255, 0.3);
+  padding: 13px 50px;
 }
 /* @media screen and (min-width: 768px) { */
 .page-anchors a.active {
-  font-weight: 600;
+  font-weight: 800;
   padding: 10px 50px;
   background: rgba(0, 0, 0, 0.3);
 }

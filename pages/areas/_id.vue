@@ -1,6 +1,10 @@
 <template>
   <main>
-    <item-intro :items="areas" :item-id="id - 1"></item-intro>
+    <item-intro
+      :item="areas[id - 1]"
+      :items="areas"
+      :item-id="id - 1"
+    ></item-intro>
     <page-anchors
       :item-color="areas[id - 1].color"
       :sections="sections"
@@ -36,9 +40,7 @@
 </template>
 
 <script>
-import { Linear } from 'gsap'
-// import { Linear, TweenMax, TimelineMax } from 'gsap'
-// import $ from 'jquery'
+// import { Linear } from 'gsap' // [plugin:scrollmagic]
 import ItemIntro from '~/components/ItemIntro.vue'
 import CardGrid from '~/components/CardGrid.vue'
 import PageAnchors from '~/components/PageAnchors.vue'
@@ -103,8 +105,6 @@ export default {
           anchorId: 'people-anchor',
         },
       ],
-      // default card shape (products)
-      shape: 'rectangle',
     }
   },
   mounted() {
@@ -112,7 +112,7 @@ export default {
     //   document.querySelector('.card-grid').style.gridTemplateColumns =
     //     'repeat(3, calc(100% / 3))'
     // }
-
+    /* [plugin:scrollmagic]
     // PARALLAX SCROLL
     require('animation.gsap')
     require('debug.addIndicators')
@@ -143,11 +143,12 @@ export default {
       })
       .addIndicators() // DEBUG
       .addTo(controller) // assign the scene to the controller
+      [/plugin:scrollmagic] */
   },
 }
 </script>
 
-<style>
+<style scoped>
 @media screen and (min-width: 768px) {
   .overview {
     display: flex;
