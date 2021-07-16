@@ -1,7 +1,6 @@
 # PLUGINS
 
-**This directory is not required, you can delete it if you don't want to use it.**
+This [directory](https://nuxtjs.org/guide/plugins) contains JS plugins to run before mounting the root Vue.js application.
 
-This directory contains Javascript plugins that you want to run before mounting the root Vue.js application.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/guide/plugins).
+- (ACTIVE) functions.js = global functions to be injected in all components
+- (INACTIVE) chroma.js/scrollmagic.js = used to import external plugins (not used in current project implementation)
