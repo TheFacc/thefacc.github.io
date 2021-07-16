@@ -12,7 +12,6 @@ pg.defaults.ssl = true
 const dburl = process.env.DATABASE_URL
 // LOCAL:
 // const dburl = 'longlink'
-
 const db = new Sequelize(dburl, {
   ssl: true,
   dialectOptions: { ssl: { require: true, rejectUnauthorized: false } },
@@ -44,8 +43,9 @@ function defineDatabaseStructure() {
     'product',
     {
       name: DataTypes.STRING,
-      description: DataTypes.TEXT,
-      image_src: DataTypes.STRING,
+      intro: DataTypes.TEXT,
+      introShort: DataTypes.TEXT,
+      image: DataTypes.STRING,
     },
     {
       underscored: true,
@@ -53,12 +53,12 @@ function defineDatabaseStructure() {
     }
   )
   // Product use cases
-  const UseCase = db.define(
-    'useCase',
+  const Usecase = db.define(
+    'usecase',
     {
       name: DataTypes.STRING,
       description: DataTypes.TEXT,
-      image_src: DataTypes.STRING,
+      image: DataTypes.STRING,
     },
     {
       underscored: true,
@@ -83,7 +83,7 @@ function defineDatabaseStructure() {
           'Engineer',
         ],
       },
-      image_src: DataTypes.STRING,
+      image: DataTypes.STRING,
       in_link: DataTypes.STRING,
     },
     {
@@ -99,8 +99,8 @@ function defineDatabaseStructure() {
   Area.hasMany(Product)
   // Creating the 1 -> 1 association between Area and Manager
   Area.hasOne(Person, { foreignKey: 'managerOf' })
-  // Creating the 1 -> N association between Products and UseCase
-  Product.hasMany(UseCase, { foreignKey: 'usecaseOf' })
+  // Creating the 1 -> N association between Products and Usecase
+  Product.hasMany(Usecase, { foreignKey: 'usecaseOf' })
   // Creating the 1 -> 1 association between Product and ProductReferent
   Product.hasOne(Person, { foreignKey: 'referentOf' })
 
@@ -109,7 +109,7 @@ function defineDatabaseStructure() {
     Area,
     Person,
     Product,
-    UseCase,
+    Usecase,
   }
 }
 

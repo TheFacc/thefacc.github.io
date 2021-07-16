@@ -10,11 +10,12 @@ async function init() {
   const db = await initializeDatabase()
 
   // Let's extract all the objects we need to perform queries inside the endpoints
-  const { Area, Person, Product, useCase } = db._tables
-
+  const { Area, Person, Product, Usecase } = db._tables
+  console.log('TABLE:', Area)
   //*****   API: get areas   *****//
   app.get('/area', async (req, res) => {
     const area = await Area.findAll()
+    // TODO: ORDER THEM
     return res.json(area)
   })
   app.get('/area/:id', async (req, res) => {
@@ -39,7 +40,7 @@ async function init() {
       where: { id },
       include: [
         { model: Person },
-        // { model: useCase } // I can't make it work
+        // { model: Usecase } // I can't make it work
       ],
     })
     return res.json(product)
@@ -61,10 +62,14 @@ async function init() {
   // by area_id - get it from areas[i].people[:]
 
   //*****   API: get use cases of a product   *****//
+  app.get('/usecases', async (req, res) => {
+    const usecase = await Usecase.findAll()
+    return res.json(usecase)
+  })
   app.get('/usecases/:id', async (req, res) => {
     const { id } = req.params
-    const usecases = await useCase.findAll({ where: { usecase_of: id } }) // DOESNT WORK EVEN THO ITS THE FREAKIN SAME
-    return res.json(usecases)
+    const usecase = await Usecase.findAll({ where: { usecase_of: id } }) // DOESNT WORK EVEN THO ITS THE FREAKIN SAME
+    return res.json(usecase)
   })
 }
 

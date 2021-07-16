@@ -14,10 +14,10 @@
         <div
           ref="thisCardImg"
           class="img"
-          :style="{ 'background-image': `url(${card.image_src})` }"
+          :style="{ 'background-image': `url(${card.image})` }"
         ></div>
         <h3>{{ card.name }}</h3>
-        <p>{{ card.description }}</p>
+        <p>{{ card.intro }}</p>
       </div>
     </transition-group>
   </div>
