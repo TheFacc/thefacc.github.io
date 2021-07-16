@@ -20,15 +20,13 @@
           </div></div
       ></transition-group>
     </div>
-    <div class="carousel-arrows">
+    <!-- <div class="carousel-arrows">
       <a class="prev" @click="plusSlides(-1)">&#10094;</a>
       <a class="next" @click="plusSlides(1)">&#10095;</a>
-    </div>
+    </div> -->
     <div class="carousel-controls">
       <button
-        v-show="hideArrowsOnBound ? !boundLeft : true"
         type="button"
-        :disabled="boundLeft"
         class="carousel-slide-arrow-left"
         @click="plusSlides(-1)"
       >
@@ -44,9 +42,7 @@
       >
 
       <button
-        v-show="hideArrowsOnBound ? !boundRight : true"
         type="button"
-        :disabled="boundRight"
         class="carousel-slide-arrow-right"
         @click="plusSlides(1)"
       >
@@ -127,7 +123,7 @@ export default {
   margin: 30px;
 }
 /* Arrows */
-.carousel-arrows {
+/* .carousel-arrows {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -141,7 +137,6 @@ export default {
 .next {
   cursor: pointer;
   position: absolute;
-  /* top: 50%; */
   width: auto;
   padding: 20% 20px;
   color: white;
@@ -149,7 +144,6 @@ export default {
   font-size: 48px;
   transition: 0.6s ease;
   user-select: none;
-  /* height: 400px; */
 }
 .prev {
   left: 0;
@@ -167,7 +161,7 @@ export default {
 }
 .next:hover {
   transform: translateX(5px);
-}
+} */
 
 /* Text */
 .slide h2 {
