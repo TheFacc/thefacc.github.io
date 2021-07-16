@@ -2,9 +2,13 @@
   <header ref="header" class="header">
     <div class="header-content">
       <!-- main logo -->
-      <div class="title" @click="goToHome"><h3>MouBE</h3></div>
-      <!-- search form (not there yet) -->
-      <div class="search"></div>
+      <div class="logo" @click="goToHome"><h3>MouBE</h3></div>
+      <!-- page title -->
+      <div class="title">
+        <transition name="title">
+          <div v-if="showTitle">{{ this.$store.state.title }}</div>
+        </transition>
+      </div>
       <!-- nav menu -->
       <nav class="right">
         <!-- mobile toggle -->
@@ -98,13 +102,16 @@ export default {
       mobileMenuOpen: false,
       itemHover: null,
       theme: this.$store.state.theme,
+      showTitle: false,
     }
   },
   mounted() {
     const alpha = 0.6
     const header = this.$refs.header
     const body = document.body
+    // set initial color
     header.style.background = `rgba(${this.$hex2rgb(this.theme)},${alpha})`
+    // change stuff on page scroll
     document.addEventListener('scroll', (e) => {
       const scrolled = document.scrollingElement.scrollTop
       const position = body.offsetTop
@@ -112,8 +119,10 @@ export default {
         header.style.background = `rgba(${this.$hex2rgb(
           this.$store.state.theme
         )},${alpha})`
+        this.showTitle = true
       } else {
         header.style.background = `rgba(${this.$hex2rgb(this.theme)},${alpha})`
+        this.showTitle = false
       }
     })
   },
@@ -124,13 +133,6 @@ export default {
     toggleMobileMenu() {
       this.mobileMenuOpen = !this.mobileMenuOpen
     },
-    // hex2rgb(hex) {
-    //   const res = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-    //   const r = parseInt(res[1], 16)
-    //   const g = parseInt(res[2], 16)
-    //   const b = parseInt(res[3], 16)
-    //   return res ? String(r) + ',' + String(g) + ',' + String(b) : null
-    // },
   },
 }
 </script>
@@ -169,6 +171,9 @@ export default {
   max-width: 800px;
   margin: 0 auto;
   align-items: center;
+}
+.nav__wrapper {
+  padding: 0;
 }
 @media (min-width: 768px) {
   .header-content {
@@ -250,20 +255,41 @@ export default {
   }
 }
 
-/**/
-.title {
+/*LOGO*/
+.logo {
   display: flex;
   justify-content: flex-start;
   font-size: 1.3rem;
   float: left;
   padding: 0 20px;
 }
-.title:hover {
+.logo:hover {
   cursor: pointer;
 }
-.search {
+
+/* TITLE */
+.title {
   flex: 1;
 }
+/* <transitions> */
+.title-enter {
+  transform: translate(0px, 30px);
+  opacity: 0;
+}
+.title-leave-to {
+  font-size: 2em;
+  transform: translate(-60px, 30px);
+  opacity: 0;
+}
+.title-leave-active {
+  position: absolute;
+}
+.title-leave-active,
+.title-enter-active {
+  transition: 0.5s;
+}
+
+/* NAV */
 .right {
   display: flex;
   justify-content: flex-end;
