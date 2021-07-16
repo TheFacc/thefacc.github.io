@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header ref="header" class="header">
     <div class="header-content">
       <!-- main logo -->
       <div class="title" @click="goToHome"><h3>MouBE</h3></div>
@@ -97,13 +97,25 @@ export default {
       ],
       mobileMenuOpen: false,
       itemHover: null,
+      theme: this.$store.state.theme,
     }
   },
   mounted() {
-    // set container margin-top the same as nav height
-    // document.body.style.marginTop = window
-    //   .getComputedStyle(document.querySelector('header'))
-    //   .getPropertyValue('height')
+    const alpha = 0.6
+    const header = this.$refs.header
+    const body = document.body
+    header.style.background = `rgba(${this.$hex2rgb(this.theme)},${alpha})`
+    document.addEventListener('scroll', (e) => {
+      const scrolled = document.scrollingElement.scrollTop
+      const position = body.offsetTop
+      if (scrolled > position + 300) {
+        header.style.background = `rgba(${this.$hex2rgb(
+          this.$store.state.theme
+        )},${alpha})`
+      } else {
+        header.style.background = `rgba(${this.$hex2rgb(this.theme)},${alpha})`
+      }
+    })
   },
   methods: {
     goToHome() {
@@ -112,6 +124,13 @@ export default {
     toggleMobileMenu() {
       this.mobileMenuOpen = !this.mobileMenuOpen
     },
+    // hex2rgb(hex) {
+    //   const res = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+    //   const r = parseInt(res[1], 16)
+    //   const g = parseInt(res[2], 16)
+    //   const b = parseInt(res[3], 16)
+    //   return res ? String(r) + ',' + String(g) + ',' + String(b) : null
+    // },
   },
 }
 </script>
@@ -122,18 +141,18 @@ export default {
   width: 100%;
   top: 0;
   height: auto;
-  background: rgba(210, 210, 210, 0.6);
   color: #222;
   display: flex;
   justify-content: space-between;
   text-align: center;
   z-index: 9001;
+  transition: 0.4s;
 }
 .header:before,
 .nav__wrapper:before {
   content: '';
   position: absolute;
-  backdrop-filter: blur(8px) saturate(0.5);
+  backdrop-filter: blur(8px) saturate(0.8);
   z-index: -1;
   top: 0;
   bottom: 0;
@@ -195,6 +214,7 @@ export default {
     transform: scaleY(1);
   }
   .nav__item {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -229,6 +249,7 @@ export default {
     padding: 0 10px;
   }
 }
+
 /**/
 .title {
   display: flex;
