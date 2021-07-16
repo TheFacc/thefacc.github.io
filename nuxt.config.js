@@ -5,7 +5,7 @@ export default {
   ssr: true,
   target: 'server',
   env: {
-    BASE_URL: 'https://moube.herokuapp.com', // Production URL
+    BASE_URL: 'http://moube.herokuapp.com', // Production URL - TODO set to https for final delivery!
     // BASE_URL: '', // Development URL
   },
   serverMiddleware: [
@@ -40,29 +40,30 @@ export default {
       //     'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css',
       // },
     ],
-    script: [
-      // jQuery
-      {
-        // src: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
-        src: 'https://code.jquery.com/jquery-3.6.0.min.js',
-        type: 'text/javascript',
-      },
-      // gsap
-      {
-        src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js',
-        type: 'text/javascript',
-      },
-    ],
+    // script: [
+    //   // jQuery
+    //   {
+    //     // src: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
+    //     src: 'https://code.jquery.com/jquery-3.6.0.min.js',
+    //     type: 'text/javascript',
+    //   },
+    //   // gsap
+    //   {
+    //     src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js',
+    //     type: 'text/javascript',
+    //   },
+    // ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['normalize.css/normalize.css', '~assets/styles/global.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  // plugins: [
-  // { src: '~/plugins/ScrollMagic.js', mode: 'client' },
-  // { src: '~/plugins/Chroma.js', mode: 'client' },
-  // ],
+  plugins: [
+    // { src: '~/plugins/ScrollMagic.js', mode: 'client' },
+    // { src: '~/plugins/Chroma.js', mode: 'client' },
+    { src: '~/plugins/functions.js', mode: 'client' },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
