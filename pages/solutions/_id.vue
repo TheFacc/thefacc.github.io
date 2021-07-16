@@ -32,8 +32,7 @@
       <section id="referent" ref="referent" class="referent anchored">
         <div class="ref-left">
           <h1>Get in touch!</h1>
-          <!-- TODO -->
-          <button>Contact</button>
+          <button class="material-button raised ripple">Contact</button>
         </div>
         <div class="ref-right">
           <card-grid :cards="[referent]" shape="rectangle"></card-grid>
@@ -125,6 +124,9 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit('setTheme', this.areas[this.areaId - 1].color)
+    console.log('statetheme:', this.$store.state.theme)
+
     // if (this.shape === 'circle') {
     //   document.querySelector('.card-grid').style.gridTemplateColumns =
     //     'repeat(3, calc(100% / 3))'
@@ -134,10 +136,7 @@ export default {
     require('animation.gsap')
     require('debug.addIndicators')
     const controller = new this.$scrollmagic.Controller({
-      globalSceneOptions: {
-        triggerHook: 0.3,
-        reverse: true,
-      },
+      globalSceneOptions: { triggerHook: 0.3, reverse: true, },
     })
     new this.$scrollmagic.Scene({ duration: '50%' })
       .setTween('.page-anchors', {

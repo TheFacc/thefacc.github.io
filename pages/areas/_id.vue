@@ -109,6 +109,9 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit('setTheme', this.areas[this.id - 1].color)
+    console.log('statetheme:', this.$store.state.theme)
+
     // if (this.shape === 'circle') {
     //   document.querySelector('.card-grid').style.gridTemplateColumns =
     //     'repeat(3, calc(100% / 3))'
