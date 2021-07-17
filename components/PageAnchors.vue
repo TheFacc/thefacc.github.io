@@ -64,10 +64,12 @@ export default {
     ).rgb()},0.8)`
     [/plugin:chromajs] */
     // ok just use plain color as bg
-    document.querySelector('.page-anchors').style.background = this.itemColor
+    this.$refs.pageAnchors.style.background = `rgba(${this.$hex2rgb(
+      this.itemColor
+    )},0.8)`
 
     /* [plugin:scrollmagic]
-    // ANCHORS highlight on scroll - https://codepen.io/grayghostvisuals/pen/EtdwL
+    // ANCHORS highlight on scroll
     // if (!process.isClient) return
     require('animation.gsap')
     require('debug.addIndicators')
@@ -176,23 +178,32 @@ export default {
   font-weight: 400;
   transition: 0.2s ease-out;
   /* adding style to overcome scrollmagic plugin missing */
-  padding: 10px 50px;
 }
 .page-anchors a:hover {
   font-weight: 500;
   /* adding style to overcome scrollmagic plugin missing */
   background: rgba(255, 255, 255, 0.3);
-  padding: 13px 50px;
 }
-/* @media screen and (min-width: 768px) { */
 .page-anchors a.active {
   font-weight: 800;
-  padding: 10px 50px;
+  padding: 10px 80px;
   background: rgba(0, 0, 0, 0.3);
 }
 .page-anchors a.active:hover {
-  padding: 10px 60px;
+  padding: 10px 100px;
   background: rgba(0, 0, 0, 0.4);
 }
-/* } */
+@media screen and (min-width: 768px) {
+  .page-anchors a {
+    padding: 10px 80px;
+  }
+  .page-anchors a:hover {
+    padding: 13px 80px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .page-anchors a {
+    padding: 10px;
+  }
+}
 </style>
