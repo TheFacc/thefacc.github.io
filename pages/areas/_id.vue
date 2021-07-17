@@ -11,10 +11,10 @@
     ></page-anchors>
     <div class="container">
       <section id="intro" ref="intro" class="overview raised anchored">
-        <div>
+        <div class="intro-img">
           <img :src="areas[$route.params.id - 1].image" />
         </div>
-        <div>
+        <div class="intro-text">
           <h2>This is area {{ $route.params.id }}</h2>
           <p>
             {{ areas[$route.params.id - 1].intro }}
@@ -110,7 +110,7 @@ export default {
   },
   mounted() {
     this.$store.commit('setTheme', this.areas[this.id - 1].color)
-    console.log('statetheme:', this.$store.state.theme)
+    this.$store.commit('setTitle', this.areas[this.id - 1].name)
 
     // if (this.shape === 'circle') {
     //   document.querySelector('.card-grid').style.gridTemplateColumns =
@@ -153,6 +153,12 @@ export default {
 </script>
 
 <style scoped>
+.overview {
+  overflow: hidden;
+}
+.overview .intro-img {
+  transform: scale(1.05);
+}
 @media screen and (min-width: 768px) {
   .overview {
     display: flex;
@@ -163,7 +169,9 @@ export default {
   }
   .overview > div {
     width: 50%;
-    padding: 20px;
+  }
+  .overview .intro-text {
+    padding: 30px;
   }
 }
 @media screen and (max-width: 768px) {
@@ -174,11 +182,8 @@ export default {
     justify-content: space-around;
     text-align: left;
   }
-  .overview > div {
-    padding: 10px;
+  .overview .intro-text {
+    padding: 20px;
   }
 }
-/* .overview > div:first-child {
-  width: 50%;
-} */
 </style>
