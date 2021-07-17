@@ -32,7 +32,12 @@
       <section id="referent" ref="referent" class="referent anchored">
         <div class="ref-left">
           <h1>Get in touch!</h1>
-          <button class="material-button raised ripple">Contact</button>
+          <button
+            class="material-button raised ripple"
+            @click="$goTo('/contact')"
+          >
+            Contact
+          </button>
         </div>
         <div class="ref-right">
           <card-grid :cards="[referent]" shape="rectangle"></card-grid>
@@ -125,12 +130,16 @@ export default {
   },
   mounted() {
     this.$store.commit('setTheme', this.areas[this.areaId - 1].color)
-    console.log('statetheme:', this.$store.state.theme)
+    this.$store.commit(
+      'setTitle',
+      this.areas[this.areaId - 1].name + ': ' + this.product.name
+    )
 
     // if (this.shape === 'circle') {
     //   document.querySelector('.card-grid').style.gridTemplateColumns =
     //     'repeat(3, calc(100% / 3))'
     // }
+
     /* [plugin:scrollmagic]
     // PARALLAX SCROLL
     require('animation.gsap')
@@ -173,6 +182,9 @@ export default {
 #referent .ref-right .card.card-rectangle:hover {
   padding: 10px 10px 20px;
 }
+#referent .card {
+  height: 205px;
+}
 </style>
 
 <style scoped>
@@ -181,21 +193,22 @@ export default {
 }
 #referent:before {
   content: '';
-  width: 98vw;
-  height: 20%;
+  width: 100vw;
+  height: 40%;
   position: absolute;
   z-index: -1;
   background: linear-gradient(270deg, #a7e2a8, #00ff06, #deff00, #00ffb7);
   background-size: 800%;
   filter: saturate(0.5);
   animation: wavedient 10s ease infinite;
+  animation-direction: alternate;
 }
 #referent .ref-right {
   text-align: center;
 }
 @media screen and (min-width: 768px) {
   .overview,
-  .referent {
+  #referent {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -206,10 +219,15 @@ export default {
     width: 50%;
     padding: 20px;
   }
+  #referent .ref-left {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 @media screen and (max-width: 768px) {
   .overview,
-  .referent {
+  #referent {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -219,8 +237,13 @@ export default {
   .overview > div {
     padding: 10px;
   }
+  #referent .ref-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  #referent .ref-left button {
+    margin: 0 20px;
+  }
 }
-/* .overview > div:first-child {
-  width: 50%;
-} */
 </style>

@@ -9,7 +9,7 @@
           'card-rectangle': shape === 'rectangle',
           'card-circle': shape === 'circle',
         }"
-        @click="goTo(`/solutions/${card.id}`)"
+        @click="$goTo(`/solutions/${card.id}`)"
       >
         <div
           ref="thisCardImg"
@@ -40,11 +40,6 @@ export default {
     // } else if (this.shape === 'circle') {
     //   this.$refs.thisCard.classList.add('card-circle')
     // }
-  },
-  methods: {
-    goTo(path) {
-      this.$router.push({ path })
-    },
   },
 }
 </script>

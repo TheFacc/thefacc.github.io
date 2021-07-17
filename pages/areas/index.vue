@@ -40,11 +40,8 @@ export default {
     }
   },
   methods: {
-    goTo(path) {
-      this.$router.push({ path })
-    },
     onClickChild(item) {
-      this.goTo('/areas/' + item.id)
+      this.$goTo('/areas/' + item.id)
     },
   },
 }

@@ -15,13 +15,13 @@
         @itemClicked="onClickChild"
       ></circle-svg>
       <!-- filtering tests -->
-      <div class="search">
+      <!-- <div class="search">
         <input
           v-model="search"
           type="text"
           placeholder="works only alone for now"
         />
-      </div>
+      </div> -->
       <!-- end tests -->
     </div>
     <div class="selector-items">
@@ -206,9 +206,6 @@ export default {
     },
   },
   methods: {
-    goTo(path) {
-      this.$router.push({ path })
-    },
     onClickChild(item) {
       if (this.filterby !== item.id) {
         this.filterby = item.id

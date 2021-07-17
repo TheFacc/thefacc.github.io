@@ -12,7 +12,7 @@
         v-for="(article, articleIndex) of articles"
         :key="'art-' + articleIndex"
         class="article"
-        @click="goTo(`/blog/${article.id}`)"
+        @click="$goTo(`/blog/${article.id}`)"
       >
         <article-mini
           :title="article.title"
@@ -48,11 +48,6 @@ export default {
       const { data } = await axios.get('/api/ad')
       this.adUrl = data.url
     }, 1000)
-  },
-  methods: {
-    goTo(path) {
-      this.$router.push({ path })
-    },
   },
 }
 </script>

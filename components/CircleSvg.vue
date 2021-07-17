@@ -231,9 +231,6 @@ export default {
   //   itemG.removeEventListener('click', function () {})
   // },
   methods: {
-    goTo(path) {
-      this.$router.push({ path })
-    },
     itemClick(item) {
       this.$emit('itemClicked', item)
     },
