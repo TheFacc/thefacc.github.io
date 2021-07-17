@@ -1,10 +1,7 @@
 <template>
   <main>
-    <static-intro
-      :title="'Discover MouBE'"
-      :introShort="'MOUving forward to make the world a BEtter place'"
-    ></static-intro>
-    <page-anchors :sections="sections"></page-anchors>
+    <item-intro :item="discover" :items="areas"></item-intro>
+    <page-anchors item-color="#dddddd" :sections="sections"></page-anchors>
     <div class="container">
       <section id="purpose" class="overview raised anchored">
         <div>
@@ -64,89 +61,48 @@
         </div>
       </section>
       <section id="roadmap" class="anchored">
-        <h1>Roadmap</h1>
-        <p>short text about this part</p>
-        <div class="road_graph">
-          <img
-            src="~/static/roadmap.png"
-            width="100%"
-            height="100%"
-            alt="roadmap image"
-          />
+        <div class="roadmap">
+          <h1>Roadmap</h1>
+          <p>short text about this part</p>
+          <div>
+            <img src="~/assets/roadmap.png" alt="MouBE Roadmap" />
+          </div>
         </div>
       </section>
       <section id="partners" class="anchored">
         <h1>Partners</h1>
-
         <p>short text about this part</p>
         <div class="partner-div">
-          <div class="logo">
-            <img
-              src="~/static/partners/akamas.png"
-              width="100%"
-              height="100%"
-              alt="akamas"
-            />
-          </div>
-          <div class="logo">
-            <img
-              src="~/static/partners/amazon.png"
-              width="100%"
-              height="100%"
-              alt="amazon"
-            />
-          </div>
-          <div class="logo">
-            <img
-              src="~/static/partners/arduino.png"
-              width="100%"
-              height="100%"
-              alt="arduino"
-            />
-          </div>
-          <div class="logo">
-            <img
-              src="~/static/partners/cleafy.png"
-              width="100%"
-              height="100%"
-              alt="cleafy"
-            />
-          </div>
-          <div class="logo">
-            <img
-              src="~/static/partners/contentwise.png"
-              width="100%"
-              height="100%"
-              alt="contentwise"
-            />
-          </div>
-          <div class="logo">
-            <img
-              src="~/static/partners/dynatrace.png"
-              width="100%"
-              height="100%"
-              alt="dynatrace"
-            />
-          </div>
-          <div class="logo">
-            <img
-              src="~/static/partners/moviri.png"
-              width="100%"
-              height="100%"
-              alt="moviri"
-            />
+          <div
+            v-for="(partner, index) in partners"
+            :key="'partner-' + index"
+            class="partner-logo"
+          >
+            <a
+              :href="partner.url"
+              target="_blank"
+              :alt="'Go to ' + partner.name + ' website'"
+              :title="'Go to ' + partner.name + ' website'"
+            >
+              <img :src="partner.img" :alt="partner.name" />
+            </a>
           </div>
         </div>
       </section>
-      <section class="contact-us">
-        <div class="left">
-          <h1>See us</h1>
-          <h1>Know us</h1>
-          <h1>Join us</h1>
-        </div>
-        <div class="right">
-          <h4>We are amazing! what are you waiting?</h4>
-          <button @click="goTo(`/contact`)">Contact us</button>
+      <section id="contact">
+        <div class="contact">
+          <div class="left">
+            <p>See us.<br />Know us.<br />Join us.</p>
+          </div>
+          <div class="right">
+            <p>What are you waiting for? Get in touch now.</p>
+            <button
+              class="material-button raised dark ripple"
+              @click="$goTo(`/contact`)"
+            >
+              Contact us
+            </button>
+          </div>
         </div>
       </section>
     </div>
@@ -155,11 +111,23 @@
 
 <script>
 import PageAnchors from '~/components/PageAnchors.vue'
-import StaticIntro from '~/components/staticIntro.vue'
+
 export default {
-  components: { StaticIntro, PageAnchors },
+  components: { PageAnchors },
+  async asyncData({ $axios, route }) {
+    // get all areas for the intro section
+    const areas = await $axios.$get(`${process.env.BASE_URL}/api/area`)
+    areas.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
+    return { areas }
+  },
   data() {
     return {
+      // 'fake' item for the intro section
+      discover: {
+        name: 'Discover MouBE',
+        introShort: 'MOUving forward to make the world a BEtter place',
+      },
+
       // define page sections for the anchors nav
       sections: [
         {
@@ -188,12 +156,46 @@ export default {
           anchorId: 'partners-anchor',
         },
       ],
+
+      // partners
+      partners: [
+        {
+          name: 'Akamas',
+          url: 'https://www.akamas.io/',
+          img: require('~/assets/partners/akamas.png'),
+        },
+        {
+          name: 'Amazon',
+          url: 'https://www.amazon.com/',
+          img: require('~/assets/partners/amazon.png'),
+        },
+        {
+          name: 'Arduino',
+          url: 'https://www.arduino.cc/',
+          img: require('~/assets/partners/arduino.png'),
+        },
+        {
+          name: 'Cleafy',
+          url: 'https://www.cleafy.com/',
+          img: require('~/assets/partners/cleafy.png'),
+        },
+        {
+          name: 'ContentWise',
+          url: 'https://www.contentwise.com/',
+          img: require('~/assets/partners/contentwise.png'),
+        },
+        {
+          name: 'Dynatrace',
+          url: 'https://www.dynatrace.it/',
+          img: require('~/assets/partners/dynatrace.png'),
+        },
+        {
+          name: 'Moviri',
+          url: 'https://www.moviri.com/',
+          img: require('~/assets/partners/moviri.png'),
+        },
+      ],
     }
-  },
-  methods: {
-    goTo(path) {
-      this.$router.push({ path })
-    },
   },
 }
 </script>
@@ -213,44 +215,79 @@ export default {
   }
 }
 
+/* 4. ROADMAP */
+#roadmap:before {
+  content: '';
+  position: absolute;
+  width: 100vw;
+  height: 60%;
+  z-index: -1;
+  background: linear-gradient(
+    270deg,
+    #999999 30%,
+    #c0c0c0,
+    #88b9cc,
+    #999999 70%
+  );
+  background-size: 1000%;
+  animation: wavedient 5s ease infinite;
+}
+
+/* 5. PARTNERS */
 .partner-div {
   text-align: center;
   width: 100%;
   padding: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
-
-.logo {
+.partner-logo {
   display: inline-block;
   width: 22%;
   margin: 10px 1%;
 }
 
-.contact-us {
+/* 6. CONTACT */
+.contact {
   width: 100%;
   height: 300px;
   padding: 30px;
-  background: #222;
   color: lightgray;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
 }
-
-.right {
+#roadmap,
+#contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#contact:before {
+  content: '';
+  position: absolute;
+  width: 100vw;
+  height: 40%;
+  background: #222;
+  z-index: -1;
+}
+#contact .right {
   position: relative;
   display: block;
 }
-.right h4 {
+#contact .right p {
+  font-size: 18px;
   padding: 20px;
 }
-button {
-  background-color: transparent;
-  color: lightgray;
-  border: 2px solid lightgray;
-}
-
-.left {
+#contact .left {
   width: 25%;
+}
+#contact .left p {
+  font-size: 32px;
+  text-align: left;
 }
 </style>
