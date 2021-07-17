@@ -12,6 +12,7 @@ html {
 }
 body {
   height: 100%;
+  overflow-x: hidden;
   margin: 0;
   background: radial-gradient(#d8d8d8 50%, #bababa);
   background-repeat: no-repeat;
@@ -108,6 +109,12 @@ img {
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
     0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
+.material-button.dark {
+  background: white;
+  color: #222222;
+  border: 2px solid lightgray;
+  transition: background 0.1s, padding 0.5s, border-radius 0.5s, color 1s;
+}
 /* Overlay */
 .material-button::before {
   content: '';
@@ -140,6 +147,13 @@ img {
 .material-button.raised:focus {
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
     0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.material-button.dark:hover,
+.material-button.dark:focus {
+  background: transparent;
+  color: white;
+  padding: 0 20px;
+  border-radius: 10px;
 }
 .material-button:hover::before {
   opacity: 0.08;
@@ -303,33 +317,8 @@ img {
     url('~assets/fonts/SFPD/SFPD-BlackItalic.woff2') format('woff2');
 }
 /* fancy background */
-@-webkit-keyframes wavedient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-@-moz-keyframes wavedient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 @keyframes wavedient {
   0% {
-    background-position: 0% 50%;
-  }
-  50% {
     background-position: 100% 50%;
   }
   100% {
