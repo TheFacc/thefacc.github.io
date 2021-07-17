@@ -1,17 +1,19 @@
 <template>
   <header ref="header" class="header">
     <div class="header-content">
-      <!-- main logo -->
-      <div class="logo" @click="goToHome"><h3>MouBE</h3></div>
-      <!-- page title -->
+      <!-- 1. main logo -->
+      <div class="logo" @click="goToHome">
+        <div v-html="require('~/assets/moube.svg?raw')" />
+      </div>
+      <!-- 2. page title -->
       <div class="title">
         <transition name="title">
-          <div v-if="showTitle">{{ this.$store.state.title }}</div>
+          <div v-if="showTitle">{{ $store.state.title }}</div>
         </transition>
       </div>
-      <!-- nav menu -->
+      <!-- 3. nav menu -->
       <nav class="right">
-        <!-- mobile toggle -->
+        <!-- mobile menu toggle button -->
         <div
           class="nav__toggle"
           :class="{ open: mobileMenuOpen, close: !mobileMenuOpen }"
@@ -31,6 +33,7 @@
             @mouseover="item.dropdownOpen = true"
             @mouseleave="item.dropdownOpen = false"
             @click="
+              // close menu on item click
               if (!item.options) {
                 toggleMobileMenu()
               }
@@ -40,11 +43,14 @@
               <div v-html="item.icon" />
               <span>{{ item.name }}</span>
             </nuxt-link>
-            <nav-dropdown
-              v-if="item.options && item.dropdownOpen"
-              :items="item.options"
-              @dropdown-clicked="toggleMobileMenu"
-            ></nav-dropdown>
+            <!-- show item dropdown (if the current menu item does have sub-content) -->
+            <transition name="dropdown">
+              <nav-dropdown
+                v-if="item.options && item.dropdownOpen"
+                :items="item.options"
+                @dropdown-clicked="toggleMobileMenu"
+              ></nav-dropdown
+            ></transition>
           </li>
         </ul>
       </nav>
@@ -82,7 +88,7 @@ export default {
         },
         {
           name: 'About',
-          path: '#',
+          path: '/about/company',
           icon: require('~/assets/icons/about.svg?raw'),
           dropdownOpen: false,
           options: [
@@ -100,7 +106,6 @@ export default {
         },
       ],
       mobileMenuOpen: false,
-      itemHover: null,
       theme: this.$store.state.theme,
       showTitle: false,
     }
@@ -109,7 +114,7 @@ export default {
     const alpha = 0.6
     const header = this.$refs.header
     const body = document.body
-    // set initial color
+    // set initial header color
     header.style.background = `rgba(${this.$hex2rgb(this.theme)},${alpha})`
     // change stuff on page scroll
     document.addEventListener('scroll', (e) => {
@@ -125,6 +130,10 @@ export default {
         this.showTitle = false
       }
     })
+    // listen to page clicks to close mobile menu if outside ;)
+    document.addEventListener('click', (e) =>
+      this.hideOnClickOutside(this.$refs.header)
+    )
   },
   methods: {
     goToHome() {
@@ -132,6 +141,18 @@ export default {
     },
     toggleMobileMenu() {
       this.mobileMenuOpen = !this.mobileMenuOpen
+    },
+    hideOnClickOutside(element) {
+      const outsideClickListener = (event) => {
+        if (this.mobileMenuOpen && !element.contains(event.target)) {
+          this.toggleMobileMenu()
+          removeClickListener()
+        }
+      }
+      const removeClickListener = () => {
+        document.removeEventListener('click', outsideClickListener)
+      }
+      document.addEventListener('click', outsideClickListener)
     },
   },
 }
@@ -168,7 +189,7 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   align-items: center;
 }
@@ -192,6 +213,19 @@ export default {
   .nav__item a {
     display: block;
     padding: 7px 1rem 2px;
+  }
+  /* dropdown <transition> */
+  .dropdown-enter {
+    transform: translate(0px, -30px) scaleY(0);
+    opacity: 0;
+  }
+  .dropdown-leave-to {
+    transform: translate(0px, -10px);
+    opacity: 0;
+  }
+  .dropdown-leave-active,
+  .dropdown-enter-active {
+    transition: 0.3s;
   }
 }
 
@@ -255,7 +289,7 @@ export default {
   }
 }
 
-/*LOGO*/
+/* 1. LOGO*/
 .logo {
   display: flex;
   justify-content: flex-start;
@@ -266,10 +300,15 @@ export default {
 .logo:hover {
   cursor: pointer;
 }
+.logo > div {
+  width: 165px;
+}
 
-/* TITLE */
+/* 2. TITLE */
 .title {
   flex: 1;
+  font-size: 20px;
+  font-variant: small-caps;
 }
 /* <transitions> */
 .title-enter {
@@ -281,15 +320,16 @@ export default {
   transform: translate(-60px, 30px);
   opacity: 0;
 }
-.title-leave-active {
-  position: absolute;
-}
 .title-leave-active,
 .title-enter-active {
   transition: 0.5s;
 }
-
-/* NAV */
+@media screen and (max-width: 900px) {
+  .title-leave-active {
+    position: absolute;
+  }
+}
+/* 3. NAV */
 .right {
   display: flex;
   justify-content: flex-end;
