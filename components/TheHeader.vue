@@ -88,7 +88,7 @@ export default {
         },
         {
           name: 'About',
-          path: '/about/company',
+          path: '',
           icon: require('~/assets/icons/about.svg?raw'),
           dropdownOpen: false,
           options: [
@@ -121,6 +121,7 @@ export default {
       const scrolled = document.scrollingElement.scrollTop
       const position = body.offsetTop
       if (scrolled > position + 300) {
+        // specific color theme (area of product of an area) or default grey
         header.style.background = `rgba(${this.$hex2rgb(
           this.$store.state.theme
         )},${alpha})`
@@ -267,7 +268,7 @@ export default {
     border-right: 4px solid transparent;
     padding: 10px 1rem;
   }
-  .nav__item a.nuxt-link-active {
+  .nav__item:not(:last-child) a.nuxt-link-active {
     border-right-color: rgba(0, 0, 0, 0.85);
   }
   .nav__item.active {
@@ -340,7 +341,7 @@ export default {
 .nav__item a {
   text-decoration: none;
 }
-.nav__item a.nuxt-link-active {
+.nav__item:not(:last-child) a.nuxt-link-active {
   font-weight: bold;
 }
 nav ul {
@@ -366,7 +367,7 @@ nav ul {
     border-bottom-color: rgba(0, 0, 0, 0.2);
     transition: 0s;
   }
-  .nav__item a.nuxt-link-active {
+  .nav__item:not(:last-child) a.nuxt-link-active {
     border-bottom-color: rgba(0, 0, 0, 0.85);
   }
   .nav__toggle {
