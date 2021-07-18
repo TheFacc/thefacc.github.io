@@ -2,8 +2,11 @@ export default {
   ssr: true,
   target: 'server',
   env: {
-    BASE_URL: 'https://moube.herokuapp.com', // Production URL
+    BASE_URL: '', // Production URL
+    //configurationId: 'YOUR CONFIG ID',
     // BASE_URL: '', // Development URL
+    configurationId: 'ab241181-6734-4b2b-9fd5-d75c0afa5e32',
+
   },
   serverMiddleware: [
     {
@@ -43,7 +46,7 @@ export default {
   css: ['normalize.css/normalize.css', '~assets/styles/global.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/mmcc.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
