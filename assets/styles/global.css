@@ -4,6 +4,10 @@ html {
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+html,
+body {
+  scroll-padding-top: 130px;
+}
 *,
 *::before,
 *::after {
@@ -48,6 +52,57 @@ img {
 .dark {
   background: #222;
   color: white;
+}
+
+/* standard info sections */
+.overview {
+  overflow: hidden;
+}
+.overview .intro-img {
+  transform: scale(1.05);
+  transform-origin: right;
+}
+@media screen and (min-width: 768px) {
+  .overview {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    text-align: left;
+  }
+  .overview > div {
+    width: 50%;
+  }
+  .overview .intro-text {
+    padding: 30px;
+  }
+  .overview.reverse {
+    flex-direction: row-reverse;
+  }
+  .overview.reverse .intro-img {
+    transform-origin: left;
+  }
+}
+@media screen and (max-width: 768px) {
+  .overview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    text-align: left;
+  }
+  .overview .intro-text {
+    padding: 20px;
+  }
+}
+/* fix anchor positioning by offsetting a pseudo-element */
+section.anchored:before {
+  content: '';
+  display: block;
+  position: relative;
+  width: 0;
+  height: 130px;
+  margin-top: -130px;
 }
 
 /* selector */
@@ -187,6 +242,7 @@ img {
 .material-button:disabled::after {
   opacity: 0;
 }
+/* end material-button */
 
 /*SFPD font*/
 /*ultralight thin light regular - medium - semibold bold heavy black*/

@@ -10,11 +10,11 @@
       :sections="sections"
     ></page-anchors>
     <div class="container">
-      <section id="intro" ref="intro" class="overview raised anchored">
-        <div>
+      <section id="intro" ref="intro" class="overview raised">
+        <div class="intro-img">
           <img :src="product.image" />
         </div>
-        <div>
+        <div class="intro-text">
           <h2>
             This is product {{ id }} from A{{ areaId }} ({{
               areas[areaId - 1].name
@@ -25,11 +25,11 @@
           </p>
         </div>
       </section>
-      <section id="usecases" ref="usecases" class="usecases anchored">
+      <section id="usecases" ref="usecases" class="usecases">
         <h1>Use cases</h1>
         <carousel :slides="usecases"></carousel>
       </section>
-      <section id="referent" ref="referent" class="referent anchored">
+      <section id="referent" ref="referent" class="referent">
         <div class="ref-left">
           <h1>Get in touch!</h1>
           <button
@@ -207,17 +207,12 @@ export default {
   text-align: center;
 }
 @media screen and (min-width: 768px) {
-  .overview,
   #referent {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     text-align: left;
-  }
-  .overview > div {
-    width: 50%;
-    padding: 20px;
   }
   #referent .ref-left {
     display: flex;
@@ -226,16 +221,12 @@ export default {
   }
 }
 @media screen and (max-width: 768px) {
-  .overview,
   #referent {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     text-align: left;
-  }
-  .overview > div {
-    padding: 10px;
   }
   #referent .ref-left {
     display: flex;

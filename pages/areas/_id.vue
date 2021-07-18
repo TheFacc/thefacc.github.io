@@ -151,39 +151,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.overview {
-  overflow: hidden;
-}
-.overview .intro-img {
-  transform: scale(1.05);
-}
-@media screen and (min-width: 768px) {
-  .overview {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    text-align: left;
-  }
-  .overview > div {
-    width: 50%;
-  }
-  .overview .intro-text {
-    padding: 30px;
-  }
-}
-@media screen and (max-width: 768px) {
-  .overview {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    text-align: left;
-  }
-  .overview .intro-text {
-    padding: 20px;
-  }
-}
-</style>
