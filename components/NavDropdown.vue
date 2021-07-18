@@ -8,7 +8,7 @@
         @click="$emit('dropdown-clicked', true)"
       >
         <nuxt-link :to="item.path">
-          <div v-html="item.icon" class="dropdown-svg" />
+          <div class="dropdown-svg" v-html="item.icon" />
           <span class="dropdown-name">{{ item.name }}</span>
         </nuxt-link>
       </li>
@@ -34,14 +34,13 @@ export default {
   methods: {
     openClose() {
       // Toggle menu
-      const vm = this
-      const closeListerner = (e) => {
-        if (vm.catchOutsideClick(e, vm.$refs.menu)) {
-          window.removeEventListener('click', closeListerner)
-          vm.isOpen = false
+      const closeListener = (e) => {
+        if (this.catchOutsideClick(e, this.$refs.menu)) {
+          window.removeEventListener('click', closeListener)
+          this.isOpen = false
         }
       }
-      window.addEventListener('click', closeListerner)
+      window.addEventListener('click', closeListener)
       this.isOpen = !this.isOpen
     },
     catchOutsideClick(event, dropdown) {
@@ -104,8 +103,9 @@ export default {
   padding: 10px;
 }
 @media (min-width: 768px) {
-  .dropdown-menu-wrapper .dropdown-menu {
-    animation: dropdown 0.3s ease;
+  .dropdown-menu-wrapper {
+    display: flex;
+    justify-content: flex-end;
   }
   .dropdown-menu .dropdown-item {
     padding: 3px 0;
@@ -142,16 +142,6 @@ export default {
 }
 .dropdown-menu .dropdown-item a.nuxt-link-active {
   border-left-color: rgba(0, 0, 0, 0.85);
-}
-@keyframes dropdown {
-  from {
-    opacity: 0;
-    transform: translate3d(0, -20px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
 }
 @keyframes dropdownMobile {
   from {
