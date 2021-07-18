@@ -7,6 +7,10 @@ export const mutations = {
     state.title = value
   },
   setTheme(state, value) {
-    state.theme = value
+    if (value === 'default') {
+      state.theme = '#d2d2d2'
+    } else {
+      state.theme = value
+    }
   },
 }
