@@ -42,7 +42,7 @@ export default {
   props: {
     itemColor: {
       type: String,
-      default: '#222',
+      default: '#dddddd',
     },
     sections: {
       type: Array,
@@ -51,9 +51,9 @@ export default {
       },
     },
   },
-  data() {
-    return { scenes: {}, sceneDurations: [] }
-  },
+  // data() {
+  // return { scenes: {}, sceneDurations: [] } // [plugin:scrollmagic]
+  // },
   mounted() {
     /* [plugin:chromajs]
     // COLOR
@@ -63,10 +63,25 @@ export default {
       color0
     ).rgb()},0.8)`
     [/plugin:chromajs] */
+
     // ok just use plain color as bg
-    this.$refs.pageAnchors.style.background = `rgba(${this.$hex2rgb(
-      this.itemColor
-    )},0.8)`
+    // console.log('colorL:', this.itemColor.length)
+    if (this.itemColor.length < 8) {
+      // only 1 color(hex): just set it
+      this.$refs.pageAnchors.style.background = `rgba(${this.$hex2rgb(
+        this.itemColor
+      )},0.8)`
+      console.log('bgsetted(1):', `rgba(${this.$hex2rgb(this.itemColor)},0.8)`)
+    } else {
+      // more than one color(already joined string): enable cycling all available colors
+      console.log('settingcolor:', this.itemColor)
+      this.$refs.pageAnchors.style.background = `linear-gradient(130deg, ${this.itemColor})`
+      this.$refs.pageAnchors.style.animation = 'wavedient 20s linear infinite'
+      this.$refs.pageAnchors.style.animationDirection = 'alternate'
+      this.$refs.pageAnchors.style.backgroundSize = '8000%'
+      console.log('bgsetted(n):', `linear-gradient(130deg, ${this.itemColor})`)
+    }
+    // }
 
     /* [plugin:scrollmagic]
     // ANCHORS highlight on scroll
@@ -168,6 +183,7 @@ export default {
 }
 .page-anchors div {
   transition: 0.2s;
+  min-width: 50px;
 }
 .page-anchors div:hover {
   transform: scale(1.1);
@@ -186,7 +202,7 @@ export default {
 }
 .page-anchors a.active {
   font-weight: 800;
-  padding: 10px 80px;
+  padding: 10px 50px;
   background: rgba(0, 0, 0, 0.3);
 }
 .page-anchors a.active:hover {
@@ -195,10 +211,10 @@ export default {
 }
 @media screen and (min-width: 768px) {
   .page-anchors a {
-    padding: 10px 80px;
+    padding: 10px 50px;
   }
   .page-anchors a:hover {
-    padding: 13px 80px;
+    padding: 13px 50px;
   }
 }
 @media screen and (max-width: 768px) {
