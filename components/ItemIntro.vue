@@ -1,5 +1,5 @@
 <template>
-  <section class="item-intro">
+  <section ref="itemIntro" class="item-intro">
     <div class="intro-left">
       <h1>{{ item.name }}</h1>
       <p>{{ item.introShort }}</p>
@@ -75,13 +75,25 @@ export default {
 
     // replace chromajs functionality with a custom built function
     if (this.itemId > -1) {
-      document.querySelector(
-        '.item-intro'
-      ).style.background = `linear-gradient(130deg, 
+      // a theme color was given: set as bg (with some color changes)
+      this.$refs.itemIntro.style.background = `linear-gradient(130deg, 
       ${this.$changeColorBrightness(this.items[this.itemId].color, -50)}
        50%,
       ${this.$changeColorBrightness(this.items[this.itemId].color, -70)} 
       50.05%)`
+    } else {
+      // no theme was given: cycle all available areas colors, but be discreet!
+      const colors = []
+      this.items.forEach((item) => {
+        let c = item.color
+        c = this.$changeColorBrightness(item.color, -40)
+        c = this.$hex2rgb(c)
+        colors.push(`rgba(${c},0.5)`)
+      })
+      this.$refs.itemIntro.style.background = `linear-gradient(130deg, ${colors})`
+      this.$refs.itemIntro.style.animation = 'wavedient 20s linear infinite'
+      this.$refs.itemIntro.style.animationDirection = 'alternate'
+      this.$refs.itemIntro.style.backgroundSize = '8000%'
     }
 
     /* [plugin:scrollmagic]
@@ -149,12 +161,29 @@ export default {
 .intro-right {
   position: relative;
 }
-.intro-left {
-  width: 25%;
+.intro-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .item-intro svg {
   height: 300px;
   fill: #ddd;
+}
+@media screen and (min-width: 768px) {
+  .intro-left {
+    width: 25%;
+  }
+  .intro-right:after {
+    content: '';
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 100%;
+    height: 180px;
+    width: 180px;
+    z-index: -1;
+    position: absolute;
+    transform: translateX(6px);
+  }
 }
 @media screen and (max-width: 768px) {
   .intro-right svg {
