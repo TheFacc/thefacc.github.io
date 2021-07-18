@@ -1,15 +1,24 @@
 <template>
   <main>
     <item-intro :item="discover" :items="areas"></item-intro>
-    <page-anchors item-color="#dddddd" :sections="sections"></page-anchors>
+    <page-anchors :item-color="areaColors" :sections="sections"></page-anchors>
     <div class="container">
+      <section id="ourname">
+        <div class="left" v-html="require('~/assets/moube.svg?raw')"></div>
+        <div class="right">
+          <p>
+            <span>MOU</span>ving forward to make the world a <span>BE</span>tter
+            place
+          </p>
+        </div>
+      </section>
       <section id="purpose" class="overview raised anchored">
-        <div>
+        <div class="intro-img">
           <img
             src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
           />
         </div>
-        <div>
+        <div class="intro-text">
           <h2>Our purpose</h2>
           <h4>Some nice ispirational text</h4>
           <p>
@@ -27,8 +36,13 @@
           </p>
         </div>
       </section>
-      <section id="research" class="overview raised anchored">
-        <div>
+      <section id="research" class="overview raised reverse anchored">
+        <div class="intro-img">
+          <img
+            src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
+          />
+        </div>
+        <div class="intro-text">
           <h1>Research</h1>
           <h4>Some nice ispirational text</h4>
           <p>
@@ -38,19 +52,14 @@
             aliquip ex ea commodo consequat.
           </p>
         </div>
-        <div>
-          <img
-            src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
-          />
-        </div>
       </section>
       <section id="technology" class="overview raised anchored">
-        <div>
+        <div class="intro-img">
           <img
             src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
           />
         </div>
-        <div>
+        <div class="intro-text">
           <h1>Technology</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -125,7 +134,8 @@ export default {
       // 'fake' item for the intro section
       discover: {
         name: 'Discover MouBE',
-        introShort: 'MOUving forward to make the world a BEtter place',
+        introShort:
+          'MouBErs believe in progress — that the application of intelligence, reason and science can improve business, society and the human condition',
       },
 
       // define page sections for the anchors nav
@@ -146,7 +156,7 @@ export default {
           anchorId: 'technology-anchor',
         },
         {
-          name: 'RoadMap',
+          name: 'Roadmap',
           sectionId: 'roadmap',
           anchorId: 'roadmap-anchor',
         },
@@ -197,30 +207,45 @@ export default {
       ],
     }
   },
+  computed: {
+    areaColors() {
+      // get area colors to send to pageanchors component
+      const colors = []
+      this.areas.forEach((area) => {
+        colors.push(`${area.color}aa`)
+      })
+      return colors.join(',')
+    },
+  },
+  mounted() {
+    this.$store.commit('setTheme', '#d2d2d2')
+    this.$store.commit('setTitle', '')
+  },
 }
 </script>
 
 <style scoped>
-@media screen and (min-width: 768px) {
-  .overview {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    text-align: left;
-  }
-  .overview > div {
-    width: 50%;
-    padding: 20px;
-  }
+/* 0. OURNAME */
+#ourname {
+  display: flex;
+  flex-direction: column;
+}
+#ourname .left {
+  padding: 20px;
+}
+#ourname .right {
+  font-size: 30px;
+  font-weight: 300;
+}
+#ourname .right span {
+  font-weight: 800;
 }
 
 /* 4. ROADMAP */
-#roadmap:before {
+#roadmap:after {
   content: '';
   position: absolute;
   width: 100vw;
-  height: 60%;
   z-index: -1;
   background: linear-gradient(
     270deg,
@@ -231,6 +256,16 @@ export default {
   );
   background-size: 1000%;
   animation: wavedient 5s ease infinite;
+}
+@media screen and (min-width: 768px) {
+  #roadmap:after {
+    height: 500px;
+  }
+}
+@media screen and (max-width: 768px) {
+  #roadmap:after {
+    height: 300px;
+  }
 }
 
 /* 5. PARTNERS */
@@ -283,11 +318,20 @@ export default {
   font-size: 18px;
   padding: 20px;
 }
-#contact .left {
-  width: 25%;
-}
 #contact .left p {
+  padding: 0 20%;
   font-size: 32px;
   text-align: left;
+}
+@media screen and (min-width: 768px) {
+  #contact .right,
+  #contact .left {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 768px) {
+  #contact .left {
+    width: 100%;
+  }
 }
 </style>
