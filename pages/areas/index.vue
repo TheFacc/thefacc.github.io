@@ -28,16 +28,20 @@ export default {
   },
   data() {
     return {
-      mainCx: 450,
+      mainCx: 475,
       mainCy: 250,
       mainR: 150,
-      vbox: '0 0 900 450',
+      vbox: '0 0 950 450',
     }
   },
   head() {
     return {
       title: 'Areas',
     }
+  },
+  mounted() {
+    this.$store.commit('setTheme', 'default')
+    this.$store.commit('setTitle', '')
   },
   methods: {
     onClickChild(item) {
