@@ -205,6 +205,10 @@ export default {
       }
     },
   },
+  mounted() {
+    this.$store.commit('setTheme', 'default')
+    this.$store.commit('setTitle', '')
+  },
   methods: {
     onClickChild(item) {
       if (this.filterby !== item.id) {
