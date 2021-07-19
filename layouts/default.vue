@@ -2,11 +2,14 @@
   <div>
     <the-header></the-header>
     <Nuxt />
-    <the-footer></the-footer>
+    <chat :chat-list="list" />
+     <the-footer></the-footer>
   </div>
 </template>
 
 <script>
+import Chat from '~/components/Chat'
+import MMCCMixin from '~/mixins/mmcc-mixin'
 import TheHeader from '~/components/TheHeader.vue'
 import TheFooter from '~/components/TheFooter.vue'
 export default {
@@ -24,6 +27,9 @@ export default {
   //   }
   //   return +to.path.split('/').length < +from.path.split('/').length ? 'pagenear' : 'pagefar'
   // },
+    Chat,
+    mixins: [MMCCMixin],
+
 }
 </script>
 

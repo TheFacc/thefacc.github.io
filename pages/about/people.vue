@@ -30,6 +30,14 @@ export default {
       title: 'A WebSite - About',
     }
   },
+methods: {
+  navigate(path){
+    this.$router.push(path)
+  }
+
+}
+
+
 }
 </script>
 

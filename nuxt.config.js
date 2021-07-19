@@ -7,6 +7,7 @@ export default {
   env: {
     BASE_URL: 'https://moube.herokuapp.com', // Production URL - TODO set to https for final delivery!
     // BASE_URL: '', // Development URL
+    configurationId: 'ab241181-6734-4b2b-9fd5-d75c0afa5e32', // chatbot access
   },
   serverMiddleware: [
     {
@@ -62,7 +63,8 @@ export default {
   plugins: [
     // { src: '~/plugins/ScrollMagic.js', mode: 'client' },
     // { src: '~/plugins/Chroma.js', mode: 'client' },
-    { src: '~/plugins/functions.js', mode: 'client' },
+    { src: '~/plugins/functions.js', mode: 'client' }, // global functions
+    { src: '~/plugins/mmcc.js', mode: 'client' }, // chatbot connection
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

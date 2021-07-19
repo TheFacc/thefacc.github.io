@@ -3,7 +3,26 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      menuOptions: [
+        {
+          name: 'Home',
+          path: '/',
+        },
+        {
+          name: 'Blog',
+          path: '/blog',
+        },
+        {
+          name: 'About',
+          path: '/about',
+        },
+      ],
+    }
+  },
+}
 </script>
 
 <style>
