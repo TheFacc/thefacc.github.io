@@ -5,7 +5,7 @@ export default {
   ssr: true,
   target: 'server',
   env: {
-    BASE_URL: 'http://moube.herokuapp.com', // Production URL - TODO set to https for final delivery!
+    BASE_URL: 'https://moube.herokuapp.com', // Production URL - TODO set to https for final delivery!
     // BASE_URL: '', // Development URL
   },
   serverMiddleware: [
