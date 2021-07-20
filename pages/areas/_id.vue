@@ -26,7 +26,7 @@
         <h4>Products &amp; Services</h4>
         <card-grid :cards="products" shape="rectangle"></card-grid>
       </section>
-      <section id="people" ref="people" class="people raised dark anchored">
+      <section id="people" ref="people" class="items raised dark anchored">
         <h1>People</h1>
         <!-- leaderboard -->
         <h4>Leaderboard</h4>

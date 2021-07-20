@@ -19,24 +19,26 @@
           />
         </div>
         <div class="intro-text">
-          <h2>Our purpose</h2>
-          <h4>Some nice ispirational text</h4>
+          <h1>Our purpose</h1>
+          <h4>
+            A company built for a sustainable future, to help people work better
+            together, trust one another, and build global solutions to global
+            problems
+          </h4>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            eiusmod tempor incididunt ut labore.
           </p>
-          <h5>"some quote"</h5>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            <span class="quote"
+              >“There’s no shortage of remarkable ideas, what’s missing is the
+              will to execute them.”</span
+            ><br />
+            – Seth Godin
           </p>
         </div>
       </section>
-      <section id="research" class="overview raised reverse anchored">
+      <section id="research" class="overview raised anchored reverse">
         <div class="intro-img">
           <img
             src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
@@ -44,12 +46,17 @@
         </div>
         <div class="intro-text">
           <h1>Research</h1>
-          <h4>Some nice ispirational text</h4>
+          <h4>Pioneering tech begins with groundbreaking research</h4>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            MouBE began with and has grown through research. Before any
+            technology we integrate is developed, it is specified. And before it
+            is specified, it is researched. That research is peer-reviewed - a
+            unique achievement for a unique platform - so that our ideas may be
+            challenged before they are validated.
+          </p>
+          <p class="quote">
+            To build a lasting future, we’ve ensured the durability and
+            stability of every building block
           </p>
         </div>
       </section>
@@ -61,18 +68,28 @@
         </div>
         <div class="intro-text">
           <h1>Technology</h1>
+          <h4>Technology realized through evidence-based science</h4>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            MouBE brings a new standard in technology - open and inclusive – to
+            challenge the old and activate a new age of sustainable,
+            globally-distributed innovation.
+          </p>
+          <p>
+            Our technology is underpinned by research. We have redefined what it
+            means to create a global software platform through scientific
+            methods. We have not compromised on our belief, or in our approach.
+            To build a better future - secure, sustainable, and governable by
+            the many - we have taken the road less traveled.
           </p>
         </div>
       </section>
       <section id="roadmap" class="anchored">
         <div class="roadmap">
           <h1>Roadmap</h1>
-          <p>short text about this part</p>
+          <p>
+            Here you will find an overview of our goals for each era of
+            development, and where we're headed in the future.
+          </p>
           <div>
             <img src="~/assets/roadmap.png" alt="MouBE Roadmap" />
           </div>
@@ -80,7 +97,10 @@
       </section>
       <section id="partners" class="anchored">
         <h1>Partners</h1>
-        <p>short text about this part</p>
+        <p>
+          Reimagining value for our Business Partners with tracks focused on
+          what matters most to you.
+        </p>
         <div class="partner-div">
           <div
             v-for="(partner, index) in partners"
@@ -212,7 +232,7 @@ export default {
       // get area colors to send to pageanchors component
       const colors = []
       this.areas.forEach((area) => {
-        colors.push(`${area.color}aa`)
+        colors.push(`${area.color}cc`)
       })
       return colors.join(',')
     },
@@ -259,7 +279,7 @@ export default {
 }
 @media screen and (min-width: 768px) {
   #roadmap:after {
-    height: 500px;
+    height: 480px;
   }
 }
 @media screen and (max-width: 768px) {
@@ -289,12 +309,16 @@ export default {
 .contact {
   width: 100%;
   height: 300px;
-  padding: 30px;
   color: lightgray;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+}
+@media screen and (min-width: 768px) {
+  .contact {
+    padding: 30px;
+  }
 }
 #roadmap,
 #contact {
@@ -319,7 +343,7 @@ export default {
   padding: 20px;
 }
 #contact .left p {
-  padding: 0 20%;
+  padding: 0 12%;
   font-size: 32px;
   text-align: left;
 }
