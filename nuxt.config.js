@@ -33,6 +33,14 @@ export default {
           'https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap',
         rel: 'stylesheet',
       },
+
+      //link to a set of icon (used for linkedin  and arrow icon in about)
+      {
+        rel: 'stylesheet',
+        href:
+          'http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css',
+      },
+
       // {
       //   rel: 'stylesheet',
       //   type: 'text/css',
