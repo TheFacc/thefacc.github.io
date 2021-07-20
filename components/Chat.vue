@@ -35,7 +35,10 @@
         </div>
       </div>
     </transition>
+
     <div
+      :tooltip="chatOpen ? 'Close chat' : 'Need help? Talk to the bot!'"
+      flow="left"
       class="chat-button"
       :class="{ bounce: animated }"
       @click="toggleChat"
