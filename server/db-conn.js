@@ -91,6 +91,29 @@ function defineDatabaseStructure() {
       freezeTableName: true,
     }
   )
+  // Blog
+  const Article = db.define(
+    'articles',
+    {
+      title: DataTypes.STRING,
+      content: DataTypes.TEXT,
+      summary: DataTypes.STRING,
+      image: DataTypes.STRING,
+    },
+    {
+      underscored: true,
+    }
+  )
+  const Comment = db.define(
+    'comments',
+    {
+      author: DataTypes.STRING,
+      content: DataTypes.TEXT,
+    },
+    {
+      underscored: true,
+    }
+  )
 
   // More on association: https://sequelize.org/master/manual/assocs.html
   // Creating the 1 -> N association between Area and People
@@ -103,6 +126,8 @@ function defineDatabaseStructure() {
   Product.hasMany(Usecase, { foreignKey: 'usecaseOf' })
   // Creating the 1 -> 1 association between Product and ProductReferent
   Product.hasOne(Person, { foreignKey: 'referentOf' })
+  // Creating the 1 -> N association between Article and Comment
+  Article.hasMany(Comment, { foreignKey: 'article_id' })
 
   // Filling DB
   db._tables = {
@@ -110,6 +135,8 @@ function defineDatabaseStructure() {
     Person,
     Product,
     Usecase,
+    Article,
+    Comment,
   }
 }
 

@@ -10,12 +10,12 @@ async function init() {
   const db = await initializeDatabase()
 
   // Let's extract all the objects we need to perform queries inside the endpoints
-  const { Area, Person, Product, Usecase } = db._tables
+  const { Area, Person, Product, Usecase, Article, Comment } = db._tables
   console.log('TABLE:', Area)
   //*****   API: get areas   *****//
   app.get('/area', async (req, res) => {
     const area = await Area.findAll()
-    // Sort by ID. This works well in the api url, but somehow not in the page where the app is used. Computers!
+    // Sort by ID. This works well in the api url, but somehow not in the page where the api is used. Computers!
     return res.json(
       area.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
     )
@@ -72,6 +72,20 @@ async function init() {
     const { id } = req.params
     const usecase = await Usecase.findAll({ where: { usecase_of: id } }) // DOESNT WORK EVEN THO ITS THE FREAKIN SAME
     return res.json(usecase)
+  })
+
+  //*****   API: get blog articles   *****//
+  app.get('/article', async (req, res) => {
+    const article = await Article.findAll()
+    return res.json(article)
+  })
+  app.get('/article/:id', async (req, res) => {
+    const { id } = req.params
+    const article = await Article.findOne({
+      where: { id },
+      include: { model: Comment },
+    })
+    return res.json(article)
   })
 }
 
