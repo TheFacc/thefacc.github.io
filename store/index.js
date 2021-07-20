@@ -13,10 +13,15 @@ export const mutations = {
     state.title = value
   },
   setTheme(state, value) {
-    if (value === 'default') {
+    if (value === 'default' || value === '') {
       state.theme = '#d2d2d2'
+      document.body.classList.remove('darkbody')
+    } else if (value === 'dark') {
+      state.theme = '#ffffff'
+      document.body.classList.add('darkbody')
     } else {
       state.theme = value
+      document.body.classList.remove('darkbody')
     }
   },
   addMessage(state, message) {
