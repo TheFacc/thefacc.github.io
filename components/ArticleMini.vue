@@ -55,7 +55,7 @@ export default {
     width: 50%;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .card .img {
     width: 30%;
   }
@@ -96,5 +96,12 @@ export default {
 .article-mini:hover .readmore {
   opacity: 1;
   transform: translateX(-10px);
+}
+</style>
+
+<style>
+.recents .card .img,
+.recents .card .text {
+  width: 100%;
 }
 </style>

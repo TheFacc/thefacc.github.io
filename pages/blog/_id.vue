@@ -2,12 +2,7 @@
   <div>
     <!-- article header -->
     <div class="article-img">
-      <div
-        class="img"
-        :style="{
-          'background-image': `url(${article.image});`,
-        }"
-      ></div>
+      <div ref="imgbg" class="img"></div>
       <img :src="article.image" />
     </div>
     <div
@@ -114,6 +109,7 @@ export default {
   mounted() {
     this.$store.commit('setTheme', 'dark')
     this.$store.commit('setTitle', '')
+    this.$refs.imgbg.style.backgroundImage = `url(${this.article.image})`
   },
 }
 </script>
@@ -237,15 +233,9 @@ section.container {
     width: 30%;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .article-grid .article {
     width: 100%;
   }
-}
-</style>
-<style>
-.recents .card .img,
-.recents .card .text {
-  width: 100%;
 }
 </style>
