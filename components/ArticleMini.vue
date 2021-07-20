@@ -1,6 +1,6 @@
 <template>
   <div class="article-mini">
-    <div class="card">
+    <div ref="card" class="card">
       <div class="img" :style="{ 'background-image': `url(${image})` }"></div>
       <div class="text">
         <span>{{ date }}</span>
@@ -8,6 +8,7 @@
         <p>{{ summary }}</p>
       </div>
     </div>
+    <p class="readmore">Read more »</p>
   </div>
 </template>
 
@@ -18,29 +19,28 @@ export default {
     summary: { type: String, default: '' },
     image: { type: String, default: '' },
     date: { type: String, default: '' },
+    format: { type: String, default: 'col' },
+  },
+  mounted() {
+    if (this.format === 'row') {
+      // articles by columns
+      this.$refs.card.style.flexDirection = 'row'
+    } else {
+      // articles by rows
+      this.$refs.card.style.flexDirection = 'column'
+    }
   },
 }
 </script>
 
 <style scoped>
 .card {
+  display: flex;
+  align-items: center;
   overflow: hidden;
-  background: #2e2e2e;
+  background: #3a3a3a;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   transition: 0.2s ease-in-out;
-}
-@media screen and (min-width: 768px) {
-  .card {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-}
-@media screen and (max-width: 768px) {
-  .card {
-    display: flex;
-    flex-direction: row;
-  }
 }
 .card:hover {
   background: rgba(255, 255, 255, 0.2);
@@ -48,9 +48,6 @@ export default {
 }
 .card:hover h3 {
   text-decoration: underline;
-}
-.card .text p {
-  height: 60px;
 }
 @media screen and (min-width: 768px) {
   .card .img,
@@ -75,7 +72,7 @@ export default {
   background-repeat: no-repeat;
 }
 .card .text {
-  padding: 0 20px;
+  padding: 0 8%;
   text-align: left;
 }
 .card .text span {
@@ -86,24 +83,18 @@ export default {
 }
 
 /* ::after (read more) */
-.article-mini::after {
+/* .article-mini::after {
   content: 'Read more »';
   position: absolute;
+} */
+.article-mini .readmore {
+  opacity: 0;
+  text-align: right;
   transition: 0.2s;
+  transform: translateX(-20px);
 }
-@media screen and (min-width: 768px) {
-  .article-mini::after {
-    opacity: 0;
-    transform: translate(260%, -25px);
-  }
-  .article-mini:hover::after {
-    opacity: 1;
-    transform: translate(240%, -25px);
-  }
-}
-@media screen and (max-width: 768px) {
-  .article-mini::after {
-    transform: translate(100%, -25px);
-  }
+.article-mini:hover .readmore {
+  opacity: 1;
+  transform: translateX(-10px);
 }
 </style>

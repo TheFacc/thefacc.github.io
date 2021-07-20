@@ -1,15 +1,18 @@
 <template>
-  <section>
+  <div>
+    <!-- article header -->
     <div class="article-img">
-      <!-- <div
+      <div
         class="img"
         :style="{
           'background-image': `url(${article.image});`,
         }"
-      ></div> -->
+      ></div>
       <img :src="article.image" />
     </div>
     <div
+      tooltip="All articles"
+      flow="right"
       class="goback"
       :class="{ bounce: animated }"
       @click="
@@ -18,44 +21,89 @@
       "
       @animationend="animated = false"
     >
-      <p>&lt;</p>
+      <img :src="require('~/assets/icons/back.svg')" />
     </div>
+
+    <!-- article -->
     <article class="container">
       <span>{{ article.updatedAt.slice(0, 10) }}</span>
       <h1>{{ article.title }}</h1>
       <h4>{{ article.summary }}</h4>
       <div v-html="article.content"></div>
     </article>
-    <section class="comments">
-      <h3>Comments</h3>
-      <h4 v-if="article.comments.length === 0">There are no comments</h4>
-      <div
-        v-for="(comment, commentIndex) of article.comments"
-        :key="'comments-' + commentIndex"
-        class="comment"
-      >
-        <div>
-          <span class="author"> {{ comment.author }}</span
-          ><span class="date">
-            - posted on {{ new Date(comment.createdAt).getDate() }}/{{
-              new Date(comment.createdAt).getMonth()
-            }}/{{ new Date(comment.createdAt).getFullYear() }}</span
-          >
+
+    <section class="container">
+      <!-- comments -->
+      <div class="comments">
+        <h3>Comments</h3>
+        <h4 v-if="article.comments.length === 0">There are no comments</h4>
+        <div
+          v-for="(comment, commentIndex) of article.comments"
+          :key="'comments-' + commentIndex"
+          class="comment"
+        >
+          <div>
+            <span class="author"> {{ comment.author }}</span
+            ><span class="date">
+              - posted on {{ new Date(comment.createdAt).getDate() }}/{{
+                new Date(comment.createdAt).getMonth()
+              }}/{{ new Date(comment.createdAt).getFullYear() }}</span
+            >
+          </div>
+          <div class="content">{{ comment.content }}</div>
         </div>
-        <div class="content">{{ comment.content }}</div>
+      </div>
+      <!-- recent articles -->
+      <div class="recents">
+        <h1>Recent articles</h1>
+        <div class="article-grid">
+          <div
+            v-for="(article, articleIndex) of recents"
+            :key="'art-' + articleIndex"
+            class="article"
+            @click="$goTo(`/blog/${article.id}`)"
+          >
+            <article-mini
+              :date="article.updatedAt.slice(0, 10)"
+              :title="article.title"
+              :summary="article.summary"
+              :image="article.image"
+              format="col"
+            ></article-mini>
+          </div>
+        </div>
       </div>
     </section>
-  </section>
+  </div>
 </template>
+
 <script>
+import ArticleMini from '~/components/ArticleMini.vue'
+
 export default {
+  components: { ArticleMini },
   async asyncData({ $axios, route }) {
-    const { data } = await $axios.get(
+    const article = await $axios.$get(
       `${process.env.BASE_URL}/api/article/${route.params.id}`
     )
-    const article = data
+    const recents = await $axios
+      .get(`${process.env.BASE_URL}/api/article`)
+      .then((res) => {
+        return (
+          res.data
+            .filter(function (art) {
+              // remove current article
+              return art.id !== parseInt(route.params.id)
+            })
+            // reverse sort
+            .sort((a, b) => (a.id > b.id ? -1 : b.id > a.id ? 1 : 0))
+            // get latest 3
+            .slice(0, 3)
+        )
+      })
     return {
       article,
+      recents,
     }
   },
   data() {
@@ -92,6 +140,7 @@ img {
 }
 .goback {
   position: absolute;
+  display: flex;
   padding: 20px;
   width: 60px;
   height: 60px;
@@ -101,28 +150,32 @@ img {
   text-align: center;
   color: white;
   background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
   border-radius: 100%;
-  /* transform: scale(0.7); */
   transition: 0.2s;
 }
 .goback:hover {
   cursor: pointer;
   transform: scale(1.05);
 }
-.goback p {
-  transform: translateY(-50%);
+.goback img {
+  filter: invert(1);
 }
 
 /* ARTICLE */
 article {
   text-align: justify;
   padding: 50px 10%;
+  margin: 0 auto;
   background: rgba(26, 26, 26, 0.9);
   backdrop-filter: blur(20px);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 article p {
   font-size: 1em;
+}
+article h1 {
+  text-align: left;
 }
 article p,
 article h1,
@@ -134,22 +187,28 @@ article h6 {
   margin: 20px 0;
 }
 article h4 {
-  margin: 30px 0;
+  margin: 40px 0;
 }
 
 /* COMMENTS */
+section.container {
+  margin-top: -10px;
+  background: #222;
+}
 .comments {
   text-align: left;
-  margin: 60px auto;
+  margin: auto;
+  padding: 60px 5%;
   max-width: 700px;
 }
 .comment {
   padding: 20px;
   margin: 10px;
   color: black;
-  background: #f7f7f7;
+  background: #dadada;
   border: 1px solid darkgray;
   border-radius: 15px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 .comment .date {
   color: darkgray;
@@ -158,5 +217,35 @@ article h4 {
 .comment .author {
   color: #3f51b5;
   font-weight: 800;
+}
+
+/* RECENTS */
+.article-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+.article-grid .article {
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+@media screen and (min-width: 768px) {
+  .article-grid .article {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .article-grid .article {
+    width: 100%;
+  }
+}
+</style>
+<style>
+.recents .card .img,
+.recents .card .text {
+  width: 100%;
 }
 </style>
