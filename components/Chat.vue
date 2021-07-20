@@ -1,5 +1,5 @@
 <template>
-  <div class="chat">
+  <div ref="chat" class="chat">
     <transition name="chat">
       <div v-if="chatOpen" class="chat-container">
         <div id="chat-window" class="chat-window">
@@ -16,17 +16,36 @@
             </div>
           </transition-group>
         </div>
-        <input
-          v-model="messageToSend"
-          type="text"
-          placeholder="Ask me something!"
-          @keypress.enter="sendMessage"
-        />
-        <span class="underline"></span>
+        <div class="chat-bottom">
+          <div>
+            <input
+              v-model="messageToSend"
+              type="text"
+              placeholder="Ask me something!"
+              @keypress.enter="sendMessage"
+            />
+          </div>
+          <!-- <div>
+            <img
+              src="~/assets/pin.svg"
+              alt="Keep the chat open"
+              title="Keep the chat open"
+            />
+          </div> -->
+        </div>
       </div>
     </transition>
-    <div class="chat-button" @click="chatOpen = !chatOpen">
-      <img src="https://img.icons8.com/ios-filled/452/chat--v1.png" alt="" />
+    <div
+      class="chat-button"
+      :class="{ bounce: animated }"
+      @click="toggleChat"
+      @animationend="animated = false"
+    >
+      <img
+        src="https://img.icons8.com/ios-filled/452/chat--v1.png"
+        alt="Open chatbot"
+        title="Open chatbot"
+      />
     </div>
   </div>
 </template>
@@ -42,10 +61,35 @@ export default {
   data() {
     return {
       messageToSend: '',
-      chatOpen: true,
+      chatOpen: false,
+      animated: false,
     }
   },
+  mounted() {
+    // listen to page clicks to close chat if outside
+    document.addEventListener('click', (e) =>
+      this.hideOnClickOutside(this.$refs.chat)
+    )
+  },
   methods: {
+    toggleChat() {
+      // Toggle chat
+      this.chatOpen = !this.chatOpen
+      // Enable bounce animation
+      this.animated = true
+    },
+    hideOnClickOutside(element) {
+      const outsideClickListener = (event) => {
+        if (this.chatOpen && !element.contains(event.target)) {
+          this.toggleChat()
+          removeClickListener()
+        }
+      }
+      const removeClickListener = () => {
+        document.removeEventListener('click', outsideClickListener)
+      }
+      document.addEventListener('click', outsideClickListener)
+    },
     sendMessage() {
       const { WebSocketEventBus } = require('mmcc/WebSocketEventBus')
       this.$store.commit('addMessage', {
@@ -64,6 +108,7 @@ export default {
 </script>
 
 <style scoped>
+/* BUTTON */
 .chat-button {
   height: 60px;
   width: 60px;
@@ -80,19 +125,20 @@ export default {
 .chat-button:hover {
   cursor: pointer;
   transform: scale(1.05);
-  transform-origin: bottom right;
 }
 .chat-button img {
   width: 100%;
   filter: invert(1);
 }
+
+/* BOX */
 .chat-container {
   position: fixed;
   z-index: 10000;
   height: 500px;
   width: 300px;
   bottom: 80px;
-  right: 0px;
+  right: 5px;
   background: rgb(255 255 255 / 50%);
   backdrop-filter: blur(20px);
   border: 1px solid black;
@@ -105,6 +151,11 @@ export default {
   display: flex;
   flex-direction: column-reverse;
 }
+.chat-window span {
+  transition: height 1s;
+}
+
+/* MESSAGE */
 .message {
   width: calc(100% - 8px);
   display: flex;
@@ -129,6 +180,15 @@ export default {
   color: white;
   border: 1px solid black;
 }
+
+/* BOTTOM */
+.chat-bottom {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+}
+/* input */
 .chat-container input {
   position: absolute;
   width: 90%;
@@ -147,7 +207,7 @@ export default {
 .chat-enter,
 .chat-leave-to {
   opacity: 0;
-  transform: scale(0.5, 0) translateY(30px);
+  transform: scale(0.3, 0.1) translate(50px, 30px);
   transform-origin: bottom right;
 }
 .chat-leave-active,
@@ -156,11 +216,18 @@ export default {
 }
 .message-enter,
 .message-leave-to {
-  opacity: 0.5;
-  transform: scale(0);
+  opacity: 0;
+  height: 0px;
+  /* transform: scale(0); */
+}
+.message-enter-to {
+  height: 30px;
 }
 .message-leave-active,
 .message-enter-active {
   transition: 0.2s ease;
+}
+.message-enter-active.sender {
+  transition-delay: 0.2s;
 }
 </style>
