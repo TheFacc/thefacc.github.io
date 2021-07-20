@@ -10,7 +10,7 @@
       class="personDescription"
       :style="
         'background-image: linear-gradient(to right, lightgray,' +
-        +areacolor +
+        +areaColor +
         ')'
       "
     >
@@ -81,7 +81,7 @@ export default {
 
   data() {
     return {
-      areacolor: 'blu',
+      areaColor: '#4CAF50',
     }
   },
 
