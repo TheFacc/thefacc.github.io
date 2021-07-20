@@ -22,6 +22,10 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+.darkbody {
+  background: #222;
+  color: rgb(235, 235, 235);
+}
 /* body::after {
   content: '';
   display: block;
@@ -29,6 +33,21 @@ body {
 } */
 img {
   width: 100%;
+}
+
+/* text */
+section:not(.items) p,
+section:not(.items) h1,
+section:not(.items) h2,
+section:not(.items) h3,
+section:not(.items) h4,
+section:not(.items) h5,
+section:not(.items) h6 {
+  margin: 10px 0;
+}
+.quote {
+  font-style: italic;
+  font-weight: 200;
 }
 .container {
   padding: 10px;
@@ -59,7 +78,7 @@ img {
   overflow: hidden;
 }
 .overview .intro-img {
-  transform: scale(1.05);
+  transform: scale(1.2);
   transform-origin: right;
 }
 @media screen and (min-width: 768px) {
@@ -379,6 +398,24 @@ section.anchored:before {
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+/* bounce - button click animation */
+.bounce {
+  animation: bounce 0.4s cubic-bezier(0, 1, 0.88, 1);
+}
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(0.9);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 /* fancy underlining - https://css-irl.info/animating-underlines/ */
