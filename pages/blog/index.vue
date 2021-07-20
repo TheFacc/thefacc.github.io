@@ -1,12 +1,5 @@
 <template>
   <main class="container">
-    <header>
-      <h1>Blog of the WebSite</h1>
-      <h4>And it's made with Nuxt</h4>
-      <div v-if="adUrl" class="ad">
-        <img :src="adUrl" alt="Advertisement" />
-      </div>
-    </header>
     <section class="article-grid">
       <div
         v-for="(article, articleIndex) of articles"
@@ -15,6 +8,7 @@
         @click="$goTo(`/blog/${article.id}`)"
       >
         <article-mini
+          :date="article.updatedAt.slice(0, 10)"
           :title="article.title"
           :summary="article.summary"
           :image="article.image"
@@ -25,59 +19,49 @@
 </template>
 
 <script>
-import axios from 'axios'
-import ArticleMini from '~/components/blog/ArticleMini.vue'
+// import axios from 'axios'
+import ArticleMini from '~/components/ArticleMini.vue'
 export default {
   components: {
     ArticleMini,
   },
   async asyncData({ $axios }) {
-    const { data } = await $axios.get(`${process.env.BASE_URL}/api/articles`)
+    const { data } = await $axios.get(`${process.env.BASE_URL}/api/article`)
     const articles = data
     return {
       articles,
     }
   },
-  data() {
-    return {
-      adUrl: '',
-    }
-  },
+  // data() {
+  //   return {
+  //     adUrl: '',
+  //   }
+  // },
   mounted() {
-    setTimeout(async () => {
-      const { data } = await axios.get('/api/ad')
-      this.adUrl = data.url
-    }, 1000)
+    //   setTimeout(async () => {
+    //     const { data } = await axios.get('/api/ad')
+    //     this.adUrl = data.url
+    //   }, 1000)
+    this.$store.commit('setTheme', 'dark')
+    this.$store.commit('setTitle', '')
   },
 }
 </script>
 
 <style scoped>
-h2 {
-  margin-bottom: 30px;
-}
 .article-grid {
-  display: grid;
-  grid-template-columns: repeat(3, calc(100% / 3));
-  grid-gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   margin-top: 40px;
 }
 .article {
   cursor: pointer;
   margin-bottom: 20px;
 }
-.ad img {
-  width: 100%;
-  height: 200px;
-}
-@media screen and (max-width: 600px) {
-  .ad img {
-    width: 100%;
-    height: 100px;
-  }
+@media screen and (min-width: 768px) {
   .article-grid {
-    display: block;
-    margin: 40px 20px;
+    width: 70%;
   }
 }
 </style>
