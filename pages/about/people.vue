@@ -1,49 +1,173 @@
 <template>
   <main class="container">
-    <header>
-      <h1>About what?</h1>
-      <h4>About this website.</h4>
-      <img
-        src="https://pbs.twimg.com/profile_images/1090208956440633345/Okg4uYbh_400x400.jpg"
-        alt="Nuxt Logo"
-      />
-    </header>
-    <section>
-      <h2>Another lorem ipsum</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum
-      </p>
-    </section>
+    <static-intro
+      :title="'Meet our team'"
+      :introShort="'some nice description about us <3'"
+    ></static-intro>
+    <div class="container">
+      <section id="people" ref="people" class="people raised dark">
+        <!-- leaderboard -->
+        <h2>Leaderboard</h2>
+        <card-grid :cards="teamLeaders" shape="circle"></card-grid>
+      </section>
+    </div>
+    <div class="container selector">
+      <!--selector div -->
+      <div class="selector-filter">
+        <circle-svg
+          svgid="areas"
+          :vbox="vbox"
+          :items="areas"
+          :main-cx="mainCx"
+          :main-cy="mainCy"
+          :main-r="mainR"
+          :text="text"
+          :active-text="true"
+          spacing="right"
+          :display="[1, 1, 0]"
+          @itemClicked="onClickChild"
+        ></circle-svg>
+
+        <!-- <circle-svg
+          svgid="roles"
+          :vbox="vbox"
+          :items="roles"
+          :main-cx="mainCx"
+          :main-cy="mainCy"
+          :main-r="mainR"
+          :text="text"
+          :active-text="true"
+          spacing="right"
+          :display="[1, 1, 0]"
+          @itemClicked="onClickChild"
+        ></circle-svg> -->
+      </div>
+
+      <!-- selected items div-->
+      <div class="selector-items">
+        <card-grid :cards="filteredListArea" shape="rectangle"></card-grid>
+      </div>
+    </div>
   </main>
 </template>
 
 <script>
+import StaticIntro from '~/components/staticIntro.vue'
+import CircleSvg from '~/components/CircleSvg.vue'
 export default {
+  components: { StaticIntro, CircleSvg },
+  async asyncData({ $axios }) {
+    // about all areas
+    const areas = await $axios.$get(`${process.env.BASE_URL}/api/area`)
+    areas.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
+    // about all people
+    const people = await $axios.$get(`${process.env.BASE_URL}/api/person`)
+    // rename 'role' to 'description' so it works in the card component
+    people.forEach((obj) => {
+      obj.description = obj.role
+      delete obj.role
+    })
+
+    // filter TEAM LEADER
+    const teamLeaders = people.filter(
+      (person) =>
+        person.description === 'General Manager' ||
+        person.description === 'Chief Research Officer' ||
+        person.description === 'Chief Executive Officer'
+    )
+
+    // other roles
+    const cards = people.filter(
+      (person) =>
+        person.description !== 'General Manager' &&
+        person.description !== 'Chief Research Officer' &&
+        person.description !== 'Chief Executive Officer'
+    )
+
+    return {
+      areas,
+      teamLeaders,
+      cards,
+    }
+  },
+
+  data() {
+    return {
+      roles: [
+        //try to define roles as a list
+        // not the leadership roles, for me they are usefull
+        {
+          name: 'Area manager',
+          path: '#',
+          color: '#F44336',
+          icon: require('~/assets/icons/area-cloud-computing.svg?raw'),
+          active: false,
+        },
+
+        {
+          name: 'Referent',
+          path: '#',
+          color: '#F44336',
+          icon: require('~/assets/icons/area-cloud-computing.svg?raw'),
+          active: false,
+        },
+
+        {
+          name: 'Engineer',
+          path: '#',
+          color: '#F44336',
+          icon: require('~/assets/icons/area-cloud-computing.svg?raw'),
+          active: false,
+        },
+      ],
+
+      // circle svg params
+      mainCx: 450,
+      mainCy: 250,
+      mainR: 115,
+      vbox: '330 70 625 350',
+      text: ['Select area to', 'filter its workers'],
+      // for filtering
+      filteredData: [],
+      search: '',
+      filterby: 0, // 0 = All
+    }
+  },
   head() {
     return {
-      title: 'A WebSite - About',
+      title: 'MouBE - People',
     }
+  },
+  computed: {
+    filteredListSearch() {
+      return this.cards.filter((card) => {
+        return card.title.toLowerCase().includes(this.search.toLowerCase())
+      })
+    },
+    filteredListArea() {
+      if (this.filterby === 0) {
+        return this.cards
+      } else {
+        return this.cards.filter((card) => {
+          // return !card.area.indexOf(this.filterby)
+          return card.areaId === this.filterby
+        })
+      }
+    },
+  },
+  methods: {
+    goTo(path) {
+      this.$router.push({ path })
+    },
+    onClickChild(item) {
+      if (this.filterby !== item.id) {
+        this.filterby = item.id
+      } else {
+        this.filterby = 0
+      }
+    },
   },
 }
 </script>
 
-<style scoped>
-h2 {
-  margin-bottom: 30px;
-}
-h4 {
-  margin-bottom: 30px;
-}
-img {
-  max-width: 600px;
-}
-p {
-  text-align: left;
-}
-</style>
+<style></style>
