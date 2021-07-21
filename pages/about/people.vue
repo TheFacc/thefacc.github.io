@@ -1,9 +1,6 @@
 <template>
   <main class="container">
-    <static-intro
-      :title="'Meet our team'"
-      :introShort="'some nice description about us <3'"
-    ></static-intro>
+    <item-intro :item="discover" :items="areas"></item-intro>
     <div class="container">
       <section id="people" ref="people" class="people raised dark">
         <!-- leaderboard -->
@@ -52,14 +49,14 @@
 </template>
 
 <script>
-import StaticIntro from '~/components/staticIntro.vue'
+import ItemIntro from '~/components/ItemIntro.vue'
 import CircleSvg from '~/components/CircleSvg.vue'
 export default {
-  components: { StaticIntro, CircleSvg },
+  components: { ItemIntro, CircleSvg },
   async asyncData({ $axios }) {
     // about all areas
     const areas = await $axios.$get(`${process.env.BASE_URL}/api/area`)
-    areas.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
+    // areas.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
     // about all people
     const people = await $axios.$get(`${process.env.BASE_URL}/api/person`)
     // rename 'role' to 'description' so it works in the card component
@@ -93,8 +90,14 @@ export default {
 
   data() {
     return {
+      // 'fake' item for the intro section
+      discover: {
+        name: 'Meet our team',
+        introShort: 'some nice description about us <3',
+      },
+
       roles: [
-        //try to define roles as a list
+        // try to define roles as a list
         // not the leadership roles, for me they are usefull
         {
           name: 'Area manager',
