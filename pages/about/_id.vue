@@ -1,16 +1,16 @@
 <template>
-  <div class="container">
+  <main class="container">
     <div class="backlink">
       <i class="fa fa-arrow-left"></i>
       <a href="javascript:history.back()">Go Back</a>
     </div>
 
-    <!-- instead of areacolor there should be area.color -->
     <div
+      tooltip=""
       class="personDescription"
       :style="
         'background-image: linear-gradient(to right, lightgray,' +
-        +areaColor +
+        area.data.color +
         ')'
       "
     >
@@ -30,14 +30,18 @@
         </p>
         <br />
         <br />
-        <h4>Area: <nuxt-link :to="'/areas/' + areaId">Analytics</nuxt-link></h4>
-        <!-- this and the following link doesn't work, look at problem line 71-->
-        <br />
-        <h4>
-          Referent of
-          <nuxt-link :to="'/solutions/' + productId">product name</nuxt-link>
+        <h4 v-if="area">
+          Area:
+          <nuxt-link :to="'/areas/' + areaId"> {{ area.data.name }}</nuxt-link>
         </h4>
-        <p>NOTE: this should be here only if person.referentOf != null</p>
+        <br />
+
+        <h4 v-if="product">
+          Referent of
+          <nuxt-link :to="'/solutions/' + productId">{{
+            product.data.name
+          }}</nuxt-link>
+        </h4>
         <!-- add the link to linkedin in the icon-->
         <a :href="person.in_link" target="blank">
           <i class="fa fa-linkedin-square" style="font-size: 24px"></i>
@@ -51,37 +55,50 @@
         </button>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
 export default {
   async asyncData({ $axios, route }) {
+    // select the specific person with the id
     const { id } = route.params
     const { person, productId, areaId } = await $axios
       .get(`${process.env.BASE_URL}/api/person/${id}`)
       .then((res) => {
         const person = res.data
-        const productId = res.referentOf
-        const areaId = res.areaId
+        const productId = person.referentOf
+        const areaId = person.areaId
         return { person, productId, areaId }
       })
 
-    // i don't know but i can not get the forenkey values ( area_id, referent_of, manager_of)
-    // all the commented part are because this problem
-    // const area = await $axios.get(`${process.env.BASE_URL}/api/area/${areaId}`)
+    // select the name of the area only if the persons is an area manager
+    let area
+    let areaName
+    if (areaId !== null && areaId !== undefined) {
+      area = await $axios.get(`${process.env.BASE_URL}/api/area/${areaId}`)
+      areaName = area.data.name
+    } else {
+      area = false
+    }
+
+    // select the productName only if the person is a referent
+    let product
+    if (productId !== null && productId !== undefined) {
+      product = await $axios.get(
+        `${process.env.BASE_URL}/api/product/${productId}`
+      )
+    } else {
+      product = false
+    }
 
     return {
       person,
       productId,
       areaId,
-      // area,
-    }
-  },
-
-  data() {
-    return {
-      areaColor: '#4CAF50',
+      area,
+      areaName,
+      product,
     }
   },
 
@@ -110,6 +127,14 @@ export default {
 </style>
 
 <style scoped>
+/* style for the links */
+a:link {
+  color: blue;
+}
+a:hover {
+  color: white;
+  background-color: blue;
+}
 /*style for the whole person div*/
 .personDescription {
   display: flex;
@@ -124,10 +149,6 @@ export default {
   }
 }
 
-/* the backgroud of the person ha a gradient */
-#grad1 {
-  background-image: linear-gradient(to right, lightgray, red);
-}
 /* style for the image on the left*/
 .personImage {
   height: 500px;
@@ -140,7 +161,7 @@ img {
   size: 100%;
 }
 
-/*styling the back link */
+/*styling the back button */
 .backlink {
   display: flex;
   flex-direction: row;
@@ -154,6 +175,11 @@ img {
   align-items: center;
   padding: 50px;
   background-color: rgb(240, 233, 233);
+}
+
+button {
+  color: gray;
+  border: 2px solid gray;
 }
 
 /* icons style*/
