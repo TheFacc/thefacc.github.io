@@ -5,12 +5,7 @@ export default {
     BASE_URL: '', // Production URL
     //configurationId: 'YOUR CONFIG ID',
     // BASE_URL: '', // Development URL
-<<<<<<< Updated upstream
-    configurationId: 'ab241181-6734-4b2b-9fd5-d75c0afa5e32',
-
-=======
-    configurationId: '709778ba-f365-4a55-8255-ea79fbdc0ed7', // chatbot access
->>>>>>> Stashed changes
+    configurationId: '457c738e-c55a-4293-8faf-53b627e4ce27',
   },
   serverMiddleware: [
     {

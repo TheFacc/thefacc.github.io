@@ -4,8 +4,8 @@
     "kb": {
     "first_or": {
       "initials": [
-        "Pick Contact or guide!",
-        "Do you want to go to Contact page or you want a guide in the website?"
+        
+        "Hi! I'm MouBi Chatbot and I'm here to help you! Do you want to go to Contact page or you want a guide in the website?"
       ],
       "choices": [
        
@@ -37,8 +37,8 @@
       },
       "unknown": "Option not available. Options: guide or contact"
     },
-    "guide": "Hello, this is Home",
-    "home": "Welcome to the About page",
+    "guide": "Welcome to the homepage! insert ok to move to the next page..",
+    "home": "Welcome to the About page! This was our guide to MouBi website",
     "about": {
       "initials": ["You completed the guide!"],
       "completed": {
