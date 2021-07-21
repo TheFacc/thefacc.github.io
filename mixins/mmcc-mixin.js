@@ -28,8 +28,8 @@ export default {
         })
       }
       if (message.payload) {
-        if (message.payload.guide) {
-          this.$router.push(message.payload.guide)
+        if (message.payload.customContact) {
+          this.$router.push(message.payload.customContact)
         }
       }
       if (message.payload) {
