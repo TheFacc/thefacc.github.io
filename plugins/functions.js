@@ -2,6 +2,9 @@ export default ({ app }, inject) => {
   inject('goTo', (path) => {
     app.router.push({ path })
   })
+  inject('goBack', () => {
+    window.history.back()
+  })
   inject('hex2rgb', (hex) => {
     const res = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
     const r = parseInt(res[1], 16)

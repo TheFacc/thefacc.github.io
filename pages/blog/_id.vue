@@ -5,19 +5,7 @@
       <div ref="imgbg" class="img"></div>
       <img :src="article.image" />
     </div>
-    <div
-      tooltip="All articles"
-      flow="right"
-      class="goback"
-      :class="{ bounce: animated }"
-      @click="
-        animated = true
-        $goTo('/blog')
-      "
-      @animationend="animated = false"
-    >
-      <img :src="require('~/assets/icons/back.svg')" />
-    </div>
+    <back-button text="All articles" path="/blog"></back-button>
 
     <!-- article -->
     <article class="container">
@@ -74,9 +62,10 @@
 
 <script>
 import ArticleMini from '~/components/ArticleMini.vue'
+import BackButton from '~/components/BackButton.vue'
 
 export default {
-  components: { ArticleMini },
+  components: { ArticleMini, BackButton },
   async asyncData({ $axios, route }) {
     const article = await $axios.$get(
       `${process.env.BASE_URL}/api/article/${route.params.id}`
@@ -101,14 +90,13 @@ export default {
       recents,
     }
   },
-  data() {
-    return {
-      animated: false,
-    }
-  },
   mounted() {
     this.$store.commit('setTheme', 'dark')
     this.$store.commit('setTitle', '')
+    this.$store.commit('updateRoute', {
+      title: 'Previous article',
+      url: window.location.href,
+    })
     this.$refs.imgbg.style.backgroundImage = `url(${this.article.image})`
   },
 }
@@ -133,29 +121,6 @@ export default {
 }
 img {
   max-width: 600px;
-}
-.goback {
-  position: absolute;
-  display: flex;
-  padding: 20px;
-  width: 60px;
-  height: 60px;
-  top: 77px;
-  left: 10px;
-  font-size: 32px;
-  text-align: center;
-  color: white;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(3px);
-  border-radius: 100%;
-  transition: 0.2s;
-}
-.goback:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-}
-.goback img {
-  filter: invert(1);
 }
 
 /* ARTICLE */

@@ -7,7 +7,7 @@
           v-model="searchContent"
           type="checkbox"
           value="searchContent"
-        /><label for="searchContent"> Search article content</label>
+        /><label for="searchContent"> Also search inside articles</label>
       </div>
     </div>
     <section class="article-grid">
@@ -71,6 +71,10 @@ export default {
   mounted() {
     this.$store.commit('setTheme', 'dark')
     this.$store.commit('setTitle', '')
+    this.$store.commit('updateRoute', {
+      title: 'Blog',
+      url: window.location.href,
+    })
   },
 }
 </script>

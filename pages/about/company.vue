@@ -240,6 +240,10 @@ export default {
   mounted() {
     this.$store.commit('setTheme', '#d2d2d2')
     this.$store.commit('setTitle', '')
+    this.$store.commit('updateRoute', {
+      title: 'About MouBE',
+      url: window.location.href,
+    })
   },
 }
 </script>

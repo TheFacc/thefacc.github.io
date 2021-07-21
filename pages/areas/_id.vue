@@ -1,15 +1,24 @@
 <template>
   <main>
+    <!-- top banner -->
     <item-intro
       :item="areas[id - 1]"
       :items="areas"
       :item-id="id - 1"
     ></item-intro>
+
+    <!-- page anchors -->
     <page-anchors
       :item-color="areas[id - 1].color"
       :sections="sections"
     ></page-anchors>
+
+    <!-- history.back button -->
+    <back-button v-if="fromPerson" :text="prevName"></back-button>
+
+    <!-- page -->
     <div class="container">
+      <!-- intro -->
       <section id="intro" ref="intro" class="overview raised anchored">
         <div class="intro-img">
           <img :src="areas[$route.params.id - 1].image" />
@@ -21,11 +30,15 @@
           </p>
         </div>
       </section>
+
+      <!-- solutions -->
       <section id="products" ref="products" class="items anchored">
         <h1>Solutions</h1>
         <h4>Products &amp; Services</h4>
         <card-grid :cards="products" shape="rectangle"></card-grid>
       </section>
+
+      <!-- people -->
       <section id="people" ref="people" class="items raised dark anchored">
         <h1>People</h1>
         <!-- leaderboard -->
@@ -44,9 +57,10 @@
 import ItemIntro from '~/components/ItemIntro.vue'
 import CardGrid from '~/components/CardGrid.vue'
 import PageAnchors from '~/components/PageAnchors.vue'
+import BackButton from '~/components/BackButton.vue'
 
 export default {
-  components: { ItemIntro, PageAnchors, CardGrid },
+  components: { ItemIntro, PageAnchors, CardGrid, BackButton },
   async asyncData({ $axios, route }) {
     const { id } = route.params
     // about all areas
@@ -106,16 +120,23 @@ export default {
           anchorId: 'people-anchor',
         },
       ],
+      //
+      fromPerson: false,
+      prevName: '',
     }
   },
   mounted() {
     this.$store.commit('setTheme', this.areas[this.id - 1].color)
     this.$store.commit('setTitle', this.areas[this.id - 1].name)
+    this.$store.commit('updateRoute', {
+      title: this.areas[this.id - 1].name,
+      url: window.location.href,
+    })
+    // condition to show back button (only if coming from 'far' page, i.e. person)
+    if (this.$store.state.pagePrevious.url) {
+      this.fromPerson = this.$store.state.pagePrevious.url.includes('about')
+    }
 
-    // if (this.shape === 'circle') {
-    //   document.querySelector('.card-grid').style.gridTemplateColumns =
-    //     'repeat(3, calc(100% / 3))'
-    // }
     /* [plugin:scrollmagic]
     // PARALLAX SCROLL
     require('animation.gsap')

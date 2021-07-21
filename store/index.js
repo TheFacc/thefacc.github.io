@@ -2,9 +2,12 @@ import Vue from 'vue'
 
 export const state = () => {
   return {
-    title: '',
-    theme: '#d2d2d2',
-    messages: [],
+    title: '', // text to inject in header
+    theme: '#d2d2d2', // header theme
+    messages: [], // chatbot
+    // path history for dynamic 'back' button where needed
+    pageCurrent: {},
+    pagePrevious: {},
   }
 }
 
@@ -23,6 +26,10 @@ export const mutations = {
       state.theme = value
       document.body.classList.remove('darkbody')
     }
+  },
+  updateRoute(state, value) {
+    state.pagePrevious = state.pageCurrent
+    state.pageCurrent = value
   },
   addMessage(state, message) {
     const messages = state.messages
