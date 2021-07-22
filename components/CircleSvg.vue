@@ -56,7 +56,7 @@
           class="circle-area"
           :cx="mainCx"
           :cy="mainCy"
-          r="30"
+          :r="itemsR"
           :style="`stroke:${activeItem == index ? item.color : '#47494e'};
                    fill:${activeItem == index ? item.color : '#222'}`"
         />
@@ -100,6 +100,7 @@ export default {
     mainCx: { type: Number, default: 450 },
     mainCy: { type: Number, default: 250 },
     mainR: { type: Number, default: 150 },
+    itemsR: { type: Number, default: 30 },
     // default center text (array of strings)
     text: {
       type: Array,
@@ -136,8 +137,9 @@ export default {
     let cx = 0
     let cy = 0
     const mainCx = this.mainCx
-    const mainCy = 250
-    const mainR = 150
+    const mainCy = this.mainCy
+    const mainR = this.mainR
+    const itemsR = this.itemsR
     const mainCircle = this.$refs['circle-main']
     const baseGrey = mainCircle.style.stroke // default circle grey
     let baseColor = baseGrey // main circle color (grey or active-item-color)
@@ -173,22 +175,36 @@ export default {
         cx = Math.cos(((2 * Math.PI) / 3 / itemNo) * (2 * itemNo - index - 0.5))
         cy = Math.sin(((2 * Math.PI) / 3 / itemNo) * (2 * itemNo - index - 0.5))
       } else if (this.spacing === 'right') {
-        // wrong for !=4 somehow
-        cx = Math.cos(((2 * Math.PI) / 3 / itemNo) * (index + itemNo - 5.5))
-        cy = Math.sin(((2 * Math.PI) / 3 / itemNo) * (index + itemNo - 5.5))
+        // cant find a working global formula somehow :(
+        if (itemNo === 4) {
+          cx = Math.cos(((2 * Math.PI) / 3 / itemNo) * (index + itemNo - 5.5))
+          cy = Math.sin(((2 * Math.PI) / 3 / itemNo) * (index + itemNo - 5.5))
+        } else {
+          // actually tailored on itemNo === 3
+          cx = Math.cos(((1.5 * Math.PI) / 3 / itemNo) * (index - 1))
+          cy = Math.sin(((1.5 * Math.PI) / 3 / itemNo) * (index - 1))
+        }
       }
-      // set circles centers
-      itemCircles[index].setAttribute('cx', mainR * cx + mainCx)
-      itemCircles[index].setAttribute('cy', mainR * cy + mainCy)
+      // set item distance from center
+      let d
+      if (this.spacing !== 'right') {
+        // default: circle centers onto main circle line
+        d = mainR
+      } else {
+        // 'right': circles outside main one (used for filtering function)
+        d = mainR + itemsR + 5
+      }
+      itemCircles[index].setAttribute('cx', d * cx + mainCx)
+      itemCircles[index].setAttribute('cy', d * cy + mainCy)
       // set icon centers (minus 50% (own half-size) because looks like we got no centered anchor)
-      itemIcons[index].style.transform = `translate(${mainR * cx + mainCx}px,${
-        mainR * cy + mainCy
+      itemIcons[index].style.transform = `translate(${d * cx + mainCx}px,${
+        d * cy + mainCy
       }px) scale(.07) translate(-50%,-50%)`
-      // set text centers + 60px away from the main center
+      // set text centers + R+50px away from the main center
       const itemTexts = itemG.querySelectorAll('svg#' + this.svgid + ' tspan')
       itemTexts.forEach((itemText) => {
-        itemText.setAttribute('x', (mainR + 60) * cx + mainCx)
-        itemText.setAttribute('y', (mainR + 60) * cy + mainCy)
+        itemText.setAttribute('x', (mainR + itemsR * 1.5 + 30) * cx + mainCx)
+        itemText.setAttribute('y', (mainR + itemsR * 1.5 + 30) * cy + mainCy)
         // set right text anchor for leftie texts
         if (cx < 0) itemText.style.textAnchor = 'end'
       })
