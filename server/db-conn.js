@@ -80,7 +80,7 @@ function defineDatabaseStructure() {
           'Chief Marketing Officer',
           'Area manager',
           'Chief Research Officer',
-          'Engineer',
+          'Product Referent',
         ],
       },
       image: DataTypes.STRING,
