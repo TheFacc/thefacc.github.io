@@ -115,15 +115,18 @@ section:not(.items) h6 {
     padding: 20px;
   }
 }
+.items.raised {
+  padding: 20px 8%;
+}
 /* fix anchor positioning by offsetting a pseudo-element */
-section.anchored:before {
+/* section.anchored:before {
   content: '';
   display: block;
   position: relative;
   width: 0;
   height: 130px;
   margin-top: -130px;
-}
+} */
 
 /* selector */
 .selector-filter {
@@ -132,7 +135,6 @@ section.anchored:before {
   flex: 0 0 40%;
   align-self: flex-start;
   top: 67px;
-  backdrop-filter: blur(5px) saturate(0.5);
 }
 .selector-items {
   width: 100%;
@@ -153,6 +155,9 @@ section.anchored:before {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+  }
+  .selector-filter {
+    backdrop-filter: blur(5px) saturate(0.5);
   }
 }
 
@@ -489,6 +494,17 @@ span.fancyul:focus {
 [tooltip='']::after {
   display: none !important;
 }
+
+/* FLOW: INSIDE */
+[tooltip]:not([flow])::after,
+[tooltip][flow^='in']::after {
+  top: 10px;
+}
+[tooltip]:not([flow])::after,
+[tooltip][flow^='in']::after {
+  left: 50%;
+  transform: translate(-50%, 20px);
+}
 /* FLOW: UP */
 [tooltip]:not([flow])::before,
 [tooltip][flow^='up']::before {
@@ -562,6 +578,7 @@ span.fancyul:focus {
 }
 [tooltip]:not([flow]):hover::before,
 [tooltip]:not([flow]):hover::after,
+[tooltip][flow^='in']:hover::after,
 [tooltip][flow^='up']:hover::before,
 [tooltip][flow^='up']:hover::after,
 [tooltip][flow^='down']:hover::before,

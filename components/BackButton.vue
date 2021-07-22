@@ -44,6 +44,7 @@ export default {
   backdrop-filter: blur(3px);
   border-radius: 100%;
   transition: 0.2s;
+  z-index: 5;
 }
 .goback:hover {
   cursor: pointer;

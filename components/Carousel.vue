@@ -11,12 +11,15 @@
           <div class="slide-left">
             <h2>{{ currentSlide.name }}</h2>
             <p class="slide-text">{{ currentSlide.description }}</p>
-            <!-- <div class="slide-index">
+            <div class="slide-index">
               {{ currentSlideIndex + 1 }} / {{ slides.length }}
-            </div> -->
+            </div>
           </div>
           <div class="slide-right">
-            <img :src="currentSlide.image" />
+            <!-- <img :src="currentSlide.image" /> -->
+            <div
+              :style="{ 'background-image': `url(${currentSlide.image})` }"
+            ></div>
           </div></div
       ></transition-group>
     </div>
@@ -118,10 +121,19 @@ export default {
     height: 600px;
   }
 }
-.slide-left,
-.slide-right {
+.slide-left {
   margin: 30px;
 }
+.slide-right {
+  height: 100%;
+}
+.slide-right div {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
+
 /* Arrows */
 /* .carousel-arrows {
   width: 100%;

@@ -65,21 +65,17 @@ export default {
     [/plugin:chromajs] */
 
     // ok just use plain color as bg
-    // console.log('colorL:', this.itemColor.length)
     if (this.itemColor.length < 8) {
       // only 1 color(hex): just set it
       this.$refs.pageAnchors.style.background = `rgba(${this.$hex2rgb(
         this.itemColor
       )},0.8)`
-      console.log('bgsetted(1):', `rgba(${this.$hex2rgb(this.itemColor)},0.8)`)
     } else {
       // more than one color(already joined string): enable cycling all available colors
-      console.log('settingcolor:', this.itemColor)
       this.$refs.pageAnchors.style.background = `linear-gradient(130deg, ${this.itemColor})`
       this.$refs.pageAnchors.style.animation = 'wavedient 20s linear infinite'
       this.$refs.pageAnchors.style.animationDirection = 'alternate'
       this.$refs.pageAnchors.style.backgroundSize = '8000%'
-      console.log('bgsetted(n):', `linear-gradient(130deg, ${this.itemColor})`)
     }
     // }
 

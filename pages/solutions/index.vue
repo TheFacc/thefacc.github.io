@@ -1,5 +1,6 @@
 <template>
   <main class="container selector">
+    <!-- filtering circle -->
     <div class="selector-filter">
       <circle-svg
         svgid="areas"
@@ -14,18 +15,14 @@
         :display="[1, 1, 0]"
         @itemClicked="onClickChild"
       ></circle-svg>
-      <!-- filtering tests -->
-      <!-- <div class="search">
-        <input
-          v-model="search"
-          type="text"
-          placeholder="works only alone for now"
-        />
-      </div> -->
-      <!-- end tests -->
     </div>
+    <!-- filtered items -->
     <div class="selector-items">
-      <card-grid :cards="filteredListArea" shape="rectangle"></card-grid>
+      <card-grid
+        :cards="filteredListArea"
+        shape="rectangle"
+        path="/solutions"
+      ></card-grid>
     </div>
   </main>
 </template>
@@ -41,6 +38,11 @@ export default {
     areas.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
     // about all products
     const cards = await $axios.$get(`${process.env.BASE_URL}/api/product`)
+    // rename 'introShort' to 'description' so it works in the card component
+    cards.forEach((card) => {
+      card.description = card.introShort
+      delete card.introShort
+    })
     return {
       areas,
       cards,
@@ -178,7 +180,6 @@ export default {
       vbox: '330 70 625 350',
       text: ['Select area to', 'filter its products'],
       // for filtering
-      filteredData: [],
       search: '',
       filterby: 0, // 0 = All
     }
@@ -208,6 +209,10 @@ export default {
   mounted() {
     this.$store.commit('setTheme', 'default')
     this.$store.commit('setTitle', '')
+    this.$store.commit('updateRoute', {
+      title: 'Solutions',
+      url: window.location.href,
+    })
   },
   methods: {
     onClickChild(item) {

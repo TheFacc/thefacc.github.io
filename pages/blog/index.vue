@@ -14,8 +14,8 @@
       <h4 v-if="filteredListSearch.length === 0">No articles found.</h4>
       <transition-group name="article">
         <div
-          v-for="(article, articleIndex) of filteredListSearch"
-          :key="'art-' + articleIndex"
+          v-for="article of filteredListSearch"
+          :key="'art-' + article.title"
           class="article"
           @click="$goTo(`/blog/${article.id}`)"
         >
@@ -137,7 +137,7 @@ export default {
   opacity: 0;
 }
 .article-leave-active {
-  /* position: absolute; */
+  position: absolute;
   z-index: -1;
 }
 .article-leave-active,

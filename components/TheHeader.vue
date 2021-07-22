@@ -317,8 +317,8 @@ export default {
   opacity: 0;
 }
 .title-leave-to {
-  font-size: 2em;
-  transform: translate(-60px, 30px);
+  /* font-size: 2em; */
+  transform: translate(-60px, 30px) scale(1.7);
   opacity: 0;
 }
 .title-leave-active,

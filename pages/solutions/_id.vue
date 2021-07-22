@@ -25,7 +25,7 @@
           </p>
         </div>
       </section>
-      <section id="usecases" ref="usecases" class="usecases">
+      <section v-if="usecases" id="usecases" ref="usecases" class="usecases">
         <h1>Use cases</h1>
         <carousel :slides="usecases"></carousel>
       </section>
@@ -40,13 +40,21 @@
           </button>
         </div>
         <div class="ref-right">
-          <card-grid :cards="[referent]" shape="rectangle"></card-grid>
+          <card-grid
+            :cards="[referent]"
+            shape="rectangle"
+            path="/about/people"
+          ></card-grid>
           <h4>Referent for {{ product.name }}</h4>
         </div>
       </section>
       <section class="items">
         <h2>Related products</h2>
-        <card-grid :cards="products" shape="rectangle"></card-grid>
+        <card-grid
+          :cards="products"
+          shape="rectangle"
+          path="/solutions"
+        ></card-grid>
       </section>
     </div>
   </main>
@@ -134,6 +142,10 @@ export default {
       'setTitle',
       this.areas[this.areaId - 1].name + ': ' + this.product.name
     )
+    this.$store.commit('updateRoute', {
+      title: this.product.name,
+      url: window.location.href,
+    })
 
     // if (this.shape === 'circle') {
     //   document.querySelector('.card-grid').style.gridTemplateColumns =
