@@ -35,7 +35,11 @@
       <section id="products" ref="products" class="items anchored">
         <h1>Solutions</h1>
         <h4>Products &amp; Services</h4>
-        <card-grid :cards="products" shape="rectangle"></card-grid>
+        <card-grid
+          :cards="products"
+          shape="rectangle"
+          path="/solutions"
+        ></card-grid>
       </section>
 
       <!-- people -->
@@ -43,10 +47,18 @@
         <h1>People</h1>
         <!-- leaderboard -->
         <h4>Leaderboard</h4>
-        <card-grid :cards="teamLeaders" shape="circle"></card-grid>
+        <card-grid
+          :cards="teamLeaders"
+          shape="circle"
+          path="/about/people"
+        ></card-grid>
         <!-- team -->
         <h4>Team</h4>
-        <card-grid :cards="team" shape="rectangle"></card-grid>
+        <card-grid
+          :cards="team"
+          shape="rectangle"
+          path="/about/people"
+        ></card-grid>
       </section>
     </div>
   </main>
@@ -129,7 +141,7 @@ export default {
     this.$store.commit('setTheme', this.areas[this.id - 1].color)
     this.$store.commit('setTitle', this.areas[this.id - 1].name)
     this.$store.commit('updateRoute', {
-      title: this.areas[this.id - 1].name,
+      title: 'Area: ' + this.areas[this.id - 1].name,
       url: window.location.href,
     })
     // condition to show back button (only if coming from 'far' page, i.e. person)
