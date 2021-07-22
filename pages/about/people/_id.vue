@@ -1,16 +1,24 @@
 <template>
   <main class="container">
-    <div class="backlink">
-      <i class="fa fa-arrow-left"></i>
-      <a href="javascript:history.back()">Go Back</a>
-    </div>
+    <!-- dynamic back button: gets to previous page if present, to Team otherwise -->
+    <back-button
+      :text="
+        $store.state.pagePrevious.title
+          ? $store.state.pagePrevious.title
+          : 'Our team'
+      "
+      :path="
+        $store.state.pagePrevious.href
+          ? $store.state.pagePrevious.href
+          : '/about/people'
+      "
+    ></back-button>
 
     <div
-      tooltip=""
       class="personDescription"
       :style="
-        'background-image: linear-gradient(to right, lightgray,' +
-        area.data.color +
+        'background-image: linear-gradient(to right, transparent,' +
+        area.color +
         ')'
       "
     >
@@ -32,14 +40,14 @@
         <br />
         <h4 v-if="area">
           Area:
-          <nuxt-link :to="'/areas/' + areaId"> {{ area.data.name }}</nuxt-link>
+          <nuxt-link :to="'/areas/' + areaId"> {{ area.name }}</nuxt-link>
         </h4>
         <br />
 
         <h4 v-if="product">
           Referent of
           <nuxt-link :to="'/solutions/' + productId">{{
-            product.data.name
+            product.name
           }}</nuxt-link>
         </h4>
         <!-- add the link to linkedin in the icon-->
@@ -49,7 +57,7 @@
 
         <button
           class="material-button raised dark ripple"
-          @click="goTo(`/contact`)"
+          @click="$goTo(`/contact`)"
         >
           Contact us
         </button>
@@ -59,7 +67,9 @@
 </template>
 
 <script>
+import BackButton from '~/components/BackButton.vue'
 export default {
+  components: { BackButton },
   async asyncData({ $axios, route }) {
     // select the specific person with the id
     const { id } = route.params
@@ -72,12 +82,12 @@ export default {
         return { person, productId, areaId }
       })
 
-    // select the name of the area only if the persons is an area manager
+    // select the name of the area only if the person is an area manager
     let area
     let areaName
     if (areaId !== null && areaId !== undefined) {
-      area = await $axios.get(`${process.env.BASE_URL}/api/area/${areaId}`)
-      areaName = area.data.name
+      area = await $axios.$get(`${process.env.BASE_URL}/api/area/${areaId}`)
+      areaName = area.name
     } else {
       area = false
     }
@@ -85,7 +95,7 @@ export default {
     // select the productName only if the person is a referent
     let product
     if (productId !== null && productId !== undefined) {
-      product = await $axios.get(
+      product = await $axios.$get(
         `${process.env.BASE_URL}/api/product/${productId}`
       )
     } else {
@@ -101,11 +111,13 @@ export default {
       product,
     }
   },
-
-  methods: {
-    goTo(path) {
-      this.$router.push({ path })
-    },
+  mounted() {
+    this.$store.commit('setTheme', this.area.color)
+    this.$store.commit('setTitle', '')
+    this.$store.commit('updateRoute', {
+      title: 'Our team',
+      url: window.location.href,
+    })
   },
 }
 </script>
