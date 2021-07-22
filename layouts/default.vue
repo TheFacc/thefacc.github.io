@@ -3,7 +3,7 @@
     <the-header></the-header>
     <Nuxt />
     <chat :chat-list="list" />
-     <the-footer></the-footer>
+     <the-footer :areas="areas"></the-footer>
   </div>
 </template>
 
@@ -29,6 +29,12 @@ export default {
   // },
     Chat,
     mixins: [MMCCMixin],
+
+    async asyncData({ $axios }) {
+    // about all areas
+    const areas = await $axios.$get(`${process.env.BASE_URL}/api/area`)
+    return { areas }
+  },
 
 }
 </script>
