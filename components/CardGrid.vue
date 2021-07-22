@@ -3,21 +3,38 @@
     <transition-group name="card">
       <div
         v-for="card of cards"
-        :key="'card-' + card.name"
+        :key="'card' + card.name"
         class="card"
         :class="{
           'card-rectangle': shape === 'rectangle',
           'card-circle': shape === 'circle',
         }"
-        @click="$goTo(`/solutions/${card.id}`)"
+        :style="
+          tooltipData.length
+            ? {
+                border:
+                  '4px double ' +
+                  tooltipData[parseInt(card['areaId']) - 1].color,
+              }
+            : ''
+        "
+        :tooltip="
+          tooltipData.length
+            ? tooltipPrefix + tooltipData[parseInt(card[field]) - 1].name
+            : ''
+        "
+        flow="in"
+        @click="$goTo(`${path}/${card.id}`)"
       >
-        <div
-          ref="thisCardImg"
-          class="img"
-          :style="{ 'background-image': `url(${card.image})` }"
-        ></div>
-        <h3>{{ card.name }}</h3>
-        <p>{{ card.intro }}</p>
+        <div class="card-aft">
+          <div
+            ref="thisCardImg"
+            class="img"
+            :style="{ 'background-image': `url(${card.image})` }"
+          ></div>
+          <h3>{{ card.name }}</h3>
+          <p>{{ card.description }}</p>
+        </div>
       </div>
     </transition-group>
   </div>
@@ -28,6 +45,10 @@ export default {
   props: {
     cards: { type: Array, default: () => [] },
     shape: { type: String, default: 'rectangle' },
+    path: { type: String, default: '/' },
+    tooltipData: { type: Array, default: () => [] }, // if additional info is needed (areas)
+    field: { type: String, default: 'areaId' }, // field of data to get (areaid or prodid)
+    tooltipPrefix: { type: String, default: '' },
   },
   mounted() {
     // if (this.shape === 'circle') {
@@ -60,7 +81,7 @@ export default {
 /* SINGLE CARD */
 .card,
 .card .img {
-  overflow: hidden;
+  /* overflow: hidden; */
   transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .card {
@@ -79,15 +100,16 @@ export default {
 .card:hover h3 {
   margin-bottom: 0;
 }
+/* ::before (area icon if needed) */
 /* ::after (read more) */
-.card::after {
+.card-aft::after {
   content: '➕';
   position: absolute;
   opacity: 0;
   transform: translate(-12px, 15px) rotate(90deg);
   transition: 0.2s;
 }
-.card:hover::after {
+.card:hover .card-aft::after {
   opacity: 1;
   transform: translate(-12px, 0px);
 }
@@ -102,12 +124,16 @@ export default {
   background: transparent;
   color: white;
 }
+.dark .card.card-rectangle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
 /* card circle */
 .card.card-circle {
-  border-radius: 150px;
+  border-radius: 80px;
   /* width: 200px;
   height: 200px; */
   /* flex: 0 0 calc(30% - 20px); */
+  overflow: hidden;
 }
 .card.card-circle .img {
   height: 120px;
