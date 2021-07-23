@@ -13,6 +13,7 @@ Live app (deployed once every while): https://moube.herokuapp.com/
 | Mousa Sondoqah    | 10759335 | mousa.sondoqah@mail.polimi.it         |
 
 Who did what? ...
+
 Mousa: Makes sure his group members eat well (Buy food).
 ### Technical documentation blueprint
 
