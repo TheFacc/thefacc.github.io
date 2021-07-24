@@ -14,7 +14,20 @@
           }"
         >
           <div class="slide-left">
-            <h2>{{ currentSlide.name }}</h2>
+            <span v-if="currentSlide.area">{{ currentSlide.area }}</span>
+            <h1 v-if="currentSlide.name === 'MouBE'">
+              {{ currentSlide.name }}
+            </h1>
+            <h2
+              v-else
+              :style="{
+                'text-decoration': currentSlide.color
+                  ? '2px underline ' + currentSlide.color
+                  : '',
+              }"
+            >
+              {{ currentSlide.name }}
+            </h2>
             <p class="slide-text">{{ currentSlide.description }}</p>
             <!-- <div class="slide-index">
               {{ currentSlideIndex + 1 }} / {{ slides.length }}
@@ -22,9 +35,14 @@
             <button
               v-if="currentSlide.url"
               class="material-button ripple"
+              :style="{
+                'background-color': currentSlide.color
+                  ? $changeColorBrightness(currentSlide.color, -40)
+                  : '',
+              }"
               @click="$goTo(currentSlide.url)"
             >
-              Read more
+              Open product
             </button>
           </div>
           <div class="slide-right">
@@ -32,8 +50,9 @@
             <div
               :style="{ 'background-image': `url(${currentSlide.image})` }"
             ></div>
-          </div></div
-      ></transition-group>
+          </div>
+        </div>
+      </transition-group>
     </div>
     <!-- <div class="carousel-arrows">
       <a class="prev" @click="plusSlides(-1)">&#10094;</a>
@@ -138,6 +157,12 @@ export default {
 }
 .slide-left {
   padding: 30px 10%;
+}
+.slide-button {
+  margin: 10px 0;
+}
+.slide-right {
+  z-index: -1;
 }
 .slide-right div {
   background-repeat: no-repeat;
