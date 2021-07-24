@@ -7,7 +7,7 @@ export default {
   env: {
     BASE_URL: 'https://moube.herokuapp.com', // Production URL - TODO set to https for final delivery!
     // BASE_URL: '', // Development URL
-    configurationId: 'ab241181-6734-4b2b-9fd5-d75c0afa5e32', // chatbot access
+    configurationId: '457c738e-c55a-4293-8faf-53b627e4ce27', // chatbot access
   },
   serverMiddleware: [
     {
@@ -28,18 +28,18 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
-      {
-        href:
-          'https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap',
-        rel: 'stylesheet',
-      },
+      // { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
+      // {
+      //   href:
+      //     'https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap',
+      //   rel: 'stylesheet',
+      // },
 
       //link to a set of icon (used for linkedin  and arrow icon in about)
       {
         rel: 'stylesheet',
         href:
-          'http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css',
+          'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css',
       },
 
       // {
@@ -50,15 +50,19 @@ export default {
       // },
     ],
     // script: [
-    //   // jQuery
+    //   //   // jQuery
+    //   //   {
+    //   //     // src: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
+    //   //     src: 'https://code.jquery.com/jquery-3.6.0.min.js',
+    //   //     type: 'text/javascript',
+    //   //   },
+    //   //   // gsap
+    //   //   {
+    //   //     src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js',
+    //   //     type: 'text/javascript',
+    //   //   },
     //   {
-    //     // src: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
-    //     src: 'https://code.jquery.com/jquery-3.6.0.min.js',
-    //     type: 'text/javascript',
-    //   },
-    //   // gsap
-    //   {
-    //     src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js',
+    //     src: `https://maps.googleapis.com/maps/api/js?key=AIzaSyBQORu47i9VKWe0j6oTVikeqdZi7HSQ-pE&libraries=&v=weekly`,
     //     type: 'text/javascript',
     //   },
     // ],
@@ -71,7 +75,7 @@ export default {
   plugins: [
     // { src: '~/plugins/ScrollMagic.js', mode: 'client' },
     // { src: '~/plugins/Chroma.js', mode: 'client' },
-    { src: '~/plugins/functions.js', mode: 'client' }, // global functions
+    { src: '~/plugins/functions.js', mode: 'client' }, // global $functions
     { src: '~/plugins/mmcc.js', mode: 'client' }, // chatbot connection
   ],
 
