@@ -38,6 +38,7 @@ export default {
     areas.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
     // about all products
     const cards = await $axios.$get(`${process.env.BASE_URL}/api/product`)
+    cards.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
     // rename 'introShort' to 'description' so it works in the card component
     cards.forEach((card) => {
       card.description = card.introShort
