@@ -1,63 +1,72 @@
 <template>
   <footer role="footer">
     <div>
-      <div class="footerContainer">
-        <div class="footerLeft">
+      <div class="footer-container">
+        <div class="left">
           <!-- 1. main logo -->
-          <div class="Logo" @click="goToHome">
+          <div class="footer-logo" @click="$goToHome">
             <div v-html="require('~/assets/moube.svg?raw')" />
           </div>
-          <div class="footerInfo">
-            <p>
-              <i class="fa fa-map-marker" style="font-size: 24px"></i> via Non
-              So,3<br />Milano,MI
-            </p>
-          </div>
-          <div class="footerInfo">
-            <p>
-              <i class="fa fa-envelope" style="font-size: 24px"></i>
-              moube@libero.it
-            </p>
-          </div>
-          <div class="footerInfo">
-            <p>
-              <i class="fa fa-phone" style="font-size: 24px"></i> 33356729873
-            </p>
+          <div class="info">
+            <i class="fa fa-map-marker fgrid-pin"></i>
+            <span class="fgrid-road"
+              ><a href="http://maps.google.com/" target="_blank"
+                >Web Street, 1<br />Milano (MI), Italy</a
+              ></span
+            >
+            <i class="fa fa-envelope fgrid-mail"></i>
+            <span class="fgrid-contact"
+              ><a href="email:contact@mou.be">contact@mou.be</a></span
+            >
+            <i class="fa fa-phone fgrid-phone"></i>
+            <span class="fgrid-call"
+              ><a href="tel:+390256729873">+39 0256729873</a></span
+            >
           </div>
         </div>
-        <div class="footerRight">
-          <div>
-            <nuxt-link to="/areas"> Areas </nuxt-link>
-          </div>
-          <div class="line">
-            <div v-for="area in areas" :key="area.id">
-              <a
-                :href="'/areas/' + area.id"
-                class="areaLink"
-                :style="'color:' + area.color"
-                >{{ area.name }}</a
-              >
+        <div class="right">
+          <div class="right-grid fancy">
+            <div class="right-col">
+              <div><nuxt-link to="/areas"> Areas </nuxt-link></div>
+            </div>
+            <div class="right-col">
+              <div v-for="area in areas" :key="'footer-area-' + area.id">
+                <a
+                  :href="'/areas/' + area.id"
+                  class="area-link"
+                  :style="{ color: area.color }"
+                  >{{ area.name }}</a
+                >
+              </div>
+            </div>
+            <div class="right-col">
+              <div><nuxt-link to="/solutions"> Solutions </nuxt-link></div>
+              <div><nuxt-link to="/blog"> Articles </nuxt-link></div>
+            </div>
+            <div class="right-col">
+              <div>
+                <nuxt-link to="/about/company"> Our company </nuxt-link>
+              </div>
+              <div><nuxt-link to="/about/people"> Our team </nuxt-link></div>
             </div>
           </div>
-          <div class="line">
-            <nuxt-link to="/solutions"> Solutions </nuxt-link>
-            <nuxt-link to="/blog"> Articles </nuxt-link>
+          <div class="copyright">
+            <div><i class="fa fa-copyright"></i> MouBE 2021</div>
+            <div>
+              <a href="https://www.instagram.com/" target="blank"
+                ><i class="fa fa-instagram quare"></i
+              ></a>
+              <a href="https://it-it.facebook.com/" target="blank"
+                ><i class="fa fa-facebook quare"></i
+              ></a>
+              <a href="https://www.linkedin.com/" target="blank"
+                ><i class="fa fa-linkedin quare"></i
+              ></a>
+              <a href="https://www.youtube.com/" target="blank"
+                ><i class="fa fa-youtube quare"></i
+              ></a>
+            </div>
           </div>
-          <div>
-            <nuxt-link to="/about/company"> Our company </nuxt-link>
-            <nuxt-link to="/about/people"> Our teaml </nuxt-link>
-          </div>
-        </div>
-      </div>
-      <div class="final">
-        <p><i class="fa fa-copyright"></i>Copyright Alessio and Co.</p>
-        <div>
-          <a href="https://www.instagram.com/" target="blank"
-            ><i class="fa fa-instagram quare"></i
-          ></a>
-          <a href="https://it-it.facebook.com/" target="blank"
-            ><i class="fa fa-facebook quare"></i
-          ></a>
         </div>
       </div>
     </div>
@@ -66,133 +75,221 @@
 
 <script>
 export default {
-  props: {
-    areas: {
-      type: Array,
-      default() {
-        return []
-      },
-    },
-  },
-  // data() {
-  //   return {
-  //     areas: [
-  //       {
-  //         id: 1,
-  //         name: 'Cloud computing',
-  //         path: '#',
-  //         color: '#F44336',
-  //         icon: require('~/assets/icons/area-cloud-computing.svg?raw'),
-  //         active: false,
-  //       },
-  //       {
-  //         id: 2,
-  //         name: 'Analytics',
-  //         path: '#',
-  //         color: '#4CAF50',
-  //         icon: require('~/assets/icons/area-analytics-2.svg?raw'),
-  //         active: false,
-  //       },
-  //       {
-  //         id: 3,
-  //         name: 'Machine Learning',
-  //         path: '#',
-  //         color: '#FFC107',
-  //         icon: require('~/assets/icons/area-machine-learning.svg?raw'),
-  //         active: false,
-  //       },
-  //       {
-  //         id: 4,
-  //         name: 'Blockchain',
-  //         path: '#',
-  //         color: '#00BCD4',
-  //         icon: require('~/assets/icons/area-blockchain.svg?raw'),
-  //         active: false,
-  //       },
-  //     ],
-  //   }
-  // },
-
-  methods: {
-    goToHome() {
-      this.$router.push('/')
-    },
-  },
+  props: { areas: { type: Array, default: () => [] } },
 }
 </script>
 
-<style>
+<style scoped>
+/* GENERAL */
 footer {
   /* position: absolute; */
   bottom: 0;
+  /* height: 250px; */
   width: 100%;
-  height: 250px;
+}
+.footer-container {
+  text-align: center;
+  padding: 20px 5%;
   color: white;
   background: #222;
-  text-align: center;
 }
-.footerContainer {
-  display: flex;
-  flex-flow: row;
-  padding: 50px;
-  align-content: center;
-}
-.footerLeft {
-  display: flex;
-  flex-flow: column;
-  padding: 10px;
-  margin-left: 30px;
+@media screen and (min-width: 768px) {
+  .footer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
 }
 
-.logo {
+/* LEFT */
+footer .fleft {
+  /* width: 40%; */
   display: flex;
-  justify-content: flex-start;
-  font-size: 1.3rem;
-  float: left;
-  padding: 0 20px;
-}
-.logo:hover {
-  cursor: pointer;
-}
-.logo > div {
-  width: 165px;
-}
-.footerInfo {
-  padding: 0 10px;
-}
-.footerRight {
-  display: flex;
-  padding: 10px;
-}
-
-.footerRight div {
-  display: flex;
-  flex-flow: column;
-  padding: 5px;
-  justify-content: space-evenly;
-  align-content: stretch;
-  flex-wrap: nowrap;
   flex-direction: column;
   align-items: center;
+  padding: 10px 4%;
 }
-.line {
-  border-right-color: white;
-  border-right-style: inset;
+/* logo */
+.footer-logo {
+  width: 100%;
+  height: 100px;
+  padding: 20px 0;
+}
+@media screen and (min-width: 768px) {
+  .footer-logo {
+    margin-left: 10px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .footer-logo {
+    margin-bottom: 20px;
+  }
+}
+.footer-logo:hover {
+  cursor: pointer;
+}
+/* info */
+footer .info {
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 10px 20px;
+  grid-template-areas:
+    'pin road'
+    'mail contact'
+    'phone call';
+  align-items: center;
+  padding: 0 20px;
+}
+footer .info a {
+  text-decoration: none;
+}
+@media screen and (max-width: 767px) {
+  footer .info {
+    padding: 0 60px;
+  }
+}
+.fgrid-pin {
+  grid-area: pin;
+}
+.fgrid-road {
+  grid-area: road;
+}
+.fgrid-mail {
+  grid-area: mail;
+}
+.fgrid-contact {
+  grid-area: contact;
+}
+.fgrid-phone {
+  grid-area: phone;
+}
+.fgrid-call {
+  grid-area: call;
+}
+footer .info div {
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+footer .info i {
+  font-size: 24px;
+  width: 52px;
 }
 
-a {
-  color: white;
+/* RIGHT */
+@media screen and (min-width: 768px) {
+  footer .right {
+    margin: 50px 10px;
+  }
 }
-a:hover {
-  color: rgb(80, 165, 168);
+@media screen and (max-width: 767px) {
+  footer .right {
+    margin: 20px 10px;
+  }
 }
-.areaLink:not(:hover) {
-  color: white;
-}
-.final {
-  background-color: dimgray;
-  align-content: space-between;
+footer .right {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  /* hack to colorize grid gaps */
+  background: linear-gradient(to right, transparent 30%, white 33%);
+}
+footer .right-grid {
+  display: grid;
+  color: white;
+  text-align: center;
+  grid-template-columns: repeat(4, minmax(auto, auto));
+  grid-column-gap: 3px;
+}
+footer .right-col {
+  background-color: #222;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+footer .right-col div {
+  padding: 5px 0;
+}
+@media screen and (min-width: 768px) {
+  footer .right-col {
+    padding: 0 20px;
+  }
+}
+@media screen and (max-width: 767px) {
+  footer .right-col {
+    padding: 0 7px;
+  }
+}
+.copyright {
+  color: rgba(255, 255, 255, 0.5);
+  background-color: #222222;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-top: 50px;
+}
+@media screen and (min-width: 768px) {
+  .copyright {
+    margin-bottom: -50px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .copyright {
+    margin-bottom: -10px;
+  }
+}
+.copyright a {
+  padding: 5px;
+  transition: 0.4s;
+}
+.copyright a:hover {
+  color: white;
+  transition: 0s;
+}
+footer .right-grid,
+.copyright {
+  transform: scale(1.05); /*prevent microborders*/
+}
+
+/* LINKS */
+.right-grid.fancy a {
+  background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0),
+      rgba(129, 80, 80, 0)
+    ),
+    linear-gradient(
+      to right,
+      rgba(255, 0, 0, 1),
+      rgba(255, 0, 180, 1),
+      rgba(0, 100, 200, 1)
+    );
+  background-size: 100% 0.1em, 0 0.1em;
+  background-position: 100% 100%, 0 100%;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+  transition: 0.4s;
+}
+.right-grid.fancy a:hover,
+.right-grid.fancy a:focus {
+  opacity: 1;
+  background-size: 0 0.1em, 100% 0.1em;
+  transition: opacity 0s, background-size 0.1s;
+}
+</style>
+<style>
+.footer-logo svg {
+  filter: invert(1);
+}
+.footer-logo svg circle {
+  filter: invert(1);
 }
 </style>
