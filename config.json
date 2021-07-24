@@ -1,0 +1,115 @@
+{
+"name": "ChatBot",
+"data": {
+    "kb": {
+    "first_or": {
+      "initials": [
+        
+        "Hi! I'm MouBi Chatbot and I'm here to help you! Do you want to go to Contact page or you want a guide in the website?"
+      ],
+      "choices": [
+       
+        {
+          "id": "contact_xor",
+          "intents": ["I want to go to Contact page", "contact"],
+          "utterance": [
+            "Ah.. Contact...",
+            "Uff, Contact again",
+            "Okay, so let's go to Contact"
+          ],
+          "payload": {
+            "openGuidePopup": true, 
+            "customContact": "/contact"
+          }
+        },
+        {
+          "id": "guide",
+          "intents": ["I want a guide", "guide"],
+          "payload": {
+            "openGuidePopup": true
+          }
+        }
+      ],
+      "quit": {
+       
+        "intents": ["quit", "no", "reset"],
+        "utterance": ["ok bye"]
+      },
+      "unknown": "Option not available. Options: guide or contact"
+    },
+    "guide": "Welcome to the homepage! insert ok to move to the next page..",
+    "home": "Welcome to the About page! This was our guide to MouBi website",
+    "about": {
+      "initials": ["You completed the guide!"],
+      "completed": {
+        "utterance": "You completed the guide!",
+        "payload": {} 
+      }
+    },
+    "steps_v": ["/index", "/about/company"],
+    "continue_v": ["ok", "continue", "proceed","yes"],
+    "guide_v": ["guide"],
+    "stay_message": "I don't understand. Do you want to continue?"
+  },
+
+"process": {
+    "activities": [
+      {
+        "my_id": "start",
+        "next_id": "first_or",
+        "my_type": "START",
+        "callback": "start"
+      },
+      {
+        "my_id": "first_or",
+        "next_id": "end",
+        "my_type": "XOR",
+        "callback": "generic_xor",
+        "choices": ["guide", "contact_xor"]
+      },
+      {
+        "my_id": "guide",
+        "next_id": "home",
+        "my_type": "TASK",
+        "callback": "guide"
+      },
+      {
+        "my_id": "home",
+        "next_id": "about",
+        "my_type": "TASK",
+        "callback": "guide"
+      },
+       {
+        "my_id": "about",
+        "next_id": null,
+        "my_type": "TASK",
+        "callback": "guide"
+      },
+      {
+        "my_id": "contact_xor",
+        "next_id": null,
+        "my_type": "XOR",
+        "callback": "generic_xor",
+        "choices": ["contact_form", "contact_page"]
+      },
+         {
+        "my_id": "contact_form",
+        "next_id": null,
+        "my_type": "TASK",
+        "callback": "guide"
+      },
+            {
+        "my_id": "contact_page",
+        "next_id": null,
+        "my_type": "TASK",
+        "callback": "guide"
+      },
+      { "my_id": "end",
+        "next_id": "start",
+        "my_type": "END"
+        }
+    ],
+    "first_activity_id": "start"
+  }
+}
+}
