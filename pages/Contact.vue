@@ -55,7 +55,7 @@ export default {
     // }
     // // }
 
-    this.$store.commit('setTheme', '#ffffff')
+    this.$store.commit('setTheme', '')
     this.$store.commit('setTitle', '')
     this.$store.commit('updateRoute', {
       title: 'Contact page',
@@ -108,6 +108,7 @@ h1 {
   text-align: center;
 }
 .locations {
+  margin: 60px 0;
   display: flex;
   align-items: center;
   justify-content: space-evenly;

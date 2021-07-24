@@ -1,5 +1,5 @@
 <template>
-  <section class="form">
+  <section id="contact">
     <div class="intro">
       <h1>Contact us</h1>
       <p>
@@ -9,7 +9,7 @@
     </div>
     <div class="icons">
       <div class="icon">
-        <a href="mailto:moube@mou.be"
+        <a href="mailto:contact@mou.be"
           ><img src="~/assets/icons/email.svg" alt="Send us an email"
         /></a>
         <span>Write us</span>
@@ -90,9 +90,9 @@ export default {
 }
 
 /* MAIN (GRID) */
-.form {
-  margin: 40px 0;
-  padding: 40px 10%;
+#contact {
+  margin: 0;
+  padding: 50px 10%;
   display: grid;
   /* grid-template-rows: 1fr 1fr 1fr; */
   gap: 30px 0px;
@@ -110,7 +110,7 @@ export default {
   background-size: 400%;
 }
 @media screen and (min-width: 768px) {
-  .form {
+  #contact {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       'intro icons'
@@ -119,7 +119,7 @@ export default {
   }
 }
 @media screen and (max-width: 767px) {
-  .form {
+  #contact {
     grid-template-columns: 1fr;
     grid-template-areas:
       'intro'

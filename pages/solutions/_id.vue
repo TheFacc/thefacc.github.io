@@ -34,7 +34,7 @@
         <h1>Use cases</h1>
         <carousel :slides="usecases" theme="light"></carousel>
       </section>
-      <section id="referent" ref="referent" class="referent fancy">
+      <section id="contact" ref="referent" class="referent fancy">
         <div class="ref-left">
           <h1>Get in touch!</h1>
           <p>
@@ -209,24 +209,24 @@ export default {
 
 <style>
 /* fix single card on right */
-#referent .ref-right .card.card-rectangle {
+#contact.referent .ref-right .card.card-rectangle {
   width: 100%;
 }
 /* fix no-description card 'more' sign */
-#referent .ref-right .card.card-rectangle:hover {
+#contact.referent .ref-right .card.card-rectangle:hover {
   padding: 10px 10px 20px;
 }
-#referent .card {
+#contact.referent .card {
   height: 205px;
 }
 </style>
 
 <style scoped>
-#referent {
+#contact.referent {
   color: white;
   margin: 100px auto;
 }
-#referent:before {
+#contact.referent:before {
   content: '';
   width: 100vw;
   position: absolute;
@@ -238,44 +238,44 @@ export default {
   animation: wavedient 10s ease infinite;
   animation-direction: alternate;
 }
-#referent .ref-right,
-#referent .ref-left {
+#contact.referent .ref-right,
+#contact.referent .ref-left {
   text-align: center;
 }
 @media screen and (min-width: 768px) {
-  #referent {
+  #contact.referent {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     text-align: left;
   }
-  #referent .ref-left {
+  #contact.referent .ref-left {
     display: flex;
     flex-direction: column;
     align-items: stretch;
   }
-  #referent:before {
+  #contact.referent:before {
     height: 40%;
   }
 }
 @media screen and (max-width: 767px) {
-  #referent {
+  #contact.referent {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     text-align: left;
   }
-  #referent:before {
+  #contact.referent:before {
     height: 60%;
   }
-  #referent .ref-left {
+  #contact.referent .ref-left {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  #referent .ref-left button {
+  #contact.referent .ref-left button {
     margin: 20px;
   }
 }
