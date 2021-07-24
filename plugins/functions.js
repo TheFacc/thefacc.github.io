@@ -2,6 +2,9 @@ export default ({ app }, inject) => {
   inject('goTo', (path) => {
     app.router.push({ path })
   })
+  inject('goToHome', () => {
+    app.router.push('/')
+  })
   inject('goBack', () => {
     window.history.back()
   })

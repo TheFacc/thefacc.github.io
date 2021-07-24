@@ -2,7 +2,7 @@
   <header ref="header" class="header">
     <div class="header-content">
       <!-- 1. main logo -->
-      <div class="logo" @click="goToHome">
+      <div class="logo" @click="$goToHome">
         <div v-html="require('~/assets/moube.svg?raw')" />
       </div>
       <!-- 2. page title -->
@@ -137,9 +137,6 @@ export default {
     )
   },
   methods: {
-    goToHome() {
-      this.$router.push('/')
-    },
     toggleMobileMenu() {
       this.mobileMenuOpen = !this.mobileMenuOpen
     },
