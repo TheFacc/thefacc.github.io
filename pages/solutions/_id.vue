@@ -34,14 +34,24 @@
         <h1>Use cases</h1>
         <carousel :slides="usecases" theme="light"></carousel>
       </section>
-      <section id="referent" ref="referent" class="referent">
+      <section id="referent" ref="referent" class="referent fancy">
         <div class="ref-left">
           <h1>Get in touch!</h1>
+          <p>
+            <nuxt-link :to="'/contact'">Contact MouBE</nuxt-link> or directly
+            the
+            <nuxt-link :to="`/about/people/${referent.id}`">referent</nuxt-link>
+            for this product.
+          </p>
           <button
             class="material-button raised ripple"
+            :style="{
+              color: '#222222',
+              background: areas[areaId - 1].color,
+            }"
             @click="$goTo('/contact')"
           >
-            Contact
+            Contact MouBE
           </button>
         </div>
         <div class="ref-right">
@@ -49,8 +59,10 @@
             :cards="[referent]"
             shape="rectangle"
             path="/about/people"
+            :tooltip="['Contact me!']"
+            flow="right"
           ></card-grid>
-          <h4>Referent for {{ product.name }}</h4>
+          <p>{{ product.name }}<br />Product Referent</p>
         </div>
       </section>
       <section class="items">
@@ -153,7 +165,7 @@ export default {
       this.areas[this.areaId - 1].name + ': ' + this.product.name
     )
     this.$store.commit('updateRoute', {
-      title: this.product.name,
+      title: 'Solution: ' + this.product.name,
       url: window.location.href,
     })
 
@@ -211,21 +223,23 @@ export default {
 
 <style scoped>
 #referent {
+  color: white;
   margin: 100px auto;
 }
 #referent:before {
   content: '';
   width: 100vw;
-  height: 40%;
   position: absolute;
   z-index: -1;
-  background: linear-gradient(270deg, #a7e2a8, #00ff06, #deff00, #00ffb7);
+  /* background: linear-gradient(270deg, #a7e2a8, #00ff06, #deff00, #00ffb7); */
+  background: linear-gradient(270deg, #abdbe4, #3f51b5, #3f86b5, #066366);
   background-size: 800%;
   filter: saturate(0.5);
   animation: wavedient 10s ease infinite;
   animation-direction: alternate;
 }
-#referent .ref-right {
+#referent .ref-right,
+#referent .ref-left {
   text-align: center;
 }
 @media screen and (min-width: 768px) {
@@ -241,8 +255,11 @@ export default {
     flex-direction: column;
     align-items: stretch;
   }
+  #referent:before {
+    height: 40%;
+  }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   #referent {
     display: flex;
     flex-direction: column;
@@ -250,13 +267,16 @@ export default {
     justify-content: space-around;
     text-align: left;
   }
+  #referent:before {
+    height: 60%;
+  }
   #referent .ref-left {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
   }
   #referent .ref-left button {
-    margin: 0 20px;
+    margin: 20px;
   }
 }
 </style>

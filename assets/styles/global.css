@@ -37,6 +37,9 @@ img {
 }
 
 /* text */
+a {
+  color: inherit;
+}
 h1 {
   font-weight: 300;
   font-size: 56px;
@@ -151,6 +154,7 @@ section:not(.items) h6 {
   flex: 0 0 40%;
   align-self: flex-start;
   top: 67px;
+  z-index: 5;
 }
 .selector-items {
   width: 100%;
@@ -284,6 +288,30 @@ section:not(.items) h6 {
   opacity: 0;
 }
 /* end material-button */
+
+/* Blog: recents */
+.recents .article-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+.recents .article-grid .article {
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+@media screen and (min-width: 768px) {
+  .recents .article-grid .article {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 767px) {
+  .recents .article-grid .article {
+    width: 100%;
+  }
+}
 
 /*SFPD font*/
 /*ultralight thin light regular - medium - semibold bold heavy black*/
@@ -443,11 +471,13 @@ section:not(.items) h6 {
 }
 
 /* fancy underlining - https://css-irl.info/animating-underlines/ */
-span.fancyul {
+.fancy a,
+.fancyul {
+  text-decoration: none;
   background: linear-gradient(
       to right,
-      rgba(100, 200, 200, 1),
-      rgba(100, 200, 200, 1)
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
     ),
     linear-gradient(
       to right,
@@ -460,8 +490,10 @@ span.fancyul {
   background-repeat: no-repeat;
   transition: background-size 400ms;
 }
-span.fancyul:hover,
-span.fancyul:focus {
+.fancy a:hover,
+.fancy a:focus,
+.fancyul:hover,
+.fancyul:focus {
   background-size: 0 0.1em, 100% 0.1em;
 }
 
