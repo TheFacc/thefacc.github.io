@@ -172,7 +172,7 @@ export default {
 }
 @media screen and (min-width: 768px) {
   .intro-left {
-    width: 25%;
+    width: 40%;
   }
   .intro-right:after {
     content: '';

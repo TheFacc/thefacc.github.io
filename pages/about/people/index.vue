@@ -3,7 +3,7 @@
     <item-intro :item="discover" :items="areas"></item-intro>
     <div class="container">
       <!-- leaderboard -->
-      <section class="raised dark">
+      <section class="items raised dark">
         <h2>MouBE Leaderboard</h2>
         <card-grid
           :cards="teamLeaders"
