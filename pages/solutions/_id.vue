@@ -25,9 +25,14 @@
           </p>
         </div>
       </section>
-      <section v-if="usecases" id="usecases" ref="usecases" class="usecases">
+      <section
+        v-if="usecases.length"
+        id="usecases"
+        ref="usecases"
+        class="usecases"
+      >
         <h1>Use cases</h1>
-        <carousel :slides="usecases"></carousel>
+        <carousel :slides="usecases" theme="light"></carousel>
       </section>
       <section id="referent" ref="referent" class="referent">
         <div class="ref-left">
@@ -97,6 +102,11 @@ export default {
         // remove current product
         const products = res.data.products.filter(function (prod) {
           return prod.id !== parseInt(id)
+        })
+        // rename 'introShort' to 'description' so it works in the card component
+        products.forEach((card) => {
+          card.description = card.introShort
+          delete card.introShort
         })
         return products
       })
