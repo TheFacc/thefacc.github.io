@@ -1,17 +1,10 @@
 <template>
   <main>
     <!-- top banner -->
-    <item-intro
-      :item="areas[id - 1]"
-      :items="areas"
-      :item-id="id - 1"
-    ></item-intro>
+    <item-intro :item="area" :items="areas" :item-id="id - 1"></item-intro>
 
     <!-- page anchors -->
-    <page-anchors
-      :item-color="areas[id - 1].color"
-      :sections="sections"
-    ></page-anchors>
+    <page-anchors :item-color="area.color" :sections="sections"></page-anchors>
 
     <!-- history.back button -->
     <back-button v-if="fromPerson" :text="prevName"></back-button>
@@ -21,12 +14,12 @@
       <!-- intro -->
       <section id="intro" ref="intro" class="overview raised anchored">
         <div class="intro-img">
-          <img :src="areas[$route.params.id - 1].image" />
+          <img :src="area.image" />
         </div>
         <div class="intro-text">
-          <h2>This is area {{ $route.params.id }}</h2>
+          <h3>{{ area.name }} for everyone</h3>
           <p>
-            {{ areas[$route.params.id - 1].intro }}
+            {{ area.intro }}
           </p>
         </div>
       </section>
@@ -61,6 +54,9 @@
         ></card-grid>
       </section>
     </div>
+
+    <!-- contact -->
+    <contact-form></contact-form>
   </main>
 </template>
 
@@ -70,20 +66,27 @@ import ItemIntro from '~/components/ItemIntro.vue'
 import CardGrid from '~/components/CardGrid.vue'
 import PageAnchors from '~/components/PageAnchors.vue'
 import BackButton from '~/components/BackButton.vue'
+import ContactForm from '~/components/ContactForm.vue'
 
 export default {
-  components: { ItemIntro, PageAnchors, CardGrid, BackButton },
+  components: { ItemIntro, PageAnchors, CardGrid, BackButton, ContactForm },
   async asyncData({ $axios, route }) {
     const { id } = route.params
     // about all areas
     const areas = await $axios.$get(`${process.env.BASE_URL}/api/area`)
     areas.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
     // about current area
+    const area = areas[id - 1]
     const { products, teamLeaders, team } = await $axios
       .get(`${process.env.BASE_URL}/api/area/${id}`)
       .then((res) => {
         // PRODUCTS
         const products = res.data.products
+        // rename 'introShort' to 'description' so it works in the card component
+        products.forEach((card) => {
+          card.description = card.introShort
+          delete card.introShort
+        })
         // PEOPLE
         // rename 'role' to 'description' so it works in the card component
         res.data.people.forEach((obj) => {
@@ -106,6 +109,7 @@ export default {
       })
     return {
       id,
+      area,
       areas,
       products,
       teamLeaders,
