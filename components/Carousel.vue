@@ -7,13 +7,25 @@
           v-for="(s, i) in 1"
           :key="'slide-' + i + currentSlideIndex"
           class="slide"
+          :style="{
+            background:
+              theme === 'light' ? 'rgba(255,255,255,.5)' : 'rgba(0,0,0,.8)',
+            color: theme === 'light' ? '#222222' : 'white',
+          }"
         >
           <div class="slide-left">
             <h2>{{ currentSlide.name }}</h2>
             <p class="slide-text">{{ currentSlide.description }}</p>
-            <div class="slide-index">
+            <!-- <div class="slide-index">
               {{ currentSlideIndex + 1 }} / {{ slides.length }}
-            </div>
+            </div> -->
+            <button
+              v-if="currentSlide.url"
+              class="material-button ripple"
+              @click="$goTo(currentSlide.url)"
+            >
+              Read more
+            </button>
           </div>
           <div class="slide-right">
             <!-- <img :src="currentSlide.image" /> -->
@@ -58,12 +70,8 @@
 <script>
 export default {
   props: {
-    slides: {
-      type: Array,
-      default() {
-        return []
-      },
-    },
+    slides: { type: Array, default: () => [] },
+    theme: { type: String, default: 'dark' }, // 'light' / 'dark'
   },
   data() {
     return { currentSlideIndex: 0 }
@@ -114,18 +122,22 @@ export default {
   .slide-right {
     width: 50%;
   }
+  .slide-right {
+    height: 100%;
+  }
 }
 @media screen and (max-width: 767px) {
   .slide {
     flex-direction: column-reverse;
     height: 600px;
   }
+  .slide-right {
+    height: 400px;
+    width: 100%;
+  }
 }
 .slide-left {
-  margin: 30px;
-}
-.slide-right {
-  height: 100%;
+  padding: 30px 10%;
 }
 .slide-right div {
   background-repeat: no-repeat;
@@ -192,6 +204,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
+  text-align: center;
   justify-content: center;
   flex-wrap: wrap;
 }
