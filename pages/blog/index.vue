@@ -17,7 +17,14 @@
           v-for="article of filteredListSearch"
           :key="'art-' + article.title"
           class="article"
-          @click="$goTo(`/blog/${article.id}`)"
+          :class="{
+            bounce: animating >= 0 ? article.id === animating : false,
+          }"
+          @click="
+            animating = article.id
+            $goTo(`/blog/${article.id}`)
+          "
+          @animationend="animating = -1"
         >
           <article-mini
             :date="article.updatedAt.slice(0, 10)"
@@ -55,6 +62,7 @@ export default {
       search: '', // search query
       searchContent: false, // option to also search inside article
       onlyInContent: false, // warns if the content is found only inside the article
+      animating: -1, // clicked article.id to bounce-animate it
     }
   },
   computed: {

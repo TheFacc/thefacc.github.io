@@ -8,6 +8,7 @@
         :class="{
           'card-rectangle': shape === 'rectangle',
           'card-circle': shape === 'circle',
+          bounce: animating >= 0 ? card.id === animating : false,
         }"
         :style="
           tooltipData.length
@@ -24,7 +25,11 @@
             : ''
         "
         flow="in"
-        @click="$goTo(`${path}/${card.id}`)"
+        @click="
+          animating = card.id
+          $goTo(`${path}/${card.id}`)
+        "
+        @animationend="animating = -1"
       >
         <div class="card-aft">
           <div
@@ -50,17 +55,10 @@ export default {
     field: { type: String, default: 'areaId' }, // field of data to get (areaid or prodid)
     tooltipPrefix: { type: String, default: '' },
   },
-  mounted() {
-    // if (this.shape === 'circle') {
-    //   const grid = this.$refs.thisGrid
-    //   grid.style.gridTemplateColumns = 'repeat(3, calc(100% / 3))'
-    //   grid.style.gridGap = '0'
-    // }
-    // if (this.shape === 'rectangle') {
-    //   this.$refs.thisCard.classList.add('card-rectangle')
-    // } else if (this.shape === 'circle') {
-    //   this.$refs.thisCard.classList.add('card-circle')
-    // }
+  data() {
+    return {
+      animating: -1, // clicked card.id to bounce-animate it
+    }
   },
 }
 </script>
@@ -107,6 +105,8 @@ export default {
   position: absolute;
   opacity: 0;
   transform: translate(-12px, 15px) rotate(90deg);
+  background: white;
+  border-radius: 100%;
   transition: 0.2s;
 }
 .card:hover .card-aft::after {
