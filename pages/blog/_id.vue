@@ -5,7 +5,19 @@
       <div ref="imgbg" class="img"></div>
       <img :src="article.image" />
     </div>
-    <back-button text="All articles" path="/blog"></back-button>
+    <!-- global back button (show if not just refreshed) -->
+    <back-button
+      v-if="$store.state.pagePrevious.title"
+      :text="$store.state.pagePrevious.title"
+    ></back-button>
+    <!-- blog back button (if back doesn't do the same)(move down if the other button is present) -->
+    <back-button
+      v-if="$store.state.pagePrevious.title !== 'Blog'"
+      text="All articles"
+      path="/blog"
+      icon="blog.svg"
+      :style="{ top: $store.state.pagePrevious.title ? '150px' : '' }"
+    ></back-button>
 
     <!-- article -->
     <article class="container">
@@ -38,7 +50,7 @@
       </div>
       <!-- recent articles -->
       <div class="recents">
-        <h1>Recent articles</h1>
+        <h2>Recent articles</h2>
         <div class="article-grid">
           <div
             v-for="(article, articleIndex) of recents"
@@ -178,29 +190,5 @@ section.container {
 .comment .author {
   color: #3f51b5;
   font-weight: 800;
-}
-
-/* RECENTS */
-.article-grid {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: stretch;
-  justify-content: space-evenly;
-  margin-top: 20px;
-}
-.article-grid .article {
-  cursor: pointer;
-  margin-bottom: 20px;
-}
-@media screen and (min-width: 768px) {
-  .article-grid .article {
-    width: 30%;
-  }
-}
-@media screen and (max-width: 767px) {
-  .article-grid .article {
-    width: 100%;
-  }
 }
 </style>

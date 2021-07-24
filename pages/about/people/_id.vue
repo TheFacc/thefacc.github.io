@@ -1,17 +1,17 @@
 <template>
   <main class="container">
-    <!-- dynamic back button: gets to previous page if present, to Team otherwise -->
+    <!-- global back button (show if not just refreshed) -->
     <back-button
-      :text="
-        $store.state.pagePrevious.title
-          ? $store.state.pagePrevious.title
-          : 'Our team'
-      "
-      :path="
-        $store.state.pagePrevious.href
-          ? $store.state.pagePrevious.href
-          : '/about/people'
-      "
+      v-if="$store.state.pagePrevious.title"
+      :text="$store.state.pagePrevious.title"
+    ></back-button>
+    <!-- team back button (if back doesn't do the same)(move down if the other button is present) -->
+    <back-button
+      v-if="$store.state.pagePrevious.title !== 'Our team'"
+      text="Our team"
+      path="/about/people"
+      icon="people.svg"
+      :style="{ top: $store.state.pagePrevious.title ? '150px' : '' }"
     ></back-button>
 
     <div
@@ -115,7 +115,7 @@ export default {
     this.$store.commit('setTheme', this.area.color)
     this.$store.commit('setTitle', '')
     this.$store.commit('updateRoute', {
-      title: 'Our team',
+      title: 'Team:' + this.person.name,
       url: window.location.href,
     })
   },

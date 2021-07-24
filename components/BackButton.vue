@@ -10,7 +10,7 @@
     "
     @animationend="animated = false"
   >
-    <img :src="require('~/assets/icons/back.svg')" />
+    <img :src="require(`~/assets/icons/${icon}`)" />
   </div>
 </template>
 
@@ -19,6 +19,7 @@ export default {
   props: {
     text: { type: String, default: '' },
     path: { type: String, default: '' },
+    icon: { type: String, default: 'back.svg' },
   },
   data() {
     return {
