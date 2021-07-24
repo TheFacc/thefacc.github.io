@@ -3,19 +3,32 @@
     <the-header></the-header>
     <Nuxt />
     <chat :chat-list="list" />
-     <the-footer :areas="areas"></the-footer>
+    <the-footer :areas="areas"></the-footer>
   </div>
 </template>
 
 <script>
-import Chat from '~/components/Chat'
-import MMCCMixin from '~/mixins/mmcc-mixin'
 import TheHeader from '~/components/TheHeader.vue'
 import TheFooter from '~/components/TheFooter.vue'
+import MMCCMixin from '~/mixins/mmcc-mixin'
+import Chat from '~/components/Chat'
+
 export default {
   components: {
     TheHeader,
     TheFooter,
+  },
+  mixins: [MMCCMixin],
+  Chat,
+  data() {
+    return { areas: [] }
+  },
+  async fetch() {
+    // get all areas
+    this.areas = await fetch(`${process.env.API_URL}/api/area`).then((res) =>
+      res.json()
+    )
+    this.areas.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
   },
   // transition: {
   //   name: 'pagefar',
@@ -27,15 +40,6 @@ export default {
   //   }
   //   return +to.path.split('/').length < +from.path.split('/').length ? 'pagenear' : 'pagefar'
   // },
-    Chat,
-    mixins: [MMCCMixin],
-
-    async asyncData({ $axios }) {
-    // about all areas
-    const areas = await $axios.$get(`${process.env.BASE_URL}/api/area`)
-    return { areas }
-  },
-
 }
 </script>
 
@@ -57,7 +61,7 @@ export default {
   transform-origin: top;
 }
 /* between similar pages (between areas, between related products) */
-.pagenear-enter-active,
+/* .pagenear-enter-active,
 .pagenear-leave-active {
   transition: 1s ease;
 }
@@ -65,5 +69,5 @@ export default {
 .pagenear-leave-to {
   opacity: 0.8;
   filter: blur(50px);
-}
+} */
 </style>
