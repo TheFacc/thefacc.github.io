@@ -14,6 +14,7 @@ Live app (deployed once every while): https://moube.herokuapp.com/
 
 Who did what? ...
 
+Mousa: Makes sure his group members eat well (Buy food).
 ### Technical documentation blueprint
 
 - Server and DB technologies used
