@@ -11,8 +11,8 @@ async function init() {
 
   // Let's extract all the objects we need to perform queries inside the endpoints
   const { Area, Person, Product, Usecase, Article, Comment } = db._tables
-  console.log('TABLE:', Area)
   //*****   API: get areas   *****//
+  // - get all areas
   app.get('/area', async (req, res) => {
     const area = await Area.findAll()
     // Sort by ID. This works well in the api url, but somehow not in the page where the api is used. Computers!
@@ -20,6 +20,7 @@ async function init() {
       area.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
     )
   })
+  // get specific area + its products
   app.get('/area/:id', async (req, res) => {
     const { id } = req.params
     const area = await Area.findOne({
@@ -27,6 +28,14 @@ async function init() {
       include: [{ model: Person }, { model: Product }],
     })
     return res.json(area)
+  })
+  // get specific product from specific area
+  app.get('/area/:aid/:pid', async (req, res) => {
+    const { aid, pid } = req.params
+    const product = await Product.findOne({
+      where: { id: pid, areaId: aid },
+    })
+    return res.json(product)
   })
 
   //*****   API: get products   *****//
