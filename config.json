@@ -5,42 +5,79 @@
     "first_or": {
       "initials": [
         
-        "Hi! I'm MouBi Chatbot and I'm here to help you! Do you want to go to Contact page or you want a guide in the website?"
+        "Hi! I'm MouBi Chatbot and I'm here to help you! Do you want to go to Contact Section or you want a guide in the website?"
       ],
       "choices": [
        
         {
           "id": "contact_xor",
-          "intents": ["I want to go to Contact page", "contact"],
+          "intents": ["I want to go to Contact page", "contact" ,"Contact","contact section","Contact Section","go to contact"],
           "utterance": [
-            "Ah.. Contact...",
-            "Uff, Contact again",
-            "Okay, so let's go to Contact"
+            "Alright let's head to the contact Section!"
           ],
           "payload": {
-            "openGuidePopup": true, 
-            "customContact": "/contact"
+            
           }
         },
         {
           "id": "guide",
-          "intents": ["I want a guide", "guide"],
+          "intents": ["I want a guide", "guide","Guide","go to guide in the website","go to guide","Go to guide","a guide"],
           "payload": {
             "openGuidePopup": true
           }
         }
       ],
+      
       "quit": {
        
-        "intents": ["quit", "no", "reset"],
-        "utterance": ["ok bye"]
+      "intents": ["quit", "no", "reset"],
+      "utterance": ["ok bye"]
       },
+
+
       "unknown": "Option not available. Options: guide or contact"
     },
-    "guide": "Welcome to the homepage! insert ok to move to the next page..",
-    "home": "Welcome to the About page! This was our guide to MouBi website",
+
+    "contact_xor": {
+      "initials": [
+        "Pick form or page!",
+        "Do you want to check the form or the page?",
+        "You want to fill a form for contact or to check the contact page?"
+      ],
+      "choices": [
+        {
+          "id": "contact_form",
+          "intents": ["form","Form","The form","the form","contact form","fill the form","go to form","The Form","Fill the form","fill a form"],
+          "utterance": [
+            ""
+          ],
+          "payload": {
+            "openGuidePopup": true, 
+            "customContact": "#contact"
+          }
+        },
+        {
+          "id": "contact_page",
+          "intents": ["page","the page","Page","The page","contact information","Contact Information","contact page","Contact Page"],
+          "payload": {
+            "openContactPopup": true,
+            "customContact": "/contact"
+
+          }
+        }
+      ],
+      "unknown": "Option not available. Options: form or page"
+    },
+
+
+
+    "guide": "Welcome to MouBE! You are about to start the guide for our platform, are you ready?",
+    "home": "Welcome to the Homepage! you want to move on?",
+    "contact_page": "you are in the contact page!",
+    "contact_form": "Here is the form! fill it with the right information and send the request..",
+
     "about": {
-      "initials": ["You completed the guide!"],
+      "initials": ["You are in the about page!"],
       "completed": {
         "utterance": "You completed the guide!",
         "payload": {} 
@@ -96,13 +133,13 @@
         "my_id": "contact_form",
         "next_id": null,
         "my_type": "TASK",
-        "callback": "guide"
+        "callback": "generic_xor"
       },
             {
         "my_id": "contact_page",
         "next_id": null,
         "my_type": "TASK",
-        "callback": "guide"
+        "callback": "generic_xor"
       },
       { "my_id": "end",
         "next_id": "start",
