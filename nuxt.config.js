@@ -7,6 +7,8 @@ export default {
   env: {
     BASE_URL: 'https://moube.herokuapp.com', // Production URL - TODO set to https for final delivery!
     // BASE_URL: '', // Development URL
+    API_URL: 'https://moube.herokuapp.com', // fetch() always needs absolute url
+    GOOGLE_MAPS_API_KEY: 'AIzaSyC8RoIzwgLliflh7Vb5-PaCiOtd4rGKg50', // for the contact page only
     configurationId: '457c738e-c55a-4293-8faf-53b627e4ce27', // chatbot access
   },
   serverMiddleware: [

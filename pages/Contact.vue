@@ -2,17 +2,30 @@
   <main>
     <h1>Headquarters</h1>
     <section class="locations">
-      <div class="place raised">
-        <div class="info">Some place</div>
-        <div id="map1" class="map"></div>
-      </div>
-      <div class="place raised">
-        <div class="info">Some place</div>
-        <div id="map2" class="map"></div>
-      </div>
-      <div class="place raised">
-        <div class="info">Some place</div>
-        <div id="map3" class="map"></div>
+      <div
+        v-for="(place, index) in locations"
+        :key="'place-' + index"
+        class="place raised"
+      >
+        <h2>{{ place.name }}</h2>
+        <div class="info">
+          <i class="fa fa-map-marker fgrid-pin"></i>
+          <span class="fgrid-road">
+            <a :href="place.url" target="_blank">{{ place.address }}</a>
+          </span>
+          <i class="fa fa-envelope fgrid-mail"></i>
+          <span class="fgrid-contact">
+            <a :href="`email:${place.email}`">{{ place.email }}</a>
+          </span>
+          <i class="fa fa-phone fgrid-phone"></i>
+          <span class="fgrid-call">
+            <a :href="`tel:${place.phone}`">{{ place.phone }}</a>
+          </span>
+        </div>
+        <div class="pic">
+          <img :src="place.pic" :alt="`MouBE ${place.name}`" />
+        </div>
+        <div :id="`map${index + 1}`" class="map"></div>
       </div>
     </section>
     <contact-form></contact-form>
@@ -21,39 +34,65 @@
 
 <script>
 import ContactForm from '~/components/ContactForm.vue'
-// const apiKey = process.env.GOOGLE_MAPS_API_KEY
-// const apiKey = 'AIzaSyBQORu47i9VKWe0j6oTVikeqdZi7HSQ-pE'
+const apiKey = process.env.GOOGLE_MAPS_API_KEY
 
 export default {
   component: { ContactForm },
-  // data() {
-  //   return {
-  //     initMap: maps.initMap,
-  //   }
-  // },
   head() {
     return {
-      // script: [
-      //   {
-      //     type: 'text/javascript',
-      //     src: `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=&v=weekly`,
-      //   },
-      // ],
+      script: [
+        {
+          type: 'text/javascript',
+          src: `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=&v=weekly`,
+        },
+      ],
+    }
+  },
+  data() {
+    return {
+      locations: [
+        {
+          name: 'Milan',
+          address: 'Via Edoardo Bonardi 9, Milano (MI), Italy',
+          url: 'https://goo.gl/maps/GoRnkxro2ipLVmRQ6',
+          email: 'milan@mou.be',
+          phone: '+39 0256729873',
+          pic:
+            'https://lh6.googleusercontent.com/-4MPOYfMcH9c/Tt9XsjZk5MI/AAAAAAAAATU/BrtP7d4irjw/s0/32Media-ICT_cloud9.jpg',
+        },
+        {
+          name: 'Verona',
+          address: 'Piazza S. Marco 9, Peschiera del Garda (VR), Italy',
+          url: 'https://goo.gl/maps/tDjEGG83jw4SWQ8Y9',
+          email: 'verona@mou.be',
+          phone: '+39 0256729873',
+          pic: 'https://www.inforpress.cv/wp-content/uploads/2020/02/Nosi-.jpg',
+        },
+        {
+          name: 'Jordan',
+          address: 'Queen Rania St 285, Amman, Jordan',
+          url: 'https://goo.gl/maps/5R65ofUXiyAYYp2v6',
+          email: 'jordan@mou.be',
+          phone: '+39 0256729873',
+          pic:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnwz7jF3vCnxg7DsPHLwtH7OX1bu9D44dlABUscppXHZDi5DRYz8tyRgC0xWY6ELI6050&usqp=CAU',
+        },
+      ],
     }
   },
   mounted() {
-    // // if (!process.server) {
-    // if (typeof google === 'undefined') {
-    //   const script = document.createElement('script')
-    //   script.onload = this.onScriptLoaded
-    //   script.type = 'text/javascript'
-    //   // script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=&v=weekly`
-    //   script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=&v=weekly`
-    //   document.head.appendChild(script)
-    // } else {
-    //   this.onScriptLoaded()
+    // if (!process.server) {
+    if (typeof google === 'undefined') {
+      const script = document.createElement('script')
+      script.onload = this.initMap
+      script.type = 'text/javascript'
+      // script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=&v=weekly`
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=&v=weekly`
+      document.head.appendChild(script)
+    } else {
+      this.initMap()
+    }
     // }
-    // // }
 
     this.$store.commit('setTheme', '')
     this.$store.commit('setTitle', '')
@@ -63,50 +102,60 @@ export default {
     })
   },
   methods: {
-    onScriptLoaded(event = null) {
-      // YOU HAVE ACCESS TO "new google" now, ADD YOUR GOOGLE MAPS FUNCTIONS HERE.
-      if (event) {
-        console.log('Was added')
-      } else {
-        console.log('Already existed')
-      }
-      console.log(window.google)
+    initMap(event = null) {
+      // YOU NOW HAVE ACCESS TO "new google" now, ADD YOUR GOOGLE MAPS FUNCTIONS HERE.
+      // if (event) {
+      //   console.log('Was added')
+      // } else {
+      //   console.log('Already existed')
+      // }
+      // console.log(window.google)
+
       // DO
       // function initMap() {
       // Set coordinates
-      const loc1 = { lat: -25.344, lng: 131.036 }
-      const loc2 = { lat: -26.344, lng: 131.036 }
-      const loc3 = { lat: -27.344, lng: 131.036 }
+      const loc1 = { lat: 45.4796614, lng: 9.2291043 }
+      const loc2 = { lat: 45.4387173, lng: 10.693738 }
+      const loc3 = { lat: 32.0179069, lng: 35.8691006 }
       // Inject map
-      const map1 = window.google.maps.Map(document.getElementById('map1'), {
-        zoom: 4,
+      const map1 = new window.google.maps.Map(document.getElementById('map1'), {
+        zoom: 10,
         center: loc1,
+        mapTypeControl: false,
+        streetViewControl: false,
+        rotateControl: false,
       })
-      const map2 = window.google.maps.Map(document.getElementById('map2'), {
-        zoom: 4,
+      const map2 = new window.google.maps.Map(document.getElementById('map2'), {
+        zoom: 10,
         center: loc2,
+        mapTypeControl: false,
+        streetViewControl: false,
+        rotateControl: false,
       })
-      const map3 = window.google.maps.Map(document.getElementById('map3'), {
-        zoom: 4,
+      const map3 = new window.google.maps.Map(document.getElementById('map3'), {
+        zoom: 10,
         center: loc3,
+        mapTypeControl: false,
+        streetViewControl: false,
+        rotateControl: false,
       })
       // Add markers on map
-      window.google.maps.Marker({ position: loc1, map: map1 })
-      window.google.maps.Marker({ position: loc2, map: map2 })
-      window.google.maps.Marker({ position: loc3, map: map3 })
+      new window.google.maps.Marker({ position: loc1, map: map1 })
+      new window.google.maps.Marker({ position: loc2, map: map2 })
+      new window.google.maps.Marker({ position: loc3, map: map3 })
       // }
-    },
-    set() {
-      console.log('im INDEED a function!!1')
     },
   },
 }
 </script>
 
 <style scoped>
+/* head */
 h1 {
   text-align: center;
 }
+
+/* places */
 .locations {
   margin: 60px 0;
   display: flex;
@@ -116,14 +165,72 @@ h1 {
   flex-wrap: nowrap;
 }
 .place {
-  height: 400px;
-  width: 25%;
+  height: 600px;
+  text-align: center;
+  overflow: hidden;
 }
+@media screen and (min-width: 1000px) {
+  .place {
+    width: 20%;
+  }
+}
+@media screen and (max-width: 999px) {
+  .place {
+    width: 25%;
+  }
+}
+@media screen and (max-width: 767px) {
+  .locations {
+    flex-direction: column;
+  }
+  .place {
+    width: 90%;
+  }
+}
+
 .place .info {
-  padding: 20px 8%;
+  padding: 20px 12%;
+  display: grid;
+  grid-template-columns: 0.1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  grid-template-areas:
+    'pin road'
+    'mail contact'
+    'phone call';
+  align-items: center;
 }
+.place .info a {
+  text-decoration: none;
+}
+.fgrid-pin {
+  grid-area: pin;
+}
+.fgrid-road {
+  grid-area: road;
+}
+.fgrid-mail {
+  grid-area: mail;
+}
+.fgrid-contact {
+  grid-area: contact;
+}
+.fgrid-phone {
+  grid-area: phone;
+}
+.fgrid-call {
+  grid-area: call;
+}
+.place .pic,
+.place img,
 .place .map {
   height: 200px;
+}
+.place img {
+  width: 100%;
+  object-fit: cover;
+}
+.place .map {
   width: 100%;
 }
 </style>
