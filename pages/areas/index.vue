@@ -57,6 +57,6 @@ export default {
 
 <style scoped>
 .container {
-  margin: 0 auto;
+  margin: 10px auto;
 }
 </style>

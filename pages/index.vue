@@ -12,25 +12,35 @@
 
     <!-- 2. HOME AREAS -->
     <section id="home-areas">
-      <div class="container">
+      <div class="container fancy">
         <h3>Our areas of specialization</h3>
         <p>
-          Our expertise varies from........ currently in these
-          {{ areas.length }} areas:
-          <span v-for="(area, index) in areas" :key="'arealist-' + index">
-            <a
-              :href="`/areas/${area.id}`"
-              class="fancyul"
-              :style="{
-                'text-decoration': 'underline 2px ' + area.color,
-                background: `linear-gradient(to right,rgba(100, 200, 200, 1),rgba(100, 200, 200, 1)), linear-gradient(to right,rgba(255, 0, 0, 1),rgba(255, 0, 180, 1),rgba(0, 100, 200, 1));`,
-              }"
-            >
-              {{ area.name }}</a
-            ><span v-if="index < areas.length - 1">, </span
-            ><span v-else>.</span>
-          </span>
-          Each area has products...
+          MouBE provides simple and secure solutions in many fields. We're
+          currently specializing in these {{ areas.length }} areas:
+        </p>
+        <span
+          v-for="(area, index) in areas"
+          :key="'arealist-' + index"
+          class="fancy"
+        >
+          <a
+            :href="`/areas/${area.id}`"
+            class="fancyul"
+            :style="{
+              'text-decoration': 'underline 2px ' + area.color,
+              background: area.color + 'aa',
+            }"
+          >
+            {{ area.name }}</a
+          ><span v-if="index < areas.length - 1">, </span
+          ><span v-else>.</span> </span
+        ><br />
+        <p>Each area provides a great variety of solutions for any need.</p>
+        <p>
+          Explore the <a href="/areas">areas</a>, browse the
+          <a href="/solutions">solutions</a>, read our <a href="/blog">blog</a>,
+          meet our <a href="/about/people">team</a>, get to
+          <a href="/about/company">know us</a>. We're waiting for you!
         </p>
       </div>
       <div
@@ -226,6 +236,26 @@ export default {
 }
 </style>
 <style scoped>
+/* texts */
+@media screen and (min-width: 768px) {
+  span.fancy a {
+    padding: 5px;
+  }
+  span.fancy a:hover {
+    padding: 5px 7px;
+    opacity: 0.8;
+    transition: 0s;
+  }
+}
+@media screen and (max-width: 767px) {
+  span.fancy a {
+    padding: 2px 10px;
+  }
+}
+span.fancy a {
+  transition: 0.7s;
+}
+
 /* 2. AREAS blocks */
 .area {
   display: flex;
@@ -233,11 +263,20 @@ export default {
   align-items: center;
   text-align: left;
   margin: auto;
-  padding: 30px 10%;
   outline-style: solid;
   outline-width: 0px;
   outline-offset: -1px;
   transition: 0.3s;
+}
+@media screen and (min-width: 768px) {
+  .area {
+    padding: 30px 10%;
+  }
+}
+@media screen and (max-width: 767px) {
+  .area {
+    padding: 15px 3%;
+  }
 }
 .area:hover {
   outline-offset: -15px;
@@ -251,6 +290,9 @@ export default {
 }
 .area-left {
   padding: 30px 5%;
+}
+.area-right {
+  text-align: center;
 }
 .area-right-wrapper {
   height: 350px;
@@ -286,11 +328,16 @@ export default {
 @media screen and (max-width: 767px) {
   .area {
     flex-direction: column-reverse;
-    height: 600px;
+    /* height: 600px; */
   }
   .area-right {
-    height: 400px;
+    /* height: 400px; */
     width: 100%;
+  }
+  .area-right-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 .area-button {

@@ -15,11 +15,11 @@
       <section id="purpose" class="overview raised anchored">
         <div class="intro-img">
           <img
-            src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
+            src="https://lh6.googleusercontent.com/-4MPOYfMcH9c/Tt9XsjZk5MI/AAAAAAAAATU/BrtP7d4irjw/s0/32Media-ICT_cloud9.jpg"
           />
         </div>
         <div class="intro-text">
-          <h1>Our purpose</h1>
+          <h2>Our purpose</h2>
           <h4>
             A company built for a sustainable future, to help people work better
             together, trust one another, and build global solutions to global
@@ -40,12 +40,10 @@
       </section>
       <section id="research" class="overview raised anchored reverse">
         <div class="intro-img">
-          <img
-            src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
-          />
+          <img src="https://pbs.twimg.com/media/CeOJDcXUsAAMbnJ.jpg" />
         </div>
         <div class="intro-text">
-          <h1>Research</h1>
+          <h2>Research</h2>
           <h4>Pioneering tech begins with groundbreaking research</h4>
           <p>
             MouBE began with and has grown through research. Before any
@@ -54,20 +52,16 @@
             unique achievement for a unique platform - so that our ideas may be
             challenged before they are validated.
           </p>
-          <p class="quote">
-            To build a lasting future, we’ve ensured the durability and
-            stability of every building block
-          </p>
         </div>
       </section>
       <section id="technology" class="overview raised anchored">
         <div class="intro-img">
           <img
-            src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
+            src="https://intelligizedigital.com/wp-content/uploads/2021/02/Information-and-Communications-Technology-768x435.jpeg"
           />
         </div>
         <div class="intro-text">
-          <h1>Technology</h1>
+          <h2>Technology</h2>
           <h4>Technology realized through evidence-based science</h4>
           <p>
             MouBE brings a new standard in technology - open and inclusive – to
@@ -75,11 +69,9 @@
             globally-distributed innovation.
           </p>
           <p>
-            Our technology is underpinned by research. We have redefined what it
-            means to create a global software platform through scientific
-            methods. We have not compromised on our belief, or in our approach.
-            To build a better future - secure, sustainable, and governable by
-            the many - we have taken the road less traveled.
+            Our technology is underpinned by research. To build a better future
+            - secure, sustainable, and governable by the many - we have taken
+            the road less traveled.
           </p>
         </div>
       </section>
@@ -249,6 +241,16 @@ export default {
 </script>
 
 <style scoped>
+.overview .intro-img {
+  transform: scale(1.5);
+  transform-origin: right;
+}
+@media screen and (min-width: 768px) {
+  .overview.reverse .intro-img {
+    transform-origin: left;
+  }
+}
+
 /* 0. OURNAME */
 #ourname {
   display: flex;
@@ -257,7 +259,7 @@ export default {
 #ourname .left {
   padding: 20px;
 }
-#ourname .right {
+#ourname .right p {
   font-size: 30px;
   font-weight: 300;
 }
@@ -283,12 +285,12 @@ export default {
 }
 @media screen and (min-width: 768px) {
   #roadmap:after {
-    height: 480px;
+    height: 530px;
   }
 }
 @media screen and (max-width: 768px) {
   #roadmap:after {
-    height: 300px;
+    height: 350px;
   }
 }
 

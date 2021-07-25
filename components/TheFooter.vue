@@ -10,7 +10,7 @@
           <div class="info">
             <i class="fa fa-map-marker fgrid-pin"></i>
             <span class="fgrid-road"
-              ><a href="http://maps.google.com/" target="_blank"
+              ><a href="/contact" target="_blank"
                 >Web Street, 1<br />Milano (MI), Italy</a
               ></span
             >
@@ -44,6 +44,7 @@
               <div><nuxt-link to="/blog"> Articles </nuxt-link></div>
             </div>
             <div class="right-col">
+              <div><nuxt-link to="/contact"> Contacts </nuxt-link></div>
               <div>
                 <nuxt-link to="/about/company"> Our company </nuxt-link>
               </div>

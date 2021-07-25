@@ -151,6 +151,9 @@ export default {
     // condition to show back button (only if coming from 'far' page, i.e. person)
     if (this.$store.state.pagePrevious.url) {
       this.fromPerson = this.$store.state.pagePrevious.url.includes('about')
+      if (this.fromPerson) {
+        this.prevName = this.$store.state.pagePrevious.title
+      }
     }
 
     /* [plugin:scrollmagic]

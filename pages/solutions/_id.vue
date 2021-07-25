@@ -1,30 +1,36 @@
 <template>
   <main>
+    <!-- top banner -->
     <item-intro
       :item="product"
       :items="areas"
       :item-id="areaId - 1"
     ></item-intro>
+
+    <!-- page anchors -->
     <page-anchors
       :item-color="areas[areaId - 1].color"
       :sections="sections"
     ></page-anchors>
+
+    <!-- history.back button -->
+    <back-button v-if="showBackButton" :text="prevName"></back-button>
+
+    <!-- page -->
     <div class="container">
+      <!-- intro -->
       <section id="intro" ref="intro" class="overview raised">
         <div class="intro-img">
           <img :src="product.image" />
         </div>
         <div class="intro-text">
-          <h2>
-            This is product {{ id }} from A{{ areaId }} ({{
-              areas[areaId - 1].name
-            }})
-          </h2>
           <p>
             {{ product.intro }}
           </p>
         </div>
       </section>
+
+      <!-- usecases -->
       <section
         v-if="usecases.length"
         id="usecases"
@@ -34,6 +40,8 @@
         <h1>Use cases</h1>
         <carousel :slides="usecases" theme="light"></carousel>
       </section>
+
+      <!-- contact referent -->
       <section id="contact" ref="referent" class="referent fancy">
         <div class="ref-left">
           <h1>Get in touch!</h1>
@@ -65,6 +73,8 @@
           <p>{{ product.name }}<br />Product Referent</p>
         </div>
       </section>
+
+      <!-- related prods -->
       <section class="items">
         <h2>Related products</h2>
         <card-grid
@@ -83,9 +93,10 @@ import ItemIntro from '~/components/ItemIntro.vue'
 import CardGrid from '~/components/CardGrid.vue'
 import PageAnchors from '~/components/PageAnchors.vue'
 import Carousel from '~/components/Carousel.vue'
+import BackButton from '~/components/BackButton.vue'
 
 export default {
-  components: { ItemIntro, PageAnchors, CardGrid, Carousel },
+  components: { ItemIntro, PageAnchors, CardGrid, Carousel, BackButton },
   async asyncData({ $axios, route }) {
     const { id } = route.params
     // about all areas
@@ -152,10 +163,12 @@ export default {
         },
         {
           name: 'Referent',
-          sectionId: 'referent',
-          anchorId: 'referent-anchor',
+          sectionId: 'contact',
+          anchorId: 'contact-anchor',
         },
       ],
+      showBackButton: false,
+      prevName: '',
     }
   },
   mounted() {
@@ -168,6 +181,12 @@ export default {
       title: 'Solution: ' + this.product.name,
       url: window.location.href,
     })
+    if (this.$store.state.pagePrevious.url) {
+      this.showBackButton = this.$store.state.pagePrevious.url.includes('about')
+      if (this.showBackButton) {
+        this.prevName = this.$store.state.pagePrevious.title
+      }
+    }
 
     // if (this.shape === 'circle') {
     //   document.querySelector('.card-grid').style.gridTemplateColumns =

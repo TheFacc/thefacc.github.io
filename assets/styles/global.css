@@ -40,6 +40,10 @@ img {
 a {
   color: inherit;
 }
+p {
+  font-size: 18px;
+  font-weight: 300;
+}
 h1 {
   font-weight: 300;
   font-size: 56px;
@@ -103,6 +107,7 @@ section:not(.items) h6 {
 }
 @media screen and (min-width: 768px) {
   .overview {
+    height: 350px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -129,6 +134,10 @@ section:not(.items) h6 {
     align-items: center;
     justify-content: space-around;
     text-align: left;
+  }
+  .overview .intro-img {
+    overflow: hidden;
+    height: 200px;
   }
   .overview .intro-text {
     padding: 20px;

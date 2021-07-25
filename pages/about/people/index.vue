@@ -112,7 +112,8 @@ export default {
       // 'fake' item for the intro section
       discover: {
         name: 'Meet our team',
-        introShort: 'some nice description about us <3',
+        introShort:
+          'What do we value most? Our people, our technology, and changing the world — and we’re just getting started. We support each other and work together to create shared success that will benefit everyone.',
       },
 
       roles: [
@@ -221,4 +222,13 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+@media screen and (max-width: 768px) {
+  /* .selector-filter svg {
+    margin: -15px 0 -30px;
+  } */
+  .selector-filter {
+    top: auto;
+  }
+}
+</style>
