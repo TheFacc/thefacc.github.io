@@ -52,7 +52,7 @@
     <div class="submit">
       <button
         role="button"
-        aria-command-name="Submit form"
+        aria-label="Submit form"
         class="material-button raised dark ripple"
         @click="send()"
       >

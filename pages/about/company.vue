@@ -126,7 +126,7 @@
             <p>What are you waiting for? Get in touch now.</p>
             <button
               role="button"
-              aria-command-name="Open contact page"
+              aria-label="Open contact page"
               class="material-button raised dark ripple"
               @click="$goTo(`/contact`)"
             >

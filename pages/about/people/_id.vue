@@ -79,7 +79,7 @@
             <a :href="person.in_link" target="_blank">
               <button
                 role="button"
-                :aria-command-name="`Contact product referent of ${product.name}`"
+                :aria-label="`Contact product referent of ${product.name}`"
                 class="material-button raised ripple ref-button"
                 :style="{
                   background: area
@@ -95,7 +95,7 @@
           <div>
             <button
               role="button"
-              aria-command-name="Open contact page"
+              aria-label="Open contact page"
               class="material-button raised ripple"
               :style="{
                 background: area ? changeColorBrightness(area.color, -70) : '',
@@ -216,10 +216,12 @@ export default {
   flex-flow: row;
   text-align: center;
   align-items: center;
+  margin: 20px 0;
   outline: 5px solid rgba(255, 255, 255, 0.5);
   outline-offset: -10px;
   overflow: hidden;
   background: linear-gradient(130deg, #abdbe4, #3f51b5, #3f86b5, #066366);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   background-size: 400%;
   animation: wavedient 20s ease infinite;
   animation-direction: alternate;

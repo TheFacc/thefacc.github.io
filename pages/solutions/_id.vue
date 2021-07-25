@@ -57,7 +57,7 @@
           </p>
           <button
             role="button"
-            aria-command-name="Open contact page"
+            aria-label="Open contact page"
             class="material-button raised ripple"
             :style="{
               color: '#222222',

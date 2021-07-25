@@ -26,16 +26,16 @@
         </div>
         <div class="right">
           <div class="right-grid fancy" role="grid">
-            <div class="right-col">
-              <div role="gridcell">
+            <div class="right-col" role="row">
+              <div role="cell">
                 <nuxt-link to="/areas"> Areas </nuxt-link>
               </div>
             </div>
-            <div class="right-col">
+            <div class="right-col" role="row">
               <div
                 v-for="area in areas"
                 :key="'footer-area-' + area.id"
-                role="gridcell"
+                role="cell"
               >
                 <nuxt-link
                   :to="'/areas/' + area.id"
@@ -45,22 +45,22 @@
                 >
               </div>
             </div>
-            <div class="right-col">
-              <div role="gridcell">
+            <div class="right-col" role="row">
+              <div role="cell">
                 <nuxt-link to="/solutions"> Solutions </nuxt-link>
               </div>
-              <div role="gridcell">
+              <div role="cell">
                 <nuxt-link to="/blog"> Articles </nuxt-link>
               </div>
             </div>
-            <div class="right-col">
-              <div role="gridcell">
+            <div class="right-col" role="row">
+              <div role="cell">
                 <nuxt-link to="/contact"> Contacts </nuxt-link>
               </div>
-              <div role="gridcell">
+              <div role="cell">
                 <nuxt-link to="/about/company"> Our company </nuxt-link>
               </div>
-              <div role="gridcell">
+              <div role="cell">
                 <nuxt-link to="/about/people"> Our team </nuxt-link>
               </div>
             </div>
