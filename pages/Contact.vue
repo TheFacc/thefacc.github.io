@@ -1,6 +1,24 @@
 <template>
-  <main>
-    <h1>Headquarters</h1>
+  <main role="main">
+    <section class="container fancy" role="banner">
+      <h1>Headquarters</h1>
+      <p>Our company is situated in multiple locations.</p>
+      <p>
+        We're currently mostly working in Italy, with the main legal an
+        operational location in <strong>Milan</strong>. We're also present in
+        <strong>Peschiera del Garda</strong>, near Verona, in a special location
+        near the beautiful Garda lake. Our latest opening is the
+        <strong>Jordan</strong>
+        location, in an amazing and unique landscape that will let us expand our
+        ideas and our view of the world.
+      </p>
+      <p>
+        You can <strong>contact</strong> or <strong>call</strong> each location
+        specifically, or use the general
+        <a href="#contact"><strong>Contact Form</strong></a> present at the
+        bottom of this page.
+      </p>
+    </section>
     <section class="locations">
       <div
         v-for="(place, index) in locations"
@@ -23,7 +41,10 @@
           </span>
         </div>
         <div class="pic">
-          <img :src="place.pic" :alt="`MouBE ${place.name}`" />
+          <img
+            :src="require(`~/assets/img/${place.pic}`)"
+            :alt="`MouBE ${place.name}`"
+          />
         </div>
         <div :id="`map${index + 1}`" class="map"></div>
       </div>
@@ -38,16 +59,6 @@ const apiKey = process.env.GOOGLE_MAPS_API_KEY
 
 export default {
   component: { ContactForm },
-  head() {
-    return {
-      script: [
-        {
-          type: 'text/javascript',
-          src: `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=&v=weekly`,
-        },
-      ],
-    }
-  },
   data() {
     return {
       locations: [
@@ -57,8 +68,7 @@ export default {
           url: 'https://goo.gl/maps/GoRnkxro2ipLVmRQ6',
           email: 'milan@mou.be',
           phone: '+39 0256729873',
-          pic:
-            'https://lh6.googleusercontent.com/-4MPOYfMcH9c/Tt9XsjZk5MI/AAAAAAAAATU/BrtP7d4irjw/s0/32Media-ICT_cloud9.jpg',
+          pic: 'loc1.jpg',
         },
         {
           name: 'Verona',
@@ -66,7 +76,7 @@ export default {
           url: 'https://goo.gl/maps/tDjEGG83jw4SWQ8Y9',
           email: 'verona@mou.be',
           phone: '+39 0256729873',
-          pic: 'https://www.inforpress.cv/wp-content/uploads/2020/02/Nosi-.jpg',
+          pic: 'loc2.jpg',
         },
         {
           name: 'Jordan',
@@ -74,8 +84,17 @@ export default {
           url: 'https://goo.gl/maps/5R65ofUXiyAYYp2v6',
           email: 'jordan@mou.be',
           phone: '+39 0256729873',
-          pic:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnwz7jF3vCnxg7DsPHLwtH7OX1bu9D44dlABUscppXHZDi5DRYz8tyRgC0xWY6ELI6050&usqp=CAU',
+          pic: 'loc3.jpg',
+        },
+      ],
+    }
+  },
+  head() {
+    return {
+      script: [
+        {
+          type: 'text/javascript',
+          src: `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=&v=weekly`,
         },
       ],
     }
@@ -157,27 +176,27 @@ h1 {
 
 /* places */
 .locations {
-  margin: 60px 0;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-direction: row;
   flex-wrap: nowrap;
 }
+@media screen and (min-width: 768px) {
+  .locations {
+    margin: 60px 10%;
+  }
+}
+@media screen and (max-width: 767px) {
+  .locations {
+    margin: 60px 3%;
+  }
+}
 .place {
   height: 600px;
+  width: 30%;
   text-align: center;
   overflow: hidden;
-}
-@media screen and (min-width: 1000px) {
-  .place {
-    width: 20%;
-  }
-}
-@media screen and (max-width: 999px) {
-  .place {
-    width: 25%;
-  }
 }
 @media screen and (max-width: 767px) {
   .locations {
@@ -199,6 +218,7 @@ h1 {
     'mail contact'
     'phone call';
   align-items: center;
+  height: 160px;
 }
 .place .info a {
   text-decoration: none;

@@ -1,7 +1,7 @@
 <template>
   <main>
     <item-intro :item="discover" :items="areas"></item-intro>
-    <div class="container">
+    <div class="container" role="main">
       <!-- leaderboard -->
       <section class="items raised dark">
         <h2>MouBE Leaderboard</h2>
@@ -78,6 +78,7 @@ export default {
     })
     // get products (to pass their name if filtering by prod.ref)
     const products = await $axios.$get(`${process.env.BASE_URL}/api/product`)
+    products.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
 
     // filter TEAM LEADER
     const teamLeaders = people.filter(

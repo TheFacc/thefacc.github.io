@@ -17,7 +17,7 @@
     <back-button v-if="showBackButton" :text="prevName"></back-button>
 
     <!-- page -->
-    <div class="container">
+    <div class="container" role="main">
       <!-- intro -->
       <section id="intro" ref="intro" class="overview raised">
         <div class="intro-img">
@@ -35,6 +35,7 @@
         v-if="usecases.length"
         id="usecases"
         ref="usecases"
+        role="list"
         class="usecases"
       >
         <h1>Use cases</h1>
@@ -46,12 +47,13 @@
         <div class="ref-left">
           <h1>Get in touch!</h1>
           <p>
-            <nuxt-link :to="'/contact'">Contact MouBE</nuxt-link> or directly
-            the
+            <nuxt-link :to="'/contact'">Contact MouBE</nuxt-link>
+            or directly the
             <nuxt-link :to="`/about/people/${referent.id}`">referent</nuxt-link>
             for this product.
           </p>
           <button
+            role="button"
             class="material-button raised ripple"
             :style="{
               color: '#222222',
@@ -172,11 +174,19 @@ export default {
     }
   },
   mounted() {
+    // compute title, shrink if too long
+    let areaName = this.areas[this.areaId - 1].name
+    if (areaName.length > 10) {
+      // just take initials
+      const areaInitials = []
+      areaName.split(' ').forEach((word) => {
+        areaInitials.push(word.charAt(0))
+      })
+      areaName = areaInitials.join('')
+    }
+    // set vars
     this.$store.commit('setTheme', this.areas[this.areaId - 1].color)
-    this.$store.commit(
-      'setTitle',
-      this.areas[this.areaId - 1].name + ': ' + this.product.name
-    )
+    this.$store.commit('setTitle', areaName + ': ' + this.product.name)
     this.$store.commit('updateRoute', {
       title: 'Solution: ' + this.product.name,
       url: window.location.href,
@@ -287,7 +297,7 @@ export default {
     text-align: left;
   }
   #contact.referent:before {
-    height: 60%;
+    height: 85%;
   }
   #contact.referent .ref-left {
     display: flex;

@@ -5,7 +5,7 @@ export const state = () => {
     title: '', // text to inject in header
     theme: '#d2d2d2', // header theme
     messages: [], // chatbot
-    // path history for dynamic 'back' button where needed
+    // path history for dynamic 'back' button where needed (only 1 level, could be extended to infinite...)
     pageCurrent: {},
     pagePrevious: {},
   }

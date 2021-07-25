@@ -5,17 +5,20 @@
       <div class="logo" @click="$goToHome">
         <div v-html="require('~/assets/moube.svg?raw')" />
       </div>
+
       <!-- 2. page title -->
       <div class="title">
         <transition name="title">
           <div v-if="showTitle">{{ $store.state.title }}</div>
         </transition>
       </div>
+
       <!-- 3. nav menu -->
-      <nav class="right">
+      <nav class="right" role="navigation">
         <!-- mobile menu toggle button -->
         <div
           class="nav__toggle"
+          role="button"
           :class="{ open: mobileMenuOpen, close: !mobileMenuOpen }"
           :aria-expanded="mobileMenuOpen"
           :aria-label="mobileMenuOpen ? 'close menu' : 'menu'"

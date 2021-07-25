@@ -1,5 +1,5 @@
 <template>
-  <div ref="thisGrid" class="card-grid">
+  <div ref="thisGrid" class="card-grid" role="list">
     <transition-group name="card">
       <div
         v-for="card of cards"
@@ -20,7 +20,7 @@
             : ''
         "
         :tooltip="
-          tooltipData.length
+          tooltipData.length && tooltipData[parseInt(card[field]) - 1]
             ? tooltipPrefix + tooltipData[parseInt(card[field]) - 1].name
             : ''
         "
@@ -51,7 +51,7 @@ export default {
     cards: { type: Array, default: () => [] },
     shape: { type: String, default: 'rectangle' },
     path: { type: String, default: '/' },
-    tooltipData: { type: Array, default: () => [] }, // if additional info is needed (areas)
+    tooltipData: { type: Array, default: () => [] }, // if additional info is needed (areas or products)
     field: { type: String, default: 'areaId' }, // field of data to get (areaid or prodid)
     tooltipPrefix: { type: String, default: '' },
   },
@@ -95,7 +95,8 @@ export default {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 .card:hover .img,
-.card:hover h3 {
+.card:hover h3,
+.card:hover p {
   margin-bottom: 0;
 }
 /* ::before (area icon if needed) */
@@ -108,6 +109,9 @@ export default {
   background: white;
   border-radius: 100%;
   transition: 0.2s;
+}
+.dark .card-aft::after {
+  background: transparent;
 }
 .card:hover .card-aft::after {
   opacity: 1;
@@ -129,7 +133,8 @@ export default {
 }
 /* card circle */
 .card.card-circle {
-  border-radius: 80px;
+  /* border-radius: 80px; */
+  border-radius: 100%;
   /* width: 200px;
   height: 200px; */
   /* flex: 0 0 calc(30% - 20px); */
@@ -137,6 +142,12 @@ export default {
 }
 .card.card-circle .img {
   height: 120px;
+}
+.card.card-circle p {
+  margin-bottom: 40px;
+}
+.card.card-circle:hover p {
+  margin-bottom: 20px;
 }
 /* card wrapping */
 @media screen and (min-width: 768px) {

@@ -42,6 +42,7 @@
     <a
       v-for="(item, index) of items"
       :key="'area-' + index"
+      role="button"
       @click="
         itemClick(item)
         activeItem = activeItem == index && !activatedOnLoad ? -1 : index

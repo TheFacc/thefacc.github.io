@@ -1,5 +1,5 @@
 <template>
-  <section ref="itemIntro" class="item-intro">
+  <section ref="itemIntro" class="item-intro" role="banner">
     <div class="intro-left">
       <h1>{{ item.name }}</h1>
       <p>{{ item.introShort }}</p>

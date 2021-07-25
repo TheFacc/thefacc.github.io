@@ -10,7 +10,7 @@
     <back-button v-if="fromPerson" :text="prevName"></back-button>
 
     <!-- page -->
-    <div class="container">
+    <div class="container" role="main">
       <!-- intro -->
       <section id="intro" ref="intro" class="overview raised anchored">
         <div class="intro-img">
@@ -26,8 +26,8 @@
 
       <!-- solutions -->
       <section id="products" ref="products" class="items anchored">
-        <h1>Solutions</h1>
-        <h4>Products &amp; Services</h4>
+        <h1 style="margin-bottom: 0">Solutions</h1>
+        <h4 style="margin-bottom: 20px">Products &amp; Services</h4>
         <card-grid
           :cards="products"
           shape="rectangle"
@@ -36,21 +36,32 @@
       </section>
 
       <!-- people -->
-      <section id="people" ref="people" class="items raised dark anchored">
+      <section
+        id="people"
+        ref="people"
+        class="items raised dark anchored"
+        role="list"
+      >
         <h1>People</h1>
         <!-- leaderboard -->
-        <h4>Leaderboard</h4>
+        <h4 :style="{ 'text-decoration': `underline 2px ${area.color}` }">
+          {{ area.name }} Leaderboard
+        </h4>
         <card-grid
           :cards="teamLeaders"
           shape="circle"
           path="/about/people"
         ></card-grid>
         <!-- team -->
-        <h4>Team</h4>
+        <h4 :style="{ 'text-decoration': `underline 2px ${area.color}` }">
+          {{ area.name }} Team
+        </h4>
         <card-grid
           :cards="team"
           shape="rectangle"
           path="/about/people"
+          :tooltip-data="allProducts"
+          field="referentOf"
         ></card-grid>
       </section>
     </div>
@@ -75,6 +86,9 @@ export default {
     // about all areas
     const areas = await $axios.$get(`${process.env.BASE_URL}/api/area`)
     areas.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
+    // all products: only needed to show product name on each referent
+    const allProducts = await $axios.$get(`${process.env.BASE_URL}/api/product`)
+    allProducts.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
     // about current area
     const area = areas[id - 1]
     const { products, teamLeaders, team } = await $axios
@@ -112,6 +126,7 @@ export default {
       area,
       areas,
       products,
+      allProducts,
       teamLeaders,
       team,
     }

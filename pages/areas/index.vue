@@ -1,5 +1,22 @@
 <template>
-  <main class="container">
+  <main class="container" role="main">
+    <div class="intro" role="banner">
+      <h2></h2>
+      <p>
+        We at MouBE provide solutions in many fields. We're currently
+        specializing in <strong>{{ areas.length }} areas</strong>, here
+        represented in a circle.
+      </p>
+      <img src="~/assets/o.svg" alt="MouBE circle" width="32px" height="32px" />
+      <p>
+        The <strong>circle</strong> is really at the center of our view. It
+        represents unity, commitment, love and community - that's what we seek.
+        That's what we are. Our areas of specialization are not to be seen
+        divided and and indipendent, but as a whole: a complex machine,
+        <strong>mou</strong>ving harmonically towards a <strong>be</strong>tter
+        world.
+      </p>
+    </div>
     <circle-svg
       svgid="svg-areas"
       :vbox="vbox"
@@ -58,5 +75,8 @@ export default {
 <style scoped>
 .container {
   margin: 10px auto;
+}
+.intro {
+  margin: 20px 3%;
 }
 </style>

@@ -2,7 +2,7 @@
   <main>
     <item-intro :item="discover" :items="areas"></item-intro>
     <page-anchors :item-color="areaColors" :sections="sections"></page-anchors>
-    <div class="container">
+    <div class="container" role="main">
       <section id="ourname">
         <div class="left" v-html="require('~/assets/moube.svg?raw')"></div>
         <div class="right">
@@ -18,7 +18,7 @@
             src="https://lh6.googleusercontent.com/-4MPOYfMcH9c/Tt9XsjZk5MI/AAAAAAAAATU/BrtP7d4irjw/s0/32Media-ICT_cloud9.jpg"
           />
         </div>
-        <div class="intro-text">
+        <div class="intro-text fancy">
           <h2>Our purpose</h2>
           <h4>
             A company built for a sustainable future, to help people work better
@@ -35,6 +35,10 @@
               will to execute them.”</span
             ><br />
             – Seth Godin
+          </p>
+          <p>
+            » Discover our
+            <nuxt-link to="/contact">headquarters</nuxt-link>.
           </p>
         </div>
       </section>
@@ -118,6 +122,7 @@
           <div class="right">
             <p>What are you waiting for? Get in touch now.</p>
             <button
+              role="button"
               class="material-button raised dark ripple"
               @click="$goTo(`/contact`)"
             >
@@ -248,6 +253,11 @@ export default {
 @media screen and (min-width: 768px) {
   .overview.reverse .intro-img {
     transform-origin: left;
+  }
+}
+@media screen and (max-width: 767px) {
+  .overview .intro-img {
+    transform-origin: bottom;
   }
 }
 

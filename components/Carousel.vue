@@ -34,6 +34,7 @@
             </div> -->
             <button
               v-if="currentSlide.url"
+              role="button"
               class="material-button ripple"
               :style="{
                 'background-color': currentSlide.color
@@ -61,6 +62,7 @@
     <div class="carousel-controls">
       <button
         type="button"
+        role="button"
         class="carousel-slide-arrow-left"
         @click="plusSlides(-1)"
       >
@@ -69,6 +71,7 @@
       <span
         v-for="(slide, index) in slides"
         :key="'slidecontrol-' + index"
+        role="button"
         class="dot"
         :class="{ active: currentSlideIndex === index }"
         @click="currentSlideIndex = index"
@@ -77,6 +80,7 @@
 
       <button
         type="button"
+        role="button"
         class="carousel-slide-arrow-right"
         @click="plusSlides(1)"
       >
@@ -100,6 +104,9 @@ export default {
       return this.slides[this.currentSlideIndex]
     },
   },
+  mounted() {
+    window.setInterval(this.scrollSlides, 8000)
+  },
   methods: {
     // Arrow controls
     plusSlides(i) {
@@ -109,6 +116,9 @@ export default {
       } else if (this.currentSlideIndex < 0) {
         this.currentSlideIndex = this.slides.length - 1
       }
+    },
+    scrollSlides() {
+      this.plusSlides(1)
     },
   },
 }

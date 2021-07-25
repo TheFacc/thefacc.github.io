@@ -1,5 +1,5 @@
 <template>
-  <section id="contact">
+  <section id="contact" role="form">
     <div class="intro">
       <h1>Contact us</h1>
       <p>
@@ -24,28 +24,37 @@
     </div>
     <div class="fields">
       <div class="input-name" style="grid-area: name">
-        <label for="name">Name</label>
-        <input v-model="name" type="text" />
+        <label for="input-name">Name</label>
+        <input id="input-name" v-model="name" type="text" />
       </div>
       <div class="input-surname" style="grid-area: surname">
-        <label for="surname">Surname</label>
-        <input v-model="surname" type="text" />
+        <label for="input-surname">Surname</label>
+        <input id="input-surname" v-model="surname" type="text" />
       </div>
       <div class="input-email" style="grid-area: email">
-        <label for="email">Email</label>
-        <input v-model="email" type="text" />
+        <label for="input-email">Email</label>
+        <input id="input-email" v-model="email" type="text" />
       </div>
       <div class="input-phone" style="grid-area: phone">
-        <label for="phone">Phone</label>
-        <input v-model="phone" type="text" />
+        <label for="input-phone">Phone</label>
+        <input id="input-phone" v-model="phone" type="text" />
       </div>
       <div class="input-content" style="grid-area: content">
-        <label for="content">Content</label>
-        <textarea v-model="content" cols="30" rows="10"></textarea>
+        <label for="input-content">Content</label>
+        <textarea
+          id="input-content"
+          v-model="content"
+          cols="30"
+          rows="10"
+        ></textarea>
       </div>
     </div>
     <div class="submit">
-      <button class="material-button raised dark ripple" @click="send()">
+      <button
+        role="button"
+        class="material-button raised dark ripple"
+        @click="send()"
+      >
         Send
       </button>
     </div>

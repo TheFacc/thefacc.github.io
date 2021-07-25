@@ -1,5 +1,5 @@
 <template>
-  <main class="container selector">
+  <main class="container selector" role="main">
     <!-- filtering circle -->
     <div class="selector-filter">
       <circle-svg
@@ -18,6 +18,24 @@
     </div>
     <!-- filtered items -->
     <div class="selector-items">
+      <div class="intro">
+        <h2>Explore our solutions</h2>
+        <p>
+          MouBE provides simple and secure solutions in many fields. Each area
+          provides a great variety of solutions for any need.
+        </p>
+        <p>
+          Use the <strong>filter</strong> to see solutions from specific areas,
+          get more information by opening the <strong>solution</strong> and
+          contacting its <strong>referent</strong>.
+        </p>
+        <p>
+          Each solution has an <strong>unique referent</strong>, and each
+          referent only works for one <strong>unique solution</strong> - to
+          ensure maximum performance and reliability for each MouBE solution,
+          none excluded.
+        </p>
+      </div>
       <card-grid
         :cards="filteredListArea"
         shape="rectangle"
@@ -226,5 +244,3 @@ export default {
   },
 }
 </script>
-
-<style></style>

@@ -2,6 +2,7 @@
   <div
     :tooltip="text ? text : 'Go back'"
     flow="right"
+    role="button"
     class="goback"
     :class="{ bounce: animated }"
     @click="

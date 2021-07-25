@@ -1,16 +1,17 @@
 <template>
-  <main class="container">
-    <div class="search">
+  <main class="container" role="main">
+    <div class="search" role="search">
       <input v-model="search" type="text" placeholder="Search articles..." />
       <div>
         <input
           v-model="searchContent"
           type="checkbox"
+          role="checkbox"
           value="searchContent"
         /><label for="searchContent"> Also search inside articles</label>
       </div>
     </div>
-    <section class="article-grid">
+    <section class="article-grid" role="feed">
       <h4 v-if="filteredListSearch.length === 0">No articles found.</h4>
       <transition-group name="article">
         <div

@@ -43,6 +43,11 @@ a {
 p {
   font-size: 18px;
   font-weight: 300;
+  line-height: 1.2;
+  margin: 7px 0;
+}
+p strong {
+  font-weight: 500;
 }
 h1 {
   font-weight: 300;
@@ -101,10 +106,6 @@ section:not(.items) h6 {
 .overview {
   overflow: hidden;
 }
-.overview .intro-img {
-  transform: scale(1.2);
-  transform-origin: right;
-}
 @media screen and (min-width: 768px) {
   .overview {
     height: 350px;
@@ -127,7 +128,7 @@ section:not(.items) h6 {
     transform-origin: left;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .overview {
     display: flex;
     flex-direction: column;
@@ -137,14 +138,25 @@ section:not(.items) h6 {
   }
   .overview .intro-img {
     overflow: hidden;
-    height: 200px;
+    width: 100%;
+    max-height: 250px;
+    display: flex;
+    align-items: center;
   }
   .overview .intro-text {
-    padding: 20px;
+    padding: 5px 20px 20px;
   }
 }
 .items.raised {
   padding: 20px 10%;
+}
+.items.raised h1,
+.items.raised h2 {
+  margin: 0;
+  margin-bottom: 20px;
+}
+.items.raised h4 {
+  margin: 30px 0 15px;
 }
 /* fix anchor positioning by offsetting a pseudo-element */
 /* section.anchored:before {
@@ -167,6 +179,9 @@ section:not(.items) h6 {
 }
 .selector-items {
   width: 100%;
+}
+.selector-items .intro {
+  margin: 20px 0;
 }
 @media screen and (min-width: 768px) {
   .selector {
@@ -330,6 +345,7 @@ section:not(.items) h6 {
   font-weight: 100;
   src: url('~assets/fonts/SFPD/SFPD-Ultralight.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-Ultralight.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -337,6 +353,7 @@ section:not(.items) h6 {
   font-weight: 100;
   src: url('~assets/fonts/SFPD/SFPD-UltralightItalic.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-UltralightItalic.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -344,6 +361,7 @@ section:not(.items) h6 {
   font-weight: 200;
   src: url('~assets/fonts/SFPD/SFPD-Thin.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-Thin.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -351,6 +369,7 @@ section:not(.items) h6 {
   font-weight: 200;
   src: url('~assets/fonts/SFPD/SFPD-ThinItalic.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-ThinItalic.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -358,6 +377,7 @@ section:not(.items) h6 {
   font-weight: 300;
   src: url('~assets/fonts/SFPD/SFPD-Light.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-Light.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -365,6 +385,7 @@ section:not(.items) h6 {
   font-weight: 300;
   src: url('~assets/fonts/SFPD/SFPD-LightItalic.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-LightItalic.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -372,6 +393,7 @@ section:not(.items) h6 {
   font-weight: 400;
   src: url('~assets/fonts/SFPD/SFPD-Regular.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-Regular.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -379,6 +401,7 @@ section:not(.items) h6 {
   font-weight: 400;
   src: url('~assets/fonts/SFPD/SFPD-RegularItalic.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-RegularItalic.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -386,6 +409,7 @@ section:not(.items) h6 {
   font-weight: 500;
   src: url('~assets/fonts/SFPD/SFPD-Medium.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-Medium.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -393,6 +417,7 @@ section:not(.items) h6 {
   font-weight: 500;
   src: url('~assets/fonts/SFPD/SFPD-MediumItalic.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-MediumItalic.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -400,6 +425,7 @@ section:not(.items) h6 {
   font-weight: 600;
   src: url('~assets/fonts/SFPD/SFPD-Semibold.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-Semibold.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -407,6 +433,7 @@ section:not(.items) h6 {
   font-weight: 600;
   src: url('~assets/fonts/SFPD/SFPD-SemiboldItalic.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-SemiboldItalic.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -414,6 +441,7 @@ section:not(.items) h6 {
   font-weight: 700;
   src: url('~assets/fonts/SFPD/SFPD-Bold.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-Bold.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -421,6 +449,7 @@ section:not(.items) h6 {
   font-weight: 700;
   src: url('~assets/fonts/SFPD/SFPD-BoldItalic.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-BoldItalic.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -428,6 +457,7 @@ section:not(.items) h6 {
   font-weight: 800;
   src: url('~assets/fonts/SFPD/SFPD-Heavy.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-Heavy.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -435,6 +465,7 @@ section:not(.items) h6 {
   font-weight: 800;
   src: url('~assets/fonts/SFPD/SFPD-HeavyItalic.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-HeavyItalic.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -442,6 +473,7 @@ section:not(.items) h6 {
   font-weight: 900;
   src: url('~assets/fonts/SFPD/SFPD-Black.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-Black.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'SFPD';
@@ -449,6 +481,7 @@ section:not(.items) h6 {
   font-weight: 900;
   src: url('~assets/fonts/SFPD/SFPD-BlackItalic.woff') format('woff'),
     url('~assets/fonts/SFPD/SFPD-BlackItalic.woff2') format('woff2');
+  font-display: swap;
 }
 /* fancy background */
 @keyframes wavedient {
@@ -485,8 +518,8 @@ section:not(.items) h6 {
   text-decoration: none;
   background: linear-gradient(
       to right,
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
+      rgba(0, 0, 0, 0.25),
+      rgba(0, 0, 0, 0.25)
     ),
     linear-gradient(
       to right,

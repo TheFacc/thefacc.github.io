@@ -1,10 +1,11 @@
 <template>
   <div>
     <!-- article header -->
-    <div class="article-img">
+    <div class="article-img" role="banner">
       <div ref="imgbg" class="img"></div>
       <img :src="article.image" />
     </div>
+
     <!-- global back button (show if not just refreshed) -->
     <back-button
       v-if="$store.state.pagePrevious.title"
@@ -20,7 +21,7 @@
     ></back-button>
 
     <!-- article -->
-    <article class="container">
+    <article class="container" role="article">
       <span>{{ article.updatedAt.slice(0, 10) }}</span>
       <h1>{{ article.title }}</h1>
       <h4>{{ article.summary }}</h4>
@@ -36,6 +37,7 @@
           v-for="(comment, commentIndex) of article.comments"
           :key="'comments-' + commentIndex"
           class="comment"
+          role="comment"
         >
           <div>
             <span class="author"> {{ comment.author }}</span
@@ -49,7 +51,7 @@
         </div>
       </div>
       <!-- recent articles -->
-      <div class="recents">
+      <div class="recents" role="feed">
         <h2>Recent articles</h2>
         <div class="article-grid">
           <div

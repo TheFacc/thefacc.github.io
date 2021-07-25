@@ -1,5 +1,5 @@
 <template>
-  <div ref="chat" class="chat">
+  <div ref="chat" class="chat" role="dialog">
     <transition name="chat">
       <div v-if="chatOpen" class="chat-container">
         <div id="chat-window" class="chat-window">
@@ -45,7 +45,7 @@
       @animationend="animated = false"
     >
       <img
-        src="https://img.icons8.com/ios-filled/452/chat--v1.png"
+        src="~/assets/icons/chat.svg"
         alt="Open chatbot"
         title="Open chatbot"
       />
@@ -118,6 +118,7 @@ export default {
   bottom: 10px;
   right: 10px;
   border-radius: 100%;
+  border-bottom-right-radius: 15px;
   padding: 10px;
   float: right;
   position: fixed;
@@ -139,14 +140,13 @@ export default {
 .chat-container {
   position: fixed;
   z-index: 10000;
-  height: 500px;
+  height: 400px;
   width: 300px;
   bottom: 80px;
   right: 5px;
   background: rgb(255 255 255 / 50%);
   backdrop-filter: blur(20px);
-  border: 1px solid black;
-  border-radius: 4px;
+  border-radius: 20px;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 .chat-window {
@@ -174,15 +174,16 @@ export default {
   padding: 5px 10px;
   margin: 4px;
   width: auto;
-  background: #f3f3f3;
+  background: white;
   color: black;
-  border: 1px solid black;
   border-radius: 4px;
 }
 .message-content.sender {
-  background: black;
+  background: rgba(0, 0, 0, 0.7);
   color: white;
-  border: 1px solid black;
+}
+.message-content:not(.sender) {
+  box-shadow: 1px 1px 2px rgb(0 0 0 / 60%);
 }
 
 /* BOTTOM */

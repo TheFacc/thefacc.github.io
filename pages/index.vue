@@ -5,13 +5,14 @@
       v-if="slides.length"
       id="home-slides"
       ref="home-slides"
+      role="banner"
       class="home-slides"
     >
       <carousel :slides="slides" theme="dark"></carousel>
     </section>
 
     <!-- 2. HOME AREAS -->
-    <section id="home-areas">
+    <section id="home-areas" role="main">
       <div class="container fancy">
         <h3>Our areas of specialization</h3>
         <p>
@@ -23,24 +24,26 @@
           :key="'arealist-' + index"
           class="fancy"
         >
-          <a
-            :href="`/areas/${area.id}`"
+          <nuxt-link
+            :to="`/areas/${area.id}`"
             class="fancyul"
             :style="{
               'text-decoration': 'underline 2px ' + area.color,
               background: area.color + 'aa',
             }"
           >
-            {{ area.name }}</a
+            {{ area.name }}</nuxt-link
           ><span v-if="index < areas.length - 1">, </span
           ><span v-else>.</span> </span
         ><br />
         <p>Each area provides a great variety of solutions for any need.</p>
         <p>
-          Explore the <a href="/areas">areas</a>, browse the
-          <a href="/solutions">solutions</a>, read our <a href="/blog">blog</a>,
-          meet our <a href="/about/people">team</a>, get to
-          <a href="/about/company">know us</a>. We're waiting for you!
+          Explore the <nuxt-link to="/areas">areas</nuxt-link>, browse the
+          <nuxt-link to="/solutions">solutions</nuxt-link>, read our
+          <nuxt-link to="/blog">blog</nuxt-link>, meet our
+          <nuxt-link to="/about/people">team</nuxt-link>, get to
+          <nuxt-link to="/about/company">know us</nuxt-link>. We're waiting for
+          you!
         </p>
       </div>
       <div
@@ -59,6 +62,7 @@
           <h4>{{ area.subtitle }}</h4>
           <p>{{ area.introShort }}</p>
           <button
+            role="button"
             class="material-button raised ripple"
             :style="{
               'background-color': area.color + 'aa',
@@ -83,8 +87,9 @@
         </div>
       </div>
     </section>
+
     <!-- 3. ARTICLES -->
-    <section id="home-articles" class="dark recents">
+    <section id="home-articles" class="dark recents" role="feed">
       <h2>Recent articles</h2>
       <p>
         Discover in our Blog the latest news regarding our company and the world
@@ -156,7 +161,8 @@ export default {
       slides: [
         {
           name: 'MouBE',
-          description: 'thats us',
+          description:
+            'MouBE means progress, intelligence, reason and science. Our circles mean cohesion, unity and community. And while our technology helps connecting the unconnected and inspires the world — that’s not where our edge comes from. It comes from our people. We keep building the future together.',
           image:
             'https://ik.imagekit.io/hypermoube/o_iyNVNfNlW.svg?updatedAt=1627079567077',
         },

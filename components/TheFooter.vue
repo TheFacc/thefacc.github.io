@@ -7,11 +7,11 @@
           <div class="footer-logo" @click="$goToHome">
             <div v-html="require('~/assets/moube.svg?raw')" />
           </div>
-          <div class="info">
+          <div class="info" role="list">
             <i class="fa fa-map-marker fgrid-pin"></i>
             <span class="fgrid-road"
-              ><a href="/contact" target="_blank"
-                >Web Street, 1<br />Milano (MI), Italy</a
+              ><nuxt-link to="/contact" target="_blank"
+                >Web Street, 1<br />Milano (MI), Italy</nuxt-link
               ></span
             >
             <i class="fa fa-envelope fgrid-mail"></i>
@@ -25,17 +25,17 @@
           </div>
         </div>
         <div class="right">
-          <div class="right-grid fancy">
+          <div class="right-grid fancy" role="grid">
             <div class="right-col">
               <div><nuxt-link to="/areas"> Areas </nuxt-link></div>
             </div>
             <div class="right-col">
               <div v-for="area in areas" :key="'footer-area-' + area.id">
-                <a
-                  :href="'/areas/' + area.id"
+                <nuxt-link
+                  :to="'/areas/' + area.id"
                   class="area-link"
                   :style="{ color: area.color }"
-                  >{{ area.name }}</a
+                  >{{ area.name }}</nuxt-link
                 >
               </div>
             </div>
@@ -54,16 +54,32 @@
           <div class="copyright">
             <div><i class="fa fa-copyright"></i> MouBE 2021</div>
             <div>
-              <a href="https://www.instagram.com/" target="blank"
+              <a
+                href="https://www.instagram.com/"
+                target="blank"
+                alt="instagram"
+                title="instagram"
                 ><i class="fa fa-instagram quare"></i
               ></a>
-              <a href="https://it-it.facebook.com/" target="blank"
+              <a
+                href="https://it-it.facebook.com/"
+                target="blank"
+                alt="facebook"
+                title="facebook"
                 ><i class="fa fa-facebook quare"></i
               ></a>
-              <a href="https://www.linkedin.com/" target="blank"
+              <a
+                href="https://www.linkedin.com/"
+                target="blank"
+                alt="linkedin"
+                title="linkedin"
                 ><i class="fa fa-linkedin quare"></i
               ></a>
-              <a href="https://www.youtube.com/" target="blank"
+              <a
+                href="https://www.youtube.com/"
+                target="blank"
+                alt="youtube"
+                title="youtube"
                 ><i class="fa fa-youtube quare"></i
               ></a>
             </div>
@@ -110,6 +126,7 @@ footer .fleft {
   flex-direction: column;
   align-items: center;
   padding: 10px 4%;
+  z-index: 1;
 }
 /* logo */
 .footer-logo {
@@ -280,7 +297,8 @@ footer .right-grid,
   transition: 0.4s;
 }
 .right-grid.fancy a:hover,
-.right-grid.fancy a:focus {
+.right-grid.fancy a:focus,
+.right-grid.fancy a.nuxt-link-active {
   opacity: 1;
   background-size: 0 0.1em, 100% 0.1em;
   transition: opacity 0s, background-size 0.1s;

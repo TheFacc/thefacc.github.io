@@ -4,6 +4,7 @@
     <back-button
       v-if="$store.state.pagePrevious.title"
       :text="$store.state.pagePrevious.title"
+      :path="$store.state.pagePrevious.href"
     ></back-button>
     <!-- team back button (if back doesn't do the same)(move down if the other button is present) -->
     <back-button
@@ -16,6 +17,7 @@
 
     <div
       class="person-description"
+      role="main"
       :style="`background-image: linear-gradient(to right, transparent, ${area.color})`"
     >
       <div class="person-image">
@@ -73,9 +75,10 @@
 
         <!-- contacts -->
         <div class="contacts">
-          <div v-if="product">
+          <div v-if="product && person.in_link">
             <a :href="person.in_link" target="_blank">
               <button
+                role="button"
                 class="material-button raised ripple ref-button"
                 :style="{
                   background: area
@@ -90,6 +93,7 @@
           </div>
           <div>
             <button
+              role="button"
               class="material-button raised ripple"
               :style="{
                 background: area ? changeColorBrightness(area.color, -70) : '',
@@ -275,6 +279,8 @@ img {
 }
 .box1 .contacts button {
   margin: 15px 5px;
+  width: 98%;
+  font-size: 13px;
 }
 
 /* icons style*/
