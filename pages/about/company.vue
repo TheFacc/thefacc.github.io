@@ -14,9 +14,7 @@
       </section>
       <section id="purpose" class="overview raised anchored">
         <div class="intro-img">
-          <img
-            src="https://lh6.googleusercontent.com/-4MPOYfMcH9c/Tt9XsjZk5MI/AAAAAAAAATU/BrtP7d4irjw/s0/32Media-ICT_cloud9.jpg"
-          />
+          <img src="~/assets/img/purpose.jpg" alt="MouBE purpose" />
         </div>
         <div class="intro-text fancy">
           <h2>Our purpose</h2>
@@ -44,7 +42,10 @@
       </section>
       <section id="research" class="overview raised anchored reverse">
         <div class="intro-img">
-          <img src="https://pbs.twimg.com/media/CeOJDcXUsAAMbnJ.jpg" />
+          <img
+            src="https://pbs.twimg.com/media/CeOJDcXUsAAMbnJ.jpg"
+            alt="MouBE Research"
+          />
         </div>
         <div class="intro-text">
           <h2>Research</h2>
@@ -62,6 +63,7 @@
         <div class="intro-img">
           <img
             src="https://intelligizedigital.com/wp-content/uploads/2021/02/Information-and-Communications-Technology-768x435.jpeg"
+            alt="MouBE Technology"
           />
         </div>
         <div class="intro-text">
@@ -108,8 +110,9 @@
               target="_blank"
               :alt="'Go to ' + partner.name + ' website'"
               :title="'Go to ' + partner.name + ' website'"
+              rel="noopener noreferrer"
             >
-              <img :src="partner.img" :alt="partner.name" />
+              <img :src="partner.img" :alt="`Partner: ${partner.name}`" />
             </a>
           </div>
         </div>
@@ -123,6 +126,7 @@
             <p>What are you waiting for? Get in touch now.</p>
             <button
               role="button"
+              aria-command-name="Open contact page"
               class="material-button raised dark ripple"
               @click="$goTo(`/contact`)"
             >

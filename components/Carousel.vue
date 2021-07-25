@@ -35,6 +35,7 @@
             <button
               v-if="currentSlide.url"
               role="button"
+              aria-command-name="Open product"
               class="material-button ripple"
               :style="{
                 'background-color': currentSlide.color
@@ -63,6 +64,7 @@
       <button
         type="button"
         role="button"
+        aria-command-name="Previous slide"
         class="carousel-slide-arrow-left"
         @click="plusSlides(-1)"
       >
@@ -72,6 +74,7 @@
         v-for="(slide, index) in slides"
         :key="'slidecontrol-' + index"
         role="button"
+        :aria-command-name="`Go to slide ${index + 1}/${slides.length}`"
         class="dot"
         :class="{ active: currentSlideIndex === index }"
         @click="currentSlideIndex = index"
@@ -81,6 +84,7 @@
       <button
         type="button"
         role="button"
+        aria-command-name="Next slide"
         class="carousel-slide-arrow-right"
         @click="plusSlides(1)"
       >

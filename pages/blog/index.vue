@@ -17,6 +17,7 @@
         <div
           v-for="article of filteredListSearch"
           :key="'art-' + article.title"
+          role="article"
           class="article"
           :class="{
             bounce: animating >= 0 ? article.id === animating : false,

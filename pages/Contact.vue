@@ -29,7 +29,9 @@
         <div class="info">
           <i class="fa fa-map-marker fgrid-pin"></i>
           <span class="fgrid-road">
-            <a :href="place.url" target="_blank">{{ place.address }}</a>
+            <a :href="place.url" target="_blank" rel="noopener noreferrer">{{
+              place.address
+            }}</a>
           </span>
           <i class="fa fa-envelope fgrid-mail"></i>
           <span class="fgrid-contact">

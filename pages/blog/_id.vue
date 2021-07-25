@@ -3,7 +3,7 @@
     <!-- article header -->
     <div class="article-img" role="banner">
       <div ref="imgbg" class="img"></div>
-      <img :src="article.image" />
+      <img :src="article.image" alt="Article image" />
     </div>
 
     <!-- global back button (show if not just refreshed) -->

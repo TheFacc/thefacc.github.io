@@ -14,7 +14,7 @@
       <!-- intro -->
       <section id="intro" ref="intro" class="overview raised anchored">
         <div class="intro-img">
-          <img :src="area.image" />
+          <img :src="area.image" :alt="`${area.name} introduction`" />
         </div>
         <div class="intro-text">
           <h3>{{ area.name }} for everyone</h3>
@@ -36,12 +36,7 @@
       </section>
 
       <!-- people -->
-      <section
-        id="people"
-        ref="people"
-        class="items raised dark anchored"
-        role="list"
-      >
+      <section id="people" ref="people" class="items raised dark anchored">
         <h1>People</h1>
         <!-- leaderboard -->
         <h4 :style="{ 'text-decoration': `underline 2px ${area.color}` }">

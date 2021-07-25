@@ -43,6 +43,7 @@
       v-for="(item, index) of items"
       :key="'area-' + index"
       role="button"
+      :aria-input-field-name="item.name"
       @click="
         itemClick(item)
         activeItem = activeItem == index && !activatedOnLoad ? -1 : index

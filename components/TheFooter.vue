@@ -1,5 +1,5 @@
 <template>
-  <footer role="footer">
+  <footer role="contentinfo">
     <div>
       <div class="footer-container">
         <div class="left">
@@ -9,17 +9,17 @@
           </div>
           <div class="info" role="list">
             <i class="fa fa-map-marker fgrid-pin"></i>
-            <span class="fgrid-road"
+            <span class="fgrid-road" role="listitem"
               ><nuxt-link to="/contact" target="_blank"
                 >Web Street, 1<br />Milano (MI), Italy</nuxt-link
               ></span
             >
             <i class="fa fa-envelope fgrid-mail"></i>
-            <span class="fgrid-contact"
+            <span class="fgrid-contact" role="listitem"
               ><a href="email:contact@mou.be">contact@mou.be</a></span
             >
             <i class="fa fa-phone fgrid-phone"></i>
-            <span class="fgrid-call"
+            <span class="fgrid-call" role="listitem"
               ><a href="tel:+390256729873">+39 0256729873</a></span
             >
           </div>
@@ -27,10 +27,16 @@
         <div class="right">
           <div class="right-grid fancy" role="grid">
             <div class="right-col">
-              <div><nuxt-link to="/areas"> Areas </nuxt-link></div>
+              <div role="gridcell">
+                <nuxt-link to="/areas"> Areas </nuxt-link>
+              </div>
             </div>
             <div class="right-col">
-              <div v-for="area in areas" :key="'footer-area-' + area.id">
+              <div
+                v-for="area in areas"
+                :key="'footer-area-' + area.id"
+                role="gridcell"
+              >
                 <nuxt-link
                   :to="'/areas/' + area.id"
                   class="area-link"
@@ -40,15 +46,23 @@
               </div>
             </div>
             <div class="right-col">
-              <div><nuxt-link to="/solutions"> Solutions </nuxt-link></div>
-              <div><nuxt-link to="/blog"> Articles </nuxt-link></div>
+              <div role="gridcell">
+                <nuxt-link to="/solutions"> Solutions </nuxt-link>
+              </div>
+              <div role="gridcell">
+                <nuxt-link to="/blog"> Articles </nuxt-link>
+              </div>
             </div>
             <div class="right-col">
-              <div><nuxt-link to="/contact"> Contacts </nuxt-link></div>
-              <div>
+              <div role="gridcell">
+                <nuxt-link to="/contact"> Contacts </nuxt-link>
+              </div>
+              <div role="gridcell">
                 <nuxt-link to="/about/company"> Our company </nuxt-link>
               </div>
-              <div><nuxt-link to="/about/people"> Our team </nuxt-link></div>
+              <div role="gridcell">
+                <nuxt-link to="/about/people"> Our team </nuxt-link>
+              </div>
             </div>
           </div>
           <div class="copyright">

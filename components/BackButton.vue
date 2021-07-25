@@ -3,6 +3,7 @@
     :tooltip="text ? text : 'Go back'"
     flow="right"
     role="button"
+    :aria-input-field-name="text ? text : 'Go back'"
     class="goback"
     :class="{ bounce: animated }"
     @click="
@@ -11,7 +12,10 @@
     "
     @animationend="animated = false"
   >
-    <img :src="require(`~/assets/icons/${icon}`)" />
+    <img
+      :src="require(`~/assets/icons/${icon}`)"
+      :alt="text ? text : 'Go back'"
+    />
   </div>
 </template>
 

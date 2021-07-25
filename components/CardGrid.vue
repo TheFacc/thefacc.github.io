@@ -4,6 +4,7 @@
       <div
         v-for="card of cards"
         :key="'card' + card.name"
+        role="listitem"
         class="card"
         :class="{
           'card-rectangle': shape === 'rectangle',

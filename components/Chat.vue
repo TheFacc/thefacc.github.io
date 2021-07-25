@@ -133,6 +133,7 @@ export default {
 }
 .chat-button img {
   width: 100%;
+  height: 40px;
   filter: invert(1);
 }
 

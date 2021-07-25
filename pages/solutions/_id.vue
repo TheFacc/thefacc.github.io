@@ -21,7 +21,10 @@
       <!-- intro -->
       <section id="intro" ref="intro" class="overview raised">
         <div class="intro-img">
-          <img :src="product.image" />
+          <img
+            :src="product.image"
+            :alt="`${product.name} - product introduction`"
+          />
         </div>
         <div class="intro-text">
           <p>
@@ -54,6 +57,7 @@
           </p>
           <button
             role="button"
+            aria-command-name="Open contact page"
             class="material-button raised ripple"
             :style="{
               color: '#222222',

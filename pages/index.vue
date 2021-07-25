@@ -63,6 +63,7 @@
           <p>{{ area.introShort }}</p>
           <button
             role="button"
+            :aria-command-name="`Open area: ${area.name}`"
             class="material-button raised ripple"
             :style="{
               'background-color': area.color + 'aa',
@@ -80,7 +81,7 @@
           >
             <svg
               class="area-svg"
-              :style="{ fill: changeColorBrightness(area.color, -20) }"
+              :style="{ fill: changeColorBrightness(area.color, -30) }"
               v-html="require('~/assets/icons/' + area.icon + '?raw')"
             ></svg>
           </div>

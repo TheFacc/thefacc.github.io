@@ -79,6 +79,7 @@
             <a :href="person.in_link" target="_blank">
               <button
                 role="button"
+                :aria-command-name="`Contact product referent of ${product.name}`"
                 class="material-button raised ripple ref-button"
                 :style="{
                   background: area
@@ -94,6 +95,7 @@
           <div>
             <button
               role="button"
+              aria-command-name="Open contact page"
               class="material-button raised ripple"
               :style="{
                 background: area ? changeColorBrightness(area.color, -70) : '',
