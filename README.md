@@ -1,10 +1,10 @@
 # MouBE
 
-####Hypermedia & Web Applications project @ Polimi
+#### Hypermedia & Web Applications project @ Polimi
 
 Deadline: ~~23:59~~ **11:30 AM** of the chosen exam date 26/07/2021
 
-Live app: https://moube.herokuapp.com/ (make sure it's https)
+Live app: https://moube.herokuapp.com/ (make sure it's https!)
 
 ### Group members
 
@@ -14,7 +14,7 @@ Live app: https://moube.herokuapp.com/ (make sure it's https)
 | Dorotea Rigamonti | 10590941 | doroteamaria.rigamonti@mail.polimi.it |
 | Mousa Sondoqah    | 10759335 | mousa.sondoqah@mail.polimi.it         |
 
-Alessio managed the most advanced techy stuff, knows the greater view of the website, created most of the components and made them communicate harmonically, and is definitely too committed at extensively committing every little fix all around the website. He only worked on the master branch(!) and managed the merging of other branches into master. Mousa filled and maintained the db with real data, created homepage concept, contact page and form component, and all the chatbot design, model, implementation and documentation in branch ChatBot. Dorotea created the DB structure and apis, footer concept and footer component, about-company and about-people and about-person pages, developed an intro component later discontinued in favour of the more general `<item-intro>`.
+Alessio managed the most advanced techy stuff, knows the greater view of the website, created most of the components and made them communicate harmonically, and is definitely too committed at extensively committing every little fix all around the website. He only worked on the master branch(!) and managed the merging of other branches into master. Mousa filled and maintained the db with real data, created homepage concept, contact page and form component, and all the chatbot design, model, implementation and documentation in branch ChatBot (and lately in master). Dorotea created the DB structure and APIs, footer concept and footer component, about-company and about-people and about-person pages, developed an intro component later discontinued in favour of the more general `<item-intro>`.
 
 ### Server and DB technologies used
 
@@ -49,7 +49,7 @@ Components developed, their functionalities and structure
 
 ### Plugins used
 
-#####Local plugins:
+##### Local plugins:
 
 - **`store/index.js`**: used to store global variables (and their setters). The setters are called in every page mounted() function in order to update them accordingly to the page.
   - `$store.state.title` = page title (eg. in Area X it displays the area name in the empty part of the header)
@@ -66,7 +66,7 @@ Components developed, their functionalities and structure
     - `$hex2rgb(hex)`: converts color '#hex' string to color 'r,g,b' string
     - `$changeColorBrightness(color,offset)`: since we're only provided 1 area color from db, it's often needed to make it darker but keep the same color for nice styling, for example all green buttons and background, but not the same green. INPUT: color in hex, offset int from -100 to +100 which reflects % brightness change. Not perfect: seems unstable at very low offset levels somehow (like it drops to 0 too early), and also changed hue with some material cyan color, which made us change Blockchain area to a nice Lilla. Wise choice, since it lets us use blue/cyan things for general non-area-related items.
 
-#####Third-party plugins:
+##### Third-party plugins:
 
 - [Nuxt svg module](https://github.com/nuxt-community/svg-module) - to import svg files as raw data in order to support css animations
 - ~~[vue2-filters](https://www.npmjs.com/package/vue2-filters) - to order the items retrieved from db~~
@@ -80,7 +80,7 @@ Components developed, their functionalities and structure
 
 - > in package.json:
 
-````json
+```json
 "dependencies": {
 	"vue2-filters": "^0.12.0"
 	"chroma-js": "^2.1.2",
@@ -88,9 +88,12 @@ Components developed, their functionalities and structure
 	"gsap": "^3.6.1",
 	"scrollmagic": "git+https://github.com/TheFacc/ScrollMagic.git",
 	"scrollmagic-plugin-gsap": "^1.0.4",
-  }```
- in nuxt.config.js:
-  ```javascript
+  }
+```
+
+- > in nuxt.config.js:
+
+```javascript
   alias: {...}, // all the aliases commented
   build: {
   plugins: [
@@ -100,10 +103,10 @@ Components developed, their functionalities and structure
   ],
   transpile: ['gsap'],
   },
-````
+```
 
 ### Comments
 
-Comments about how your usage fo the framework was complaint to the best practices for the specific application domain of your website (discussed during the course)
+The nuxt framework makes creating a website as fun as playing with lego. Having in mind an ICT company structure - also thanks to the IDM schemes - building a website through components and dynamic pages was easy. A dynamic page taking as parameter input the `id` from the url is enough to retrieve any kind of data needed for the specific page, even with basic API implementation. A dynamic list of items becomes extremely easy to obtain with v-for and assures consistency among all the items in the list. The homepage was built last, and it was as simple as picking some components from other pages and putting them together to get a good overview of the whole website.
 
-The nuxt framework makes creating a website as fun as playing with lego.[...]
+The entire website is filled with effects and animations, with many complex methods and conditioning working under the hood, yet the website feels extremely responsive, fast and reliable. The animations are there to improve UX and help him understanding the events that are taking place - for example, when filtering from a list, the items smoothly scroll into position from where they were before; when clicking on a card or on the back button or chat button, which are raised elements as in good material-elevation practices, it shows a quick bounce animation that makes the user confident that the click happened. The scroll transitioning is always smooth so the user doesn't get lost, and also the transition between pages gives a feel of moving forward. The usual old-style text-underlined links are avoided when possible in favour of a more modern-looking button-style link or directly object-style link like clicking on a card for a product or person. This makes the UX more intuitive since it feels like touching objects instead of wondering around a bunch of text lines.
