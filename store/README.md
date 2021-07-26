@@ -1,11 +1,12 @@
 # STORE
 
-**This directory is not required, you can delete it if you don't want to use it.**
-
-This directory contains your Vuex Store files.
-Vuex Store option is implemented in the Nuxt.js framework.
-
-Creating a file in this directory automatically activates the option in the framework.
+- `store/index.js`: used to store global variables (and their setters). The setters are called in every page `mounted()` function in order to update them accordingly to the page.
+  - `$store.state.title` = page title (eg. in Area X it displays the area name in the empty part of the header)
+  - `$store.state.theme` = website theme, accepting:
+    - '' or 'default' strings -> reset theme to slight gray
+    - 'dark' string -> makes the website dark theme (only used in Blog section)
+    - hex color -> slightly colors the header when scrolling after 300px
+  - `$store.state.pageCurrent` / `$store.state.pagePrevious` = store 1-level routing history (href + title) to allow personalized `<back-button>` naming. Can be easily extended to infinite levels in order to support 2+ consecutive backs with correct titling.
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/guide/vuex-store).
 
