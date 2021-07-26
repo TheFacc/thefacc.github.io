@@ -27,6 +27,12 @@ export default {
           content: message.utterance,
         })
       }
+        if (message.payload) {
+        if (message.payload.customGuide) {
+          this.$router.push(message.payload.customGuide)
+        }
+      } 
+     
       if (message.payload) {
         if (message.payload.customContact) {
           this.$router.push(message.payload.customContact)
