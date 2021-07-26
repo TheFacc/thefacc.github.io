@@ -353,7 +353,7 @@ export default {
   content: '';
   position: absolute;
   width: 100vw;
-  height: 40%;
+  height: 300px;
   background: #222;
   z-index: -1;
 }

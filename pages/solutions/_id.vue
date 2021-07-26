@@ -289,7 +289,7 @@ export default {
     align-items: stretch;
   }
   #contact.referent:before {
-    height: 40%;
+    height: 380px;
   }
 }
 @media screen and (max-width: 767px) {
@@ -301,7 +301,7 @@ export default {
     text-align: left;
   }
   #contact.referent:before {
-    height: 85%;
+    height: 580px;
   }
   #contact.referent .ref-left {
     display: flex;
