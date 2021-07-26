@@ -75,19 +75,19 @@ export default {
   },
   methods: {
     send() {
-      const data = {
-        name: this.name,
-        surname: this.surname,
-        email: this.email,
-        phone: this.phone,
-        content: this.content,
-      }
-      this.$axios.post('/api', data)
-      this.name = ''
-      this.surname = ''
-      this.email = ''
-      this.phone = ''
-      this.content = ''
+      // const data = {
+      //   name: this.name,
+      //   surname: this.surname,
+      //   email: this.email,
+      //   phone: this.phone,
+      //   content: this.content,
+      // }
+      // this.$axios.post('/api', data)
+      // this.name = ''
+      // this.surname = ''
+      // this.email = ''
+      // this.phone = ''
+      // this.content = ''
     },
   },
 }

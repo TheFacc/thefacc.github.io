@@ -302,7 +302,7 @@ export default {
     height: 580px;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   #roadmap:after {
     height: 450px;
   }
@@ -376,7 +376,7 @@ export default {
     width: 50%;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   #contact .left {
     width: 100%;
   }

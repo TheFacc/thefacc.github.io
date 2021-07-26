@@ -92,7 +92,7 @@ section:not(.items) h6 {
   border-radius: 20px;
   box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .raised {
     margin: 20px 3%;
   }
@@ -194,7 +194,7 @@ section:not(.items) h6 {
     width: 30%;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .selector {
     display: flex;
     flex-direction: column;

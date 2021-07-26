@@ -4,7 +4,7 @@
     <back-button
       v-if="$store.state.pagePrevious.title"
       :text="$store.state.pagePrevious.title"
-      :path="$store.state.pagePrevious.href"
+      :path="$store.state.pagePrevious.url"
     ></back-button>
     <!-- team back button (if back doesn't do the same)(move down if the other button is present) -->
     <back-button

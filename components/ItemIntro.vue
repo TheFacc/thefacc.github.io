@@ -185,7 +185,7 @@ export default {
     transform: translateX(6px);
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .intro-right svg {
     display: none;
   }

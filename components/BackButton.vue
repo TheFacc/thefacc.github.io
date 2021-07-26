@@ -3,7 +3,7 @@
     :tooltip="text ? text : 'Go back'"
     flow="right"
     role="button"
-    :aria-input-field-name="text ? text : 'Go back'"
+    :aria-label="text ? text : 'Go back'"
     class="goback"
     :class="{ bounce: animated }"
     @click="

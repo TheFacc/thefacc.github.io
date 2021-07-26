@@ -213,7 +213,7 @@ export default {
     padding: 13px 50px;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .page-anchors a {
     padding: 10px;
   }

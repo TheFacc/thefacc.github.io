@@ -101,15 +101,15 @@ export default {
     theme: { type: String, default: 'dark' }, // 'light' / 'dark'
   },
   data() {
-    return { currentSlideIndex: 0 }
+    return {
+      currentSlideIndex: 0,
+      slideTimer: setInterval(this.scrollSlides, 10000),
+    }
   },
   computed: {
     currentSlide() {
       return this.slides[this.currentSlideIndex]
     },
-  },
-  mounted() {
-    window.setInterval(this.scrollSlides, 8000)
   },
   methods: {
     // Arrow controls
