@@ -9,7 +9,7 @@ export default {
     // BASE_URL: '', // Development URL
     API_URL: 'https://moube.herokuapp.com', // fetch() always needs absolute url
     GOOGLE_MAPS_API_KEY: 'AIzaSyC8RoIzwgLliflh7Vb5-PaCiOtd4rGKg50', // for the contact page only
-    configurationId: 'a0c9f3ee-4323-4b0d-bc9e-2add384e1c7a', // chatbot access
+    configurationId: 'd7e4b85b-fefe-4c92-8dec-7eec2846004e', // chatbot access
   },
   serverMiddleware: [
     {
