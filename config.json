@@ -5,7 +5,7 @@
     "first_or": {
       "initials": [
         
-        "Hi! I'm MouBi Chatbot and I'm here to help you! Do you want to go to Contact Section or you want a guide in the website?"
+        "Hi! I'm MouBE Chatbot and I'm here to help you! Do you want to go to Contact Section or you want a guide in the website?"
       ],
       "choices": [
        
@@ -23,7 +23,8 @@
           "id": "guide",
           "intents": ["I want a guide", "guide","Guide","go to guide in the website","go to guide","Go to guide","a guide"],
           "payload": {
-            "openGuidePopup": true
+            "openGuidePopup": true,
+            "customGuide": ""
           }
         }
       ],
@@ -52,7 +53,7 @@
             ""
           ],
           "payload": {
-            "openGuidePopup": true, 
+            "openContactPopup": true, 
             "customContact": "#contact"
           }
         },
@@ -71,20 +72,20 @@
 
 
 
-    "guide": "Welcome to MouBE! You are about to start the guide for our platform, are you ready?",
+    "guide": "Welcome to MouBE! You are about to start the guide for our platform,We are starting from the hompage, are you ready?",
     "home": "Welcome to the Homepage! you want to move on?",
     "contact_page": "you are in the contact page!",
     "contact_form": "Here is the form! fill it with the right information and send the request..",
 
     "about": {
-      "initials": ["You are in the about page!"],
+      "initials": ["You are in the about page!, this was our guide hope you enjoyed it!"],
       "completed": {
         "utterance": "You completed the guide!",
         "payload": {} 
       }
     },
-    "steps_v": ["/index", "/about/company"],
-    "continue_v": ["ok", "continue", "proceed","yes"],
+    "steps_v": ["/","/", "/about/company"],
+    "continue_v": ["ok", "continue", "proceed","yes","Okay","Yes","Ok","thanks","Thank you","Thanks","let's go","Lets go","lets go"],
     "guide_v": ["guide"],
     "stay_message": "I don't understand. Do you want to continue?"
   },
