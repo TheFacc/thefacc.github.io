@@ -89,7 +89,7 @@
             development, and where we're headed in the future.
           </p>
           <div>
-            <img src="~/assets/roadmap.png" alt="MouBE Roadmap" />
+            <img src="~/assets/img/roadmap.svg" alt="MouBE Roadmap" />
           </div>
         </div>
       </section>
@@ -299,13 +299,16 @@ export default {
 }
 @media screen and (min-width: 768px) {
   #roadmap:after {
-    height: 530px;
+    height: 580px;
   }
 }
 @media screen and (max-width: 768px) {
   #roadmap:after {
-    height: 350px;
+    height: 450px;
   }
+}
+#roadmap img {
+  margin: 50px 0;
 }
 
 /* 5. PARTNERS */
