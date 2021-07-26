@@ -69,6 +69,8 @@ Components developed, their functionalities and structure
 ##### Third-party plugins:
 
 - [Nuxt svg module](https://github.com/nuxt-community/svg-module) - to import svg files as raw data in order to support css animations
+- [FontAwesome](https://fontawesome.com/) (for a couple social icons in footer and about-person)
+- [Google Maps JS API](https://developers.google.com/maps/documentation/javascript/overview) (only loaded in the `/contact` page)
 - ~~[vue2-filters](https://www.npmjs.com/package/vue2-filters) - to order the items retrieved from db~~
 - ~~[chroma.js](https://gka.github.io/chroma.js/) - to dynamically edit colors in various ways (eg. darken, hue, ...)~~ (mostly replaced with a couple custom-made $functions... indeed it makes sense to just use a couple function instead of a full library if it's enough!)
 - ~~[ScrollMagic](https://scrollmagic.io/) - for highlighting nav items while scrolling + parallax scrolling~~
@@ -82,13 +84,13 @@ Components developed, their functionalities and structure
 
 ```json
 "dependencies": {
-	"vue2-filters": "^0.12.0"
-	"chroma-js": "^2.1.2",
-	"jquery": "^3.6.0",
-	"gsap": "^3.6.1",
-	"scrollmagic": "git+https://github.com/TheFacc/ScrollMagic.git",
-	"scrollmagic-plugin-gsap": "^1.0.4",
-  }
+  "vue2-filters": "^0.12.0"
+  "chroma-js": "^2.1.2",
+  "jquery": "^3.6.0",
+  "gsap": "^3.6.1",
+  "scrollmagic": "git+https://github.com/TheFacc/ScrollMagic.git",
+  "scrollmagic-plugin-gsap": "^1.0.4",
+}
 ```
 
 - > in nuxt.config.js:
@@ -96,12 +98,12 @@ Components developed, their functionalities and structure
 ```javascript
   alias: {...}, // all the aliases commented
   build: {
-  plugins: [
-  new webpack.ProvidePlugin({
-  $: 'jquery',
-  }),
-  ],
-  transpile: ['gsap'],
+    plugins: [
+      new webpack.ProvidePlugin({
+       $: 'jquery',
+      }),
+    ],
+    transpile: ['gsap'],
   },
 ```
 
@@ -109,4 +111,4 @@ Components developed, their functionalities and structure
 
 The nuxt framework makes creating a website as fun as playing with lego. Having in mind an ICT company structure - also thanks to the IDM schemes - building a website through components and dynamic pages was easy. A dynamic page taking as parameter input the `id` from the url is enough to retrieve any kind of data needed for the specific page, even with basic API implementation. A dynamic list of items becomes extremely easy to obtain with v-for and assures consistency among all the items in the list. The homepage was built last, and it was as simple as picking some components from other pages and putting them together to get a good overview of the whole website.
 
-The entire website is filled with effects and animations, with many complex methods and conditioning working under the hood, yet the website feels extremely responsive, fast and reliable. The animations are there to improve UX and help him understanding the events that are taking place - for example, when filtering from a list, the items smoothly scroll into position from where they were before; when clicking on a card or on the back button or chat button, which are raised elements as in good material-elevation practices, it shows a quick bounce animation that makes the user confident that the click happened. The scroll transitioning is always smooth so the user doesn't get lost, and also the transition between pages gives a feel of moving forward. The usual old-style text-underlined links are avoided when possible in favour of a more modern-looking button-style link or directly object-style link like clicking on a card for a product or person. This makes the UX more intuitive since it feels like touching objects instead of wondering around a bunch of text lines.
+The entire website is filled with effects and animations, with many complex methods and conditioning working under the hood, yet the website feels extremely responsive, fast and reliable. The animations are there to improve UX and help him understanding the events that are taking place - for example, when filtering from a list, the items smoothly scroll into position from where they were before; when clicking on a card or on the back button or chat button, which are raised elements as in good material-elevation practices, it shows a quick bounce animation that makes the user confident that the click happened. The scroll transitioning is always smooth so the user doesn't get lost, and also the transition between pages gives a feel of moving forward. The usual old-style text-underlined links are avoided when possible in favour of a more modern-looking button-style link or directly object-style link like clicking on a card for a product or person. This makes the UX more intuitive since it feels like touching objects instead of wandering around a bunch of text lines.
