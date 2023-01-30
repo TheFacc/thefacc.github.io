@@ -6,7 +6,9 @@ This website is a fork of a website I built for a Polimi course project, which w
 
 To change it, I took all its code and removed the unnecessary pages, components and plugins. I then added the nice [Vuetify](https://vuetifyjs.com/) to use some of its ready components and styling system to make it all more robust. I also added the [Content module](https://content.nuxtjs.org/), a headless CMS which lets me write posts and pages directly in Markdown files - the module will automatically fetch them and dynamically load pages, sections and theur content, without rebuilding anything.
 
-Content is currently used for Homepage and Learn sections. Other sections are WIP.
+### Current status
+
+Content is currently used for Homepage and Learn sections. Other sections are WIP. A website built with Nuxt is intended to work on SSR but that's not possible with GitHub Pages. Best thing is to add a GitHub Action (still a pretty new feature) to automatically build the static website when a new push to master happens.
 
 ### Plugins used
 
