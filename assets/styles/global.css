@@ -54,7 +54,8 @@ img {
 }
 
 /* text */
-a {
+a,
+.v-application a {
   color: inherit;
 }
 p {

@@ -38,7 +38,7 @@
           v-for="article of filteredListSearch"
           :key="'art-' + article.title"
           role="article"
-          class="card ma-4"
+          class="card ma-4 align-self-start"
           :class="{
             bounce: animating >= 0 ? article.id === animating : false,
           }"
@@ -59,13 +59,14 @@
             </v-card-title>
           </v-img>
           <v-card-text>
-            <div class="font-weight-bold ml-8 mb-2">Topics</div>
-            <v-timeline align-top dense>
+            <div class="font-weight-bold ml-1 mb-2">Topics</div>
+            <v-timeline align-top dense class="ml-n6 pt-0">
               <v-timeline-item
                 v-for="topic in article.topics"
                 :key="topic"
                 :color="article.color"
                 small
+                class="pb-2"
               >
                 {{ topic }}
               </v-timeline-item>
