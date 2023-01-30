@@ -5,9 +5,10 @@
         <div class="left">
           <!-- 1. main logo -->
           <div class="footer-logo" @click="$goToHome">
-            <div v-html="require('~/assets/moube.svg?raw')" />
+            <!-- <div v-html="require('~/assets/moube.svg?raw')" /> -->
+            AF
           </div>
-          <div class="info" role="list">
+          <!-- <div class="info" role="list">
             <i class="fa fa-map-marker fgrid-pin"></i>
             <span class="fgrid-road" role="listitem"
               ><nuxt-link to="/contact" target="_blank"
@@ -22,51 +23,48 @@
             <span class="fgrid-call" role="listitem"
               ><a href="tel:+390256729873">+39 0256729873</a></span
             >
-          </div>
+          </div> -->
         </div>
         <div class="right">
           <div class="right-grid fancy" role="grid">
             <div class="right-col" role="row">
               <div role="cell">
-                <nuxt-link to="/areas"> Areas </nuxt-link>
+                <nuxt-link to="/areas"> Learn </nuxt-link>
               </div>
             </div>
             <div class="right-col" role="row">
               <div
                 v-for="area in areas"
-                :key="'footer-area-' + area.id"
+                :key="'footer-area-' + area.slug"
                 role="cell"
               >
                 <nuxt-link
-                  :to="'/areas/' + area.id"
+                  :to="'/learn/' + area.slug"
                   class="area-link"
                   :style="{ color: area.color }"
-                  >{{ area.name }}</nuxt-link
+                  >{{ area.title }}</nuxt-link
                 >
               </div>
             </div>
             <div class="right-col" role="row">
               <div role="cell">
-                <nuxt-link to="/solutions"> Solutions </nuxt-link>
+                <nuxt-link to="/photography"> Photography </nuxt-link>
               </div>
               <div role="cell">
-                <nuxt-link to="/blog"> Articles </nuxt-link>
+                <nuxt-link to="/videomaking"> Videomaking </nuxt-link>
+              </div>
+              <div role="cell">
+                <nuxt-link to="/lifehacks"> Life hacks </nuxt-link>
               </div>
             </div>
             <div class="right-col" role="row">
               <div role="cell">
-                <nuxt-link to="/contact"> Contacts </nuxt-link>
-              </div>
-              <div role="cell">
-                <nuxt-link to="/about/company"> Our company </nuxt-link>
-              </div>
-              <div role="cell">
-                <nuxt-link to="/about/people"> Our team </nuxt-link>
+                <nuxt-link to="/contact"> CV </nuxt-link>
               </div>
             </div>
           </div>
-          <div class="copyright">
-            <div><i class="fa fa-copyright"></i> MouBE 2021</div>
+          <!--<div class="copyright">
+             <div><i class="fa fa-copyright"></i> MouBE 2021</div> 
             <div>
               <a
                 href="https://www.instagram.com/"
@@ -97,7 +95,7 @@
                 ><i class="fa fa-youtube quare"></i
               ></a>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
@@ -106,12 +104,25 @@
 
 <script>
 export default {
-  props: { areas: { type: Array, default: () => [] } },
+  data() {
+    return {
+      areas: [],
+    }
+  },
+  async fetch() {
+    this.areas = await this.$content('learn')
+      .where({ slug: { $regex: '^(?!.*[0-9])(?!.*index).*$' } }) // ignore index and numbered files
+      .only(['title', 'slug'])
+      .fetch()
+  },
 }
 </script>
 
 <style scoped>
 /* GENERAL */
+a {
+  color: white;
+}
 footer {
   /* position: absolute; */
   bottom: 0;
@@ -124,7 +135,7 @@ footer {
   color: white;
   background: #222;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 960px) {
   .footer-container {
     display: flex;
     flex-direction: row;
@@ -148,12 +159,12 @@ footer .fleft {
   height: 100px;
   padding: 20px 0;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 960px) {
   .footer-logo {
     margin-left: 10px;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 959px) {
   .footer-logo {
     margin-bottom: 20px;
   }
@@ -177,7 +188,7 @@ footer .info {
 footer .info a {
   text-decoration: none;
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 959px) {
   footer .info {
     padding: 0 60px;
   }
@@ -213,12 +224,12 @@ footer .info i {
 }
 
 /* RIGHT */
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 960px) {
   footer .right {
     margin: 50px 10px;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 959px) {
   footer .right {
     margin: 20px 10px;
   }
@@ -247,12 +258,12 @@ footer .right-col {
 footer .right-col div {
   padding: 5px 0;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 960px) {
   footer .right-col {
     padding: 0 20px;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 959px) {
   footer .right-col {
     padding: 0 7px;
   }
@@ -268,12 +279,12 @@ footer .right-col div {
   justify-content: space-evenly;
   padding-top: 50px;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 960px) {
   .copyright {
     margin-bottom: -50px;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 959px) {
   .copyright {
     margin-bottom: -10px;
   }

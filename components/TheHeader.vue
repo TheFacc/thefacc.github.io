@@ -3,7 +3,8 @@
     <div class="header-content">
       <!-- 1. main logo -->
       <div class="logo" @click="$goToHome">
-        <div v-html="require('~/assets/moube.svg?raw')" />
+        <!-- <div v-html="require('~/assets/moube.svg?raw')" /> -->
+        Alessio Facincani
       </div>
 
       <!-- 2. page title -->
@@ -47,13 +48,13 @@
               <span>{{ item.name }}</span>
             </nuxt-link>
             <!-- show item dropdown (if the current menu item does have sub-content) -->
-            <transition name="dropdown">
+            <!-- <transition name="dropdown">
               <nav-dropdown
                 v-if="item.options && item.dropdownOpen"
                 :items="item.options"
                 @dropdown-clicked="toggleMobileMenu"
               ></nav-dropdown
-            ></transition>
+            ></transition> -->
           </li>
         </ul>
       </nav>
@@ -62,50 +63,42 @@
 </template>
 
 <script>
-import NavDropdown from './NavDropdown.vue'
+// import NavDropdown from './NavDropdown.vue'
 
 export default {
-  components: { NavDropdown },
+  // components: { NavDropdown },
   data() {
     return {
       menuOptions: [
         {
-          name: 'Areas',
-          path: '/areas',
-          icon: require('~/assets/icons/areas.svg?raw'),
-        },
-        {
-          name: 'Solutions',
-          path: '/solutions',
-          icon: require('~/assets/icons/solutions.svg?raw'),
-        },
-        {
-          name: 'Blog',
-          path: '/blog',
+          name: 'Learn',
+          path: '/learn',
           icon: require('~/assets/icons/blog.svg?raw'),
         },
         {
-          name: 'Contact',
-          path: '/contact',
-          icon: require('~/assets/icons/contact.svg?raw'),
+          name: 'Photography',
+          path: '/photography',
+          icon: require('~/assets/icons/photo.svg?raw'),
         },
         {
-          name: 'About',
+          name: 'Videomaking',
+          path: '/videomaking',
+          icon: require('~/assets/icons/videom.svg?raw'),
+        },
+        {
+          name: 'Life hacks',
+          path: '/lifehacks',
+          icon: require('~/assets/icons/solutions.svg?raw'),
+        },
+        // {
+        //   name: 'Contact',
+        //   path: '/contact',
+        //   icon: require('~/assets/icons/contact.svg?raw'),
+        // },
+        {
+          name: 'CV',
           path: '',
           icon: require('~/assets/icons/about.svg?raw'),
-          dropdownOpen: false,
-          options: [
-            {
-              name: 'Company',
-              path: '/about/company',
-              icon: require('~/assets/icons/company.svg?raw'),
-            },
-            {
-              name: 'People',
-              path: '/about/people',
-              icon: require('~/assets/icons/people.svg?raw'),
-            },
-          ],
         },
       ],
       mobileMenuOpen: false,
@@ -197,7 +190,7 @@ export default {
 .nav__wrapper {
   padding: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 960px) {
   .header-content {
     padding-top: 0;
     padding-bottom: 0;
@@ -230,7 +223,7 @@ export default {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 959px) {
   .nav__wrapper {
     position: absolute;
     display: flex;
@@ -352,7 +345,7 @@ nav ul {
   vertical-align: middle;
   height: 28px;
 }
-@media (min-width: 768px) {
+@media (min-width: 960px) {
   .nav__item a {
     text-align: center;
     border-left: 0;
@@ -375,7 +368,7 @@ nav ul {
   }
 }
 /* hamburger menu v2 (text) */
-@media (max-width: 767px) {
+@media (max-width: 959px) {
   /*OPEN*/
   @keyframes topBar_open {
     0% {

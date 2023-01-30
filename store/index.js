@@ -4,7 +4,7 @@ export const state = () => {
   return {
     title: '', // text to inject in header
     theme: '#d2d2d2', // header theme
-    messages: [], // chatbot
+    // messages: [], // chatbot
     // path history for dynamic 'back' button where needed (only 1 level, could be extended to infinite...)
     pageCurrent: {},
     pagePrevious: {},
@@ -31,9 +31,9 @@ export const mutations = {
     state.pagePrevious = state.pageCurrent
     state.pageCurrent = value
   },
-  addMessage(state, message) {
-    const messages = state.messages
-    messages.push(message)
-    Vue.set(state, 'messages', messages)
-  },
+  // addMessage(state, message) {
+  //   const messages = state.messages
+  //   messages.push(message)
+  //   Vue.set(state, 'messages', messages)
+  // },
 }

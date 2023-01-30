@@ -151,7 +151,7 @@ export default {
   margin-bottom: 20px;
 }
 /* card wrapping */
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 960px) {
   .card.card-rectangle {
     width: 22%;
   }
@@ -160,7 +160,7 @@ export default {
     width: 30%;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 959px) {
   .card.card-rectangle,
   .card.card-circle {
     width: 30%;

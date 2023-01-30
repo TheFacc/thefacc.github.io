@@ -1,45 +1,26 @@
 <template>
-  <div>
+  <v-app light>
     <the-header></the-header>
-    <Nuxt />
-    <chat :chat-list="list" />
-    <the-footer :areas="areas"></the-footer>
-  </div>
+    <v-main>
+      <side-card></side-card>
+      <v-container>
+        <Nuxt />
+      </v-container>
+    </v-main>
+    <the-footer></the-footer>
+  </v-app>
 </template>
 
 <script>
 import TheHeader from '~/components/TheHeader.vue'
 import TheFooter from '~/components/TheFooter.vue'
-import MMCCMixin from '~/mixins/mmcc-mixin'
-import Chat from '~/components/Chat'
 
 export default {
+  name: 'DefaultLayout',
   components: {
     TheHeader,
     TheFooter,
   },
-  mixins: [MMCCMixin],
-  Chat,
-  data() {
-    return { areas: [] }
-  },
-  async fetch() {
-    // get all areas
-    this.areas = await fetch(`${process.env.API_URL}/api/area`).then((res) =>
-      res.json()
-    )
-    this.areas.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0))
-  },
-  // transition: {
-  //   name: 'pagefar',
-  //   mode: '', // simultaneous? nope =(
-  // },
-  // transition(to, from) {
-  //   if (!from) {
-  //     return 'pagefar'
-  //   }
-  //   return +to.path.split('/').length < +from.path.split('/').length ? 'pagenear' : 'pagefar'
-  // },
 }
 </script>
 
