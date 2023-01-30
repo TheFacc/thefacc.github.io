@@ -1,6 +1,6 @@
 # Alessio Facincani
 
-I'm building my personal website. In the future, when the world catches up, it will be hosted on my very personal web3 domain. For now, let's use GitHub Pages.
+I'm building my personal website. In the future, when the world catches up, it will probably be hosted on my very personal web3 domain. For now, let's use GitHub Pages.
 
 This website is a fork of a website I built for a Polimi course project, which was built entirely from scratch using [Nuxt.js v2](https://nuxtjs.org/) (all code, no fancy UI frameworks).
 
@@ -8,7 +8,7 @@ To change it, I took all its code and removed the unnecessary pages, components 
 
 ### Current status
 
-Content is currently used for Homepage and Learn sections. Other sections are WIP. A website built with Nuxt is intended to work on SSR but that's not possible with GitHub Pages. Best thing is to add a GitHub Action (still a pretty new feature) to automatically build the static website when a new push to master happens.
+Content is currently used for Homepage and Learn sections. Other sections are WIP. A website built with Nuxt is intended to work on SSR but that's not possible with GitHub Pages. Best thing is to add a GitHub Action (thanks GH) to automatically build and deploy the static website when a new push to master happens.
 
 ### Plugins used
 
