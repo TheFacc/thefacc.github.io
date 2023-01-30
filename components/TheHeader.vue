@@ -177,7 +177,7 @@ export default {
   right: 0;
 }
 .header a {
-  color: #222;
+  color: #222 !important;
 }
 .header-content {
   display: flex;

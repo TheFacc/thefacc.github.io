@@ -121,7 +121,7 @@ export default {
 <style scoped>
 /* GENERAL */
 a {
-  color: white;
+  color: white !important;
 }
 footer {
   /* position: absolute; */

@@ -30,6 +30,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    // theming
+    { src: '~/plugins/vuetify.js', mode: 'client' },
     // global $functions
     { src: '~/plugins/functions.js', mode: 'client' },
   ],
@@ -71,7 +73,7 @@ export default {
           success: colors.green.accent3,
         },
         light: {
-          primary: colors.blue.lighten2,
+          primary: colors.blue.darken2,
           accent: colors.grey.lighten3,
           secondary: colors.amber.lighten3,
           info: colors.teal.darken1,
