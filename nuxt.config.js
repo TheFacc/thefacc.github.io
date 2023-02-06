@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+// import { getHighlighter } from 'shiki'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -21,7 +22,28 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-
+  vue: {
+    config: {
+      ignoredElements: [
+        'rr',
+        'rrh',
+        'oo',
+        'ooh',
+        'gg',
+        'ggh',
+        'bb',
+        'bbh',
+        'pp',
+        'pph',
+        'cc',
+        'cch',
+        'ww',
+        'wwh',
+        'uu',
+        'bold',
+      ],
+    },
+  },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     // 'normalize.css/normalize.css',
@@ -54,7 +76,14 @@ export default {
   ],
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
-  content: {},
+  content: {
+    markdown: {
+      // https://nuxtjs.org/docs/directory-structure/content#syntax-highlighting
+      prism: {
+        theme: 'assets/prism-themes/prism-tomorrow-night.css',
+      },
+    },
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
