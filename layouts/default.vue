@@ -2,7 +2,9 @@
   <v-app light>
     <the-header></the-header>
     <v-main>
-      <side-card></side-card>
+      <side-card
+        :mode="$nuxt.$route.name == 'learn-slug' ? 'learn' : 'card'"
+      ></side-card>
       <v-container>
         <Nuxt />
       </v-container>
@@ -20,6 +22,10 @@ export default {
   components: {
     TheHeader,
     TheFooter,
+  },
+  updated() {
+    console.log('PATH:', $nuxt.$route.path)
+    console.log('NAME:', $nuxt.$route.name)
   },
 }
 </script>

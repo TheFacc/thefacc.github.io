@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt-content :document="article" />
+    <nuxt-content :document="article" tag="article" />
     <coming-soon></coming-soon>
   </div>
 </template>
@@ -22,10 +22,11 @@ export default {
     }
   },
   mounted() {
+    let tit = this.article.title
     this.$store.commit('setTheme', 'default')
-    this.$store.commit('setTitle', '')
+    this.$store.commit('setTitle', tit)
     this.$store.commit('updateRoute', {
-      title: 'Solutions',
+      title: tit,
       url: window.location.href,
     })
   },

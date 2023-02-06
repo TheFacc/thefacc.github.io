@@ -4,7 +4,7 @@
       <!-- 1. main logo -->
       <div class="logo" @click="$goToHome">
         <!-- <div v-html="require('~/assets/moube.svg?raw')" /> -->
-        Alessio Facincani
+        AF
       </div>
 
       <!-- 2. page title -->
@@ -33,6 +33,7 @@
             v-for="(item, itemIndex) of menuOptions"
             :key="'menu-item-' + itemIndex"
             class="nav__item"
+            :style="'width: ' + item.width"
             :class="{ active: item.options && item.dropdownOpen }"
             @mouseover="item.dropdownOpen = true"
             @mouseleave="item.dropdownOpen = false"
@@ -74,21 +75,25 @@ export default {
           name: 'Learn',
           path: '/learn',
           icon: require('~/assets/icons/blog.svg?raw'),
+          width: '90px',
+        },
+        {
+          name: 'Blog',
+          path: '/blog',
+          icon: require('~/assets/icons/solutions.svg?raw'),
+          width: '90px',
         },
         {
           name: 'Photography',
           path: '/photography',
           icon: require('~/assets/icons/photo.svg?raw'),
+          width: '120px',
         },
         {
           name: 'Videomaking',
           path: '/videomaking',
           icon: require('~/assets/icons/videom.svg?raw'),
-        },
-        {
-          name: 'Life hacks',
-          path: '/lifehacks',
-          icon: require('~/assets/icons/solutions.svg?raw'),
+          width: '120px',
         },
         // {
         //   name: 'Contact',
@@ -99,6 +104,7 @@ export default {
           name: 'CV',
           path: '',
           icon: require('~/assets/icons/about.svg?raw'),
+          width: '90px',
         },
       ],
       mobileMenuOpen: false,
@@ -116,7 +122,7 @@ export default {
     document.addEventListener('scroll', (e) => {
       const scrolled = document.scrollingElement.scrollTop
       const position = body.offsetTop
-      if (scrolled > position + 300) {
+      if (scrolled > position + 70) {
         // specific color theme (area of product of an area) or default grey
         header.style.background = `rgba(${this.$hex2rgb(
           this.$store.state.theme

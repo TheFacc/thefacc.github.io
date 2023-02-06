@@ -29,7 +29,7 @@
           <div class="right-grid fancy" role="grid">
             <div class="right-col" role="row">
               <div role="cell">
-                <nuxt-link to="/areas"> Learn </nuxt-link>
+                <nuxt-link to="/learn"> Learn </nuxt-link>
               </div>
             </div>
             <div class="right-col" role="row">
@@ -48,13 +48,13 @@
             </div>
             <div class="right-col" role="row">
               <div role="cell">
+                <nuxt-link to="/blog"> Blog </nuxt-link>
+              </div>
+              <div role="cell">
                 <nuxt-link to="/photography"> Photography </nuxt-link>
               </div>
               <div role="cell">
                 <nuxt-link to="/videomaking"> Videomaking </nuxt-link>
-              </div>
-              <div role="cell">
-                <nuxt-link to="/lifehacks"> Life hacks </nuxt-link>
               </div>
             </div>
             <div class="right-col" role="row">

@@ -40,13 +40,13 @@
           role="article"
           class="card ma-4 align-self-start"
           :class="{
-            bounce: animating >= 0 ? article.id === animating : false,
+            bounce: animating != '' ? article.title === animating : false,
           }"
           @click="
-            animating = article.id
+            animating = article.title
             $goTo(`/learn/${article.slug}`)
           "
-          @animationend="animating = -1"
+          @animationend="animating = ''"
         >
           <v-img
             :src="require(`~/assets/images/learn/${article.slug}.jpg`)"
@@ -86,7 +86,7 @@ export default {
       .catch((err) => {
         error({ statusCode: 404, message: 'Markdown file not found' })
       })
-    const articles = await $content('learn', params.slug)
+    const articles = await $content('learn', params.slug) //TODO: only access summary information?
       .where({ slug: { $regex: '^(?!.*[0-9])(?!.*index).*$' } }) // ignore index and numbered files
       .sortBy('createdAt', 'asc')
       .fetch()
@@ -101,7 +101,7 @@ export default {
       // filterby: 0, // 0 = All
       search: '', // search query
       // searchContent: false, // option to also search inside article // can't get full-text search in $content. https://github.com/nuxt/content/issues/1507
-      animating: -1, // clicked article.id to bounce-animate it
+      animating: '', // sets to article.title to bounce-animate that card, then back to '' (title is the card ID!)
     }
   },
   head() {
@@ -127,7 +127,7 @@ export default {
     this.$store.commit('setTheme', 'default')
     this.$store.commit('setTitle', '')
     this.$store.commit('updateRoute', {
-      title: 'Solutions',
+      title: 'Learn',
       url: window.location.href,
     })
   },
