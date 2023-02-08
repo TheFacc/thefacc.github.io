@@ -138,10 +138,7 @@ Matrix::<bb>Matrix(</bb>..r, ..c, ..<pp>d</pp><bb>)</bb> : <gg>Matrix(</gg>r,c<g
 Matrix M2 = <bold>*this</bold>;
 </md-code>
  
-
-<br>
-
- ### init set of strings / convert vector to set
+- **init set of strings / convert vector to set**
 [#TODO check] (splitWords() (same as split()) is given in "utilities.h", returns vector of strings)
 <md-code>
 <pp>vector&lt;</pp>string<pp>&gt;</pp> <pp>v</pp>( split(text,' ') );
@@ -150,13 +147,7 @@ Matrix M2 = <bold>*this</bold>;
 <bb>words</bb> = <gg>set&lt;</gg>string<gg>&gt;(</gg><pp>v</pp>.cbegin(), <pp>v</pp>.cend()<gg>)</gg>;
 </md-code>
  
-
-<br>
-
-
-### static variable
-- A static variable preserves its value even when out of scope! Like God variables. It cannot be re-initialized. Useful for (very)global counters!
-
+- **static variable**: preserves its value even when out of scope! Like God variables. It cannot be re-initialized. Useful for (very)global counters!
 <md-code>
 int <gg>fun()</gg> <rr>{</rr>
     <bold>static</bold> int count = 0; <cc>// the variable is declared + initialized to 0 inside the function</cc>
@@ -166,14 +157,10 @@ int <gg>fun()</gg> <rr>{</rr>
 int main() {
     std::cout << <gg>fun()</gg> << “, “ << <gg>fun()</gg> << “, “ << <gg>fun()</gg> << std::endl;
     return 0;
-}
+} <cc>// Output: <oo>1 2 3</oo> (I know right? wow)</cc>
 </md-code>
 
-- Output: `1 2 3` (I know right? wow)
-
-<br>
-
-### global counter
+- global counter
 <md-code>
 <cc>// .h</cc>
 class myClass {
@@ -184,21 +171,6 @@ class myClass {
 unsigned myClass::<gg>counter</gg> = 1;
 </md-code>
 
-
-
-<br>
-
-### map rangefor
-Remember this! so useful and intuitive
-<md-code>
-for (const auto& <rr>pair</rr> : <pp>myMap</pp>)
-	std::cout << <rr>pair</rr>.first << <oo>" has value "</oo> << <rr>pair</rr>.second << std::endl;
-</md-code>
-While with iterators it would be:
-<md-code>
-for (const auto <rr>pairit</rr>=<pp>myMap</pp>.cbegin(); <rr>pairit</rr>!=<pp>myMap</pp>.cend(); <rr>pairit</rr>++)
-	std::cout &lt;&lt; <rr>pairit</rr>->first &lt;&lt; <oo>" has value "</oo> &lt;&lt; <rr>pairit</rr>->second &lt;&lt; std::endl;
-</md-code>
 
 <br>
 
@@ -255,7 +227,7 @@ std::map&lt;T,U&gt; <pp>myMap</pp>;
 
 <br>
 
-### Shared Pointers
+#### Shared Pointers
 - **what?** Basically a wrapper class over a (raw)pointer with an operator like `*` and `->` overloaded. The objects of the smart pointer class look like normal pointers - but, unlike them, it can deallocate and free destroyed object memory. (no need to call `delete ptr`, out of scope it auto deletes itself+obj, see motivation below) - `unique_ptr<T>`, `shared_ptr<T>`
 
 - **motivation**: when `p` goes out of <span style="color:#f38d8d">scope</span>, it gets deleted together with the object it refers to!
@@ -298,12 +270,23 @@ void fun1(T arg) <rr>{</rr>
 
 <br>
 
-### pro knowledge tip
+### Misc
+- **pro knowledge tip**
 The STL `queue` is a **container adaptor**. That is, it is not a "first-class" container, but instead simply "adapts" one of the sequential first-class containers (by default, the `deque`) for its own purposes. So, the `deque` interface is restricted (i.e., much of it is hidden) so that the required FIFO queue-like behavior is provided.
-
+- **map rangefor**
+Remember this! so useful and intuitive
+<md-code>
+for (const auto& <rr>pair</rr> : <pp>myMap</pp>)
+	std::cout << <rr>pair</rr>.first << <oo>" has value "</oo> << <rr>pair</rr>.second << std::endl;
+</md-code>
+While with iterators it would be:
+<md-code>
+for (const auto <rr>pairit</rr>=<pp>myMap</pp>.cbegin(); <rr>pairit</rr>!=<pp>myMap</pp>.cend(); <rr>pairit</rr>++)
+	std::cout &lt;&lt; <rr>pairit</rr>->first &lt;&lt; <oo>" has value "</oo> &lt;&lt; <rr>pairit</rr>->second &lt;&lt; std::endl;
+</md-code>
 <br><hr><br>
 
-# MPI
+## MPI
 
 Some more.
 

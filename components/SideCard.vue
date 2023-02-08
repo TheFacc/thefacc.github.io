@@ -1,7 +1,7 @@
 <template>
   <div class="sidecard ma-4 ma-md-12 d-flex flex-row flex-md-column">
     <Transition name="slideup-fade">
-      <v-card v-show="mode == 'card'" class="elevation-6">
+      <v-card v-if="mode === 'card'" class="elevation-6">
         <div class="sidecard-img">
           <v-img
             src="https://icon-library.com/images/free-profile-icon/free-profile-icon-25.jpg"
@@ -92,9 +92,7 @@
       </v-card>
     </Transition>
     <Transition name="slideup-fade">
-      <div v-show="mode == 'learn'">
-        <p style="text-align: center">💆‍♂️</p>
-      </div>
+      <toc v-if="mode === 'learn'"></toc>
     </Transition>
   </div>
 </template>
