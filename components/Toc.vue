@@ -4,7 +4,7 @@
     <p class="uppercase text-black font-h2 text-lg lg:mt-16 tracking-wider">
       Table of contents
     </p>
-    <nav class="v-navigation-drawer d-flex flex-row">
+    <nav v-if="article" class="v-navigation-drawer d-flex flex-row">
       <!-- items indicator -->
       <div class="toc-indicator">
         <div
@@ -21,7 +21,6 @@
           :key="item.id"
           class="toc-item pt-0 pb-0"
           :elno="idx"
-          active-class="ml-10"
           :href="`#${item.id}`"
           link
           dense
@@ -50,9 +49,10 @@ export default {
     return {
       article: null,
       currentlyActiveTocs: [], // array of all the active TOC elements ('tocs')
-      highestActiveToc: 0,
-      sliderHeight: 100,
-      sliderTop: 100,
+      highestActiveToc: 0, // first visible element from top (to correctly set sliderTop)
+      sliderHeight: 550,
+      sliderTop: 53,
+      noneObserving: false, // used to prevent slider from disappearing when no headers are visible
       observer: null,
       observerOptions: {
         root: this.$refs.nuxtContent,
@@ -66,68 +66,68 @@ export default {
     this.article = await $content('learn', params.slug).only(['toc']).fetch()
   },
   mounted() {
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const id = entry.target.getAttribute('id')
-        const triggerEl = document.querySelector(`[href="#${id}"]`) // find activated TOC element
-        const triggerElNo = triggerEl.getAttribute('elno')
-        if (entry.isIntersecting) {
-          // into scope -> add ID if not already present
-          if (this.currentlyActiveTocs.indexOf(triggerElNo) === -1)
-            this.currentlyActiveTocs.push(triggerElNo)
-          //   // style the indicator //TODO I'll keep this complex conditional styling just for a push... will clean after
-          //   if (triggerElNo > this.highestActiveToc) {
-          //     // activated an element below: Top unchanged, Height +1
-          //     this.sliderHeight += triggerEl.offsetHeight
-          //   } else {
-          //     // activated an element above: Top update, Height +2
-          //     this.sliderTop = triggerEl.offsetTop
-          //     this.sliderHeight += 2 * triggerEl.offsetHeight
-          //   }
-          //   //   this.sliderTop = triggerEl.offsetTop
-          //   //   this.sliderHeight = triggerEl.offsetHeight //* this.currentlyActiveTocs.length
-        } else {
-          // out of scope -> remove ID if present
-          // ...BUT NOT if it's the only one! nope ok it breaks everything, leave it, ciao, nvm
-          //   if (this.currentlyActiveTocs.length !== 1)
-          this.currentlyActiveTocs = this.currentlyActiveTocs.filter(
-            (e) => e !== triggerElNo
-          )
-          //   // style the indicator
-          //   if (triggerElNo > this.highestActiveToc) {
-          //     // deactivated an element below: Top unchanged, Height -1
-          //     this.sliderHeight -= triggerEl.offsetHeight
-          //   } else {
-          //     // deactivated an element above: Top update, Height -2
-          //     this.sliderTop += triggerEl.offsetHeight
-          //     this.sliderHeight -= 2 * triggerEl.offsetHeight
-          //   }
-        }
-        // update vars
-        this.highestActiveToc = this.currentlyActiveTocs.sort((a, b) =>
-          a.localeCompare(b, undefined, { numeric: true })
-        )[0]
-        // style the indicator globally
-        this.sliderHeight =
-          triggerEl.offsetHeight * this.currentlyActiveTocs.length
-        this.sliderTop = document.querySelector(
-          `[elno="${this.highestActiveToc}"]`
-        ).offsetTop
-        // console.log('ACTIVETOCS:', this.currentlyActiveTocs)
-        // console.log('highestActiveToc:', this.highestActiveToc)
-      })
-    }, this.observerOptions)
+    // animate slider while the content loads and the observer is initialized
+    // let sliderInit = setInterval(() => {
+    //   this.sliderTop = this.sliderTop - 5
+    //   this.sliderHeight = this.sliderHeight - 1
+    //   if (this.sliderTop < 100) clearInterval(sliderInit)
+    // }, 5)
+    // wait a second for stuff to fetch before initializing the observer
+    setTimeout(() => {
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.getAttribute('id')
+          const triggerEl = document.querySelector(`[href="#${id}"]`) // find activated TOC element
+          if (triggerEl) {
+            const triggerElNo = triggerEl.getAttribute('elno')
+            if (entry.isIntersecting) {
+              // into scope -> add ID if not already present
+              if (this.currentlyActiveTocs.indexOf(triggerElNo) === -1) {
+                if (this.noneObserving) {
+                  this.noneObserving = false
+                  this.currentlyActiveTocs = []
+                }
+                this.currentlyActiveTocs.push(triggerElNo)
+              }
+            } else {
+              // out of scope -> remove ID if present
+              if (this.currentlyActiveTocs.length > 1) {
+                this.currentlyActiveTocs = this.currentlyActiveTocs.filter(
+                  (e) => e !== triggerElNo
+                )
+              } else {
+                // ...BUT NOT if it's the only one! but keep track of this state or it messes up everything
+                this.noneObserving = true
+              }
+            }
+            // get first active element (to properly set Top)
+            this.highestActiveToc = this.currentlyActiveTocs.sort((a, b) =>
+              a.localeCompare(b, undefined, { numeric: true })
+            )[0]
+            // style the indicator globally
+            this.sliderHeight =
+              triggerEl.offsetHeight * this.currentlyActiveTocs.length
+            const highestEl = document.querySelector(
+              `[elno="${this.highestActiveToc}"]`
+            )
+            if (highestEl) this.sliderTop = highestEl.offsetTop
+            // console.log('ACTIVETOCS:', this.currentlyActiveTocs)
+            // console.log('highestActiveToc:', this.highestActiveToc)
+          }
+        })
+      }, this.observerOptions)
 
-    // Track all sections that have an `id` applied
-    document
-      .querySelectorAll('.nuxt-content h2[id], .nuxt-content h3[id]')
-      .forEach((section) => {
-        this.observer.observe(section)
-      })
+      // Track all sections that have an `id` applied
+      document
+        .querySelectorAll('.nuxt-content h2[id], .nuxt-content h3[id]')
+        .forEach((section) => {
+          this.observer.observe(section)
+        })
+    }, 1000)
   },
-  beforeDestroy() {
-    this.observer.disconnect()
-  },
+  // beforeDestroy() { // seems like it already gets distroyed? i got 'cannot read prop disconnect of null'
+  //   this.observer.disconnect()
+  // },
 }
 </script>
 
