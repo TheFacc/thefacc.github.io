@@ -23,10 +23,10 @@ export default {
     TheHeader,
     TheFooter,
   },
-  updated() {
-    console.log('PATH:', $nuxt.$route.path)
-    console.log('NAME:', $nuxt.$route.name)
-  },
+  // updated() {
+  //   console.log('PATH:', $nuxt.$route.path)
+  //   console.log('NAME:', $nuxt.$route.name)
+  // },
 }
 </script>
 

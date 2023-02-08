@@ -32,7 +32,7 @@
       <h4 v-if="filteredListSearch.length === 0">No articles found.</h4>
       <transition-group
         name="article"
-        class="d-flex justify-space-around flex-column flex-sm-row"
+        class="d-flex justify-center align-self-start align-content-center flex-wrap flex-column flex-sm-row"
       >
         <v-card
           v-for="article of filteredListSearch"
@@ -62,7 +62,7 @@
             <div class="font-weight-bold ml-1 mb-2">Topics</div>
             <v-timeline align-top dense class="ml-n6 pt-0">
               <v-timeline-item
-                v-for="topic in article.topics"
+                v-for="topic in getTopics(article)"
                 :key="topic"
                 :color="article.color"
                 small
@@ -108,6 +108,13 @@ export default {
     return {
       title: 'Learn',
     }
+  },
+  methods: {
+    getTopics(art) {
+      if (art.topics.length)
+        return art.topics // if .topics is given, overrides TOC
+      else return art.toc.map((a) => a.text) // extract .text from each TOC element
+    },
   },
   computed: {
     filteredListSearch() {

@@ -4,6 +4,7 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   target: 'static',
+  // ssr: false,
   head: {
     titleTemplate: '%s - Alessio Facincani',
     title: 'Alessio Facincani',
@@ -25,6 +26,8 @@ export default {
   vue: {
     config: {
       ignoredElements: [
+        'ppro',
+        'ccon',
         'rr',
         'rrh',
         'oo',
@@ -47,6 +50,7 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     // 'normalize.css/normalize.css',
+    // '~assets/styles/fonts.css', // SFPD
     '~assets/styles/global.css',
   ],
 

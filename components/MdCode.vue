@@ -95,6 +95,10 @@ export default {
   margin-bottom: 1rem;
   overflow: hidden;
   border-radius: 0.5rem;
+  overflow-x: auto;
+}
+.mycode a {
+  color: inherit !important;
 }
 
 /* props */

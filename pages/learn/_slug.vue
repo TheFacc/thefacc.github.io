@@ -1,7 +1,6 @@
 <template>
   <div>
-    <nuxt-content :document="article" tag="article" />
-    <coming-soon></coming-soon>
+    <nuxt-content :document="article" tag="article" class="fancy" />
   </div>
 </template>
 
@@ -18,7 +17,7 @@ export default {
   },
   head() {
     return {
-      title: 'Solutions',
+      title: this.article.title,
     }
   },
   mounted() {

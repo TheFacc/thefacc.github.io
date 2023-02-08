@@ -1,10 +1,14 @@
 <template>
-  <div class="sidecard ma-4 ma-md-12 d-flex flex-row flex-md-column">
-    <Transition name="slideup-fade">
-      <v-card v-if="mode === 'card'" class="elevation-6">
+  <div class="sidecard ma-4 ma-md-12">
+    <Transition name="slideup-fade" mode="out-in">
+      <v-card
+        v-if="mode === 'card'"
+        class="elevation-6 d-flex flex-row flex-md-column"
+      >
         <div class="sidecard-img">
           <v-img
             src="https://icon-library.com/images/free-profile-icon/free-profile-icon-25.jpg"
+            width="250"
           ></v-img>
         </div>
 
@@ -90,8 +94,6 @@
           </div>
         </div>
       </v-card>
-    </Transition>
-    <Transition name="slideup-fade">
       <toc v-if="mode === 'learn'"></toc>
     </Transition>
   </div>
@@ -149,12 +151,16 @@ export default {
 /* TRANSITIONS */
 /* slide up + fade */
 .slideup-fade-enter-active {
-  transition: all 0.3s ease-in;
+  transition: all 0.5s ease-out;
 }
 .slideup-fade-leave-active {
-  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.1s cubic-bezier(1, 0.5, 0.8, 1);
 }
-.slideup-fade-enter-from,
+.slideup-fade-enter,
+.slideup-fade-leave-to {
+  transform: translateX(-100px);
+  opacity: 0;
+}
 .slideup-fade-leave-to {
   transform: translateY(-60px) scale(0.9);
   opacity: 0;
