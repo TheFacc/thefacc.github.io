@@ -58,33 +58,88 @@ article {
   }
 }
 
-/* text */
+/* TYPOGRAPHY */
 a {
   color: inherit;
 }
-p {
+p,
+li {
   font-size: 18px;
   font-weight: 300;
-  line-height: 1.2;
+  line-height: 1.4;
   margin: 7px 0;
 }
 p strong {
   font-weight: 500;
 }
 /* special highlighting tags */
-ppro {
+bold {
+  font-weight: bold;
+}
+boldh {
+  font-weight: bold;
+  background: rgb(200 180 0 / 30%);
+}
+h-pro,
+.h-pro {
   color: #234907;
   background-color: #96e95b77;
 }
-ccon {
+h-con,
+.h-con {
   color: #460d0d;
   background-color: #f38d8d7d;
 }
-ppro,
-ccon {
+h-pro,
+.h-pro,
+h-con,
+.h-con {
   padding: 0 4px;
 }
+h-key,
+.h-key {
+  background: #fffd7f;
+}
+h-def,
+.h-def {
+  background: #ccffcc;
+}
+h-ass,
+.h-ass {
+  background: #ffd5b3;
+}
+h-que,
+.h-que {
+  background: #ecdef6;
+}
+h-res,
+.h-res {
+  background: #bfd1e5;
+}
+h-exa,
+.h-exa {
+  background: #e3fbff;
+}
+h-key,
+.h-key,
+h-def,
+.h-def,
+h-ass,
+.h-ass,
+h-que,
+.h-que,
+h-res,
+.h-res,
+h-exa,
+.h-exa {
+  padding: 2px;
+  border-radius: 3px;
+}
 
+.katex-html {
+  display: none !important; /* sorry for this */
+}
+/* headings */
 h1 {
   font-weight: 300;
   font-size: 56px;

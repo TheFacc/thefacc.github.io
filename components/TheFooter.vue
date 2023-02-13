@@ -59,7 +59,7 @@
             </div>
             <div class="right-col" role="row">
               <div role="cell">
-                <nuxt-link to="/contact"> CV </nuxt-link>
+                <nuxt-link to="/cv"> CV </nuxt-link>
               </div>
             </div>
           </div>

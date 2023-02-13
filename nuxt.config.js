@@ -26,8 +26,6 @@ export default {
   vue: {
     config: {
       ignoredElements: [
-        'ppro',
-        'ccon',
         'rr',
         'rrh',
         'oo',
@@ -44,6 +42,15 @@ export default {
         'wwh',
         'uu',
         'bold',
+        'boldh',
+        'h-key',
+        'h-def',
+        'h-ass',
+        'h-que',
+        'h-res',
+        'h-exa',
+        'h-con',
+        'h-pro',
       ],
     },
   },
@@ -81,11 +88,15 @@ export default {
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {
+    liveEdit: false,
     markdown: {
       // https://nuxtjs.org/docs/directory-structure/content#syntax-highlighting
       prism: {
         theme: 'assets/prism-themes/prism-tomorrow-night.css',
       },
+      // markdown latex: https://github.com/nuxt/content/issues/102
+      remarkPlugins: ['remark-math'],
+      rehypePlugins: ['rehype-katex', { output: 'mathml' }],
     },
   },
 

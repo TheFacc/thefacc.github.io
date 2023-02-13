@@ -1,18 +1,18 @@
 <template>
-  <div class="sidecard ma-4 ma-md-12">
+  <div class="sidecard ma-4 ma-md-8">
     <Transition name="slideup-fade" mode="out-in">
       <v-card
         v-if="mode === 'card'"
         class="elevation-6 d-flex flex-row flex-md-column"
       >
-        <div class="sidecard-img">
+        <!-- <div class="sidecard-img">
           <v-img
             src="https://icon-library.com/images/free-profile-icon/free-profile-icon-25.jpg"
-            width="250"
+            width="290"
           ></v-img>
-        </div>
+        </div> -->
 
-        <div>
+        <div style="width: 290px">
           <v-card-title>Alessio Facincani</v-card-title>
           <v-card-text>
             <div>
@@ -139,7 +139,7 @@ export default {
     position: sticky;
     top: 8em;
     align-self: flex-start;
-    width: 300px;
+    width: 290px;
   }
 }
 @media screen and (max-width: 959px) {

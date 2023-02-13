@@ -53,9 +53,9 @@
               <nav-dropdown
                 v-if="item.options && item.dropdownOpen"
                 :items="item.options"
-                @dropdown-clicked="toggleMobileMenu"
-              ></nav-dropdown
-            ></transition> -->
+                @dropdown-clicked="toggleMobileMenu">
+              </nav-dropdown>
+            </transition> -->
           </li>
         </ul>
       </nav>
@@ -102,7 +102,7 @@ export default {
         // },
         {
           name: 'CV',
-          path: '',
+          path: '/cv',
           icon: require('~/assets/icons/about.svg?raw'),
           width: '90px',
         },
@@ -345,6 +345,9 @@ export default {
 }
 nav ul {
   list-style-type: none;
+}
+nav li {
+  margin-bottom: 0;
 }
 .nav__item svg {
   display: inline-block;
