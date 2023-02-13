@@ -9,8 +9,8 @@
             <v-icon>mdi-timeline-question</v-icon>
           </span>
         </template>
-        If it gets stuck, refresh the page. Sorry the observer is tricky with
-        dynamic website, will try to fix
+        If it gets stuck, click an item or refresh the page. <br />Sorry the
+        observer is tricky with dynamic website, will try to fix!
       </v-tooltip>
     </p>
     <nav v-if="$store.state.article" class="v-navigation-drawer">
@@ -25,24 +25,26 @@
       </div>
       <!-- actual items -->
       <v-list dense shaped class="ml-0 transparent">
-        <v-list-item
-          v-for="(item, idx) in $store.state.article.toc"
-          :key="item.id"
-          class="toc-item pt-0 pb-0"
-          :elno="idx"
-          :href="`${$nuxt.$route.path}#${item.id}`"
-          link
-          dense
-          replace
-        >
-          <v-list-item-title
-            :class="{
-              'ml-2 indigo--text font-weight-bold':
-                currentlyActiveTocs.includes(`${idx}`),
-            }"
-            >{{ item.text }}</v-list-item-title
+        <transition-group name="tocup">
+          <v-list-item
+            v-for="(item, idx) in $store.state.article.toc"
+            :key="item.id"
+            class="toc-item pt-0 pb-0"
+            :elno="idx"
+            :href="`${$nuxt.$route.path}#${item.id}`"
+            link
+            dense
+            replace
           >
-        </v-list-item>
+            <v-list-item-title
+              :class="{
+                'ml-2 indigo--text font-weight-bold':
+                  currentlyActiveTocs.includes(`${idx}`),
+              }"
+              >{{ item.text }}</v-list-item-title
+            >
+          </v-list-item>
+        </transition-group>
       </v-list>
     </nav>
   </div>
@@ -179,5 +181,24 @@ export default {
 .toc-item * {
   transition: 0.2s;
   min-width: 150px;
+}
+/* TRANSITION: toc update */
+.tocup-enter {
+  transform: scale(0.5) translate(30px, -50px) rotate(-20deg);
+  opacity: 0;
+}
+.tocup-leave-to {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+.tocup-leave-active {
+  position: absolute;
+  z-index: -1;
+}
+.tocup-leave-active {
+  transition: 0.3s;
+}
+.tocup-enter-active {
+  transition: 0.8s;
 }
 </style>
