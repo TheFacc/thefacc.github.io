@@ -294,13 +294,13 @@ Full detailed list of complexities [here](https://alyssaq.github.io/stl-complexi
     <tr>
     <td><strong>vector: </strong></td>
     <td>insert, clear, erase</td>
-    <td><ccon>n</ccon></td>
+    <td><h-con>n</h-con></td>
     <td></td>
     </tr>
     <tr>
     <td style="border-bottom:0;"><strong>list/deque</strong>:</td>
     <td>back/front, insert</td>
-    <td><ppro>1</ppro></td>
+    <td><h-pro>1</h-pro></td>
     <td></td>
     </tr>
     <tr>
@@ -325,13 +325,13 @@ Full detailed list of complexities [here](https://alyssaq.github.io/stl-complexi
     <td style="border-bottom:0;"><strong>set/map:</strong></td>
     <td>find, insert, erase, count</td>
     <td>log(n)</td>
-    <td><ppro>log(n)</ppro></td>
+    <td><h-pro>log(n)</h-pro></td>
     </tr>
     <tr>
     <td><strong>unordered_set/map: </strong></td>
     <td>find, insert, delete</td>
-    <td><ppro>1</ppro></td>
-    <td><ccon>n</ccon></td>
+    <td><h-pro>1</h-pro></td>
+    <td><h-con>n</h-con></td>
     </tr>
   </table>
 </v-simple-table>
@@ -355,12 +355,12 @@ Data Structure choosing:
     <tr>
     <td><strong>map/set</strong></td>
     <td>O(log(N))</td>
-    <td>better worst complexity (<ccon>slower</ccon> on avg, but <ppro>ordered</ppro>)</td>
+    <td>better worst complexity (<h-con>slower</h-con> on avg, but <h-pro>ordered</h-pro>)</td>
     </tr>
     <tr>
     <td><strong>unordered map/set</strong></td>
     <td>avg O(1) / worst O(N)</td>
-    <td>better avg complexity (<ppro>faster</ppro>, but <ccon>more memory</ccon>)</td>
+    <td>better avg complexity (<h-pro>faster</h-pro>, but <h-con>more memory</h-con>)</td>
     </tr>
   </table>
 </v-simple-table>
