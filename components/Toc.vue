@@ -30,7 +30,7 @@
           :key="item.id"
           class="toc-item pt-0 pb-0"
           :elno="idx"
-          :href="`#${item.id}`"
+          :href="`${$nuxt.$route.path}#${item.id}`"
           link
           dense
           replace
@@ -87,7 +87,9 @@ export default {
       this.observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           const id = entry.target.getAttribute('id')
-          const triggerEl = document.querySelector(`[href="#${id}"]`) // find activated TOC element
+          const triggerEl = document.querySelector(
+            `[href="${$nuxt.$route.path}#${id}"]`
+          ) // find activated TOC element
           if (triggerEl) {
             const triggerElNo = triggerEl.getAttribute('elno')
             if (entry.isIntersecting) {
