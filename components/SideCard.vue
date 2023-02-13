@@ -94,7 +94,7 @@
           </div>
         </div>
       </v-card>
-      <toc v-if="mode === 'learn'"></toc>
+      <toc v-if="mode === 'learn'" :key="$nuxt.$route.path"></toc>
     </Transition>
   </div>
 </template>

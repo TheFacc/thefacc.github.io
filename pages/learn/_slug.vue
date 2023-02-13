@@ -2,7 +2,12 @@
   <div
     class="d-flex flex-column flex-md-row ma-4 ma-md-12 justify-space-around"
   >
-    <nuxt-content :document="article" tag="article" class="fancy" />
+    <nuxt-content
+      :document="article"
+      tag="article"
+      ref="nuxtContent"
+      class="fancy"
+    />
     <acronyms
       v-if="article && article.acronyms"
       :acronyms="article.acronyms"

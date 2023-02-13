@@ -67,7 +67,7 @@ export default {
       observer: null,
       observerOptions: {
         root: this.$refs.nuxtContent,
-        threshold: 0.5, // 0 = one visible pixel triggers the observer
+        threshold: 0.5, // 0.5 = half visible element triggers the observer
       },
     }
   },
@@ -84,8 +84,6 @@ export default {
       //   this.sliderHeight = this.sliderHeight - 1
       //   if (this.sliderTop < 100) clearInterval(sliderInit)
       // }, 5)
-      // wait a second for stuff to fetch before initializing the observer
-      // setTimeout(() => {
       this.observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           const id = entry.target.getAttribute('id')
@@ -137,19 +135,18 @@ export default {
         .forEach((section) => {
           this.observer.observe(section)
         })
-      // }, 1000)
     },
   },
   mounted() {
-    this.startObserving()
+    // wait a second for stuff to fetch before initializing the observer,
+    // otherwise it stays stuck on page change! (but works on page refresh)
+    setTimeout(() => {
+      this.startObserving()
+    }, 1000)
   },
-  updated() {
+  beforeDestroy() {
     this.observer.disconnect()
-    this.startObserving()
   },
-  // beforeDestroy() { // seems like it already gets distroyed? i got 'cannot read prop disconnect of null'
-  //   this.observer.disconnect()
-  // },
 }
 </script>
 
