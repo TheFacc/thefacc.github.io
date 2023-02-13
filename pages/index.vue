@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt-content :document="page" />
+    <nuxt-content :document="page" class="fancy" style="max-width: 750px" />
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit('setTheme', 'default')
+    // this.$store.commit('setTheme', 'default')
     this.$store.commit('setTitle', '')
     this.$store.commit('updateRoute', {
       title: 'Home',

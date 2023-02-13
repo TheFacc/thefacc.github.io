@@ -131,7 +131,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.commit('setTheme', 'default')
+    // this.$store.commit('setTheme', 'default')
     this.$store.commit('setTitle', '')
     this.$store.commit('updateRoute', {
       title: 'Learn',

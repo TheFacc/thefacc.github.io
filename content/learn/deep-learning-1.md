@@ -85,7 +85,7 @@ Feedforward Neural Networks (FFNN), also known as Multi-layer Perceptrons (MLPs)
 * **Differences: training FFNN for regression vs for classification**
     * The major differences are in the output of the network, specifically the activation function of the output layer and the loss function. This is because, for the inner workings of a network, it's been verified that the same general architecture can work well with both tasks. Of course, the output must encode the information about a class in the case of classification, and a real number in case of regression.
     * If the task is <span style="text-decoration:underline;">classification</span>, the activation of the output layer is either sigmoid with binary/multilabel classification, or softmax with classification over multiple mutually exclusive classes. Loss function is usually crossentropy.
-    * If the task is <span style="text-decoration:underline;">regression</span>, the activation of the output layer is linear because its codomain must   ... 
+    * If the task is <span style="text-decoration:underline;">regression</span>, the activation of the output layer is linear.
 
 <br>
 
