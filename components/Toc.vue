@@ -2,9 +2,18 @@
   <div>
     <!-- <p style="text-align: center">💆‍♂️</p> -->
     <p class="uppercase text-black font-h2 text-lg lg:mt-16 tracking-wider">
-      Table of contents
+      Table of contents &nbsp;&nbsp;
+      <v-tooltip right>
+        <template v-slot:activator="{ on, attrs }">
+          <span v-bind="attrs" v-on="on">
+            <v-icon>mdi-timeline-question</v-icon>
+          </span>
+        </template>
+        If it gets stuck, refresh the page. Sorry the observer is tricky with
+        dynamic website, will try to fix
+      </v-tooltip>
     </p>
-    <nav v-if="article" class="v-navigation-drawer d-flex flex-row">
+    <nav v-if="$store.state.article" class="v-navigation-drawer">
       <!-- items indicator -->
       <div class="toc-indicator">
         <div
@@ -15,9 +24,9 @@
         ></div>
       </div>
       <!-- actual items -->
-      <v-list dense shaped class="ml-0">
+      <v-list dense shaped class="ml-0 transparent">
         <v-list-item
-          v-for="(item, idx) in article.toc"
+          v-for="(item, idx) in $store.state.article.toc"
           :key="item.id"
           class="toc-item pt-0 pb-0"
           :elno="idx"
@@ -47,7 +56,7 @@
 export default {
   data() {
     return {
-      article: null,
+      // article: {},
       currentlyActiveTocs: [], // array of all the active TOC elements ('tocs')
       highestActiveToc: 0, // first visible element from top (to correctly set sliderTop)
       sliderHeight: 550,
@@ -60,20 +69,21 @@ export default {
       },
     }
   },
-  async fetch() {
-    const { $content, route } = this.$nuxt.context
-    const { params } = route
-    this.article = await $content('learn', params.slug).only(['toc']).fetch()
-  },
-  mounted() {
-    // animate slider while the content loads and the observer is initialized
-    // let sliderInit = setInterval(() => {
-    //   this.sliderTop = this.sliderTop - 5
-    //   this.sliderHeight = this.sliderHeight - 1
-    //   if (this.sliderTop < 100) clearInterval(sliderInit)
-    // }, 5)
-    // wait a second for stuff to fetch before initializing the observer
-    setTimeout(() => {
+  // async fetch() {
+  //   const { $content, route } = this.$nuxt.context
+  //   const { params } = route
+  //   this.article = await $content('learn', params.slug).only(['toc']).fetch()
+  // },
+  methods: {
+    startObserving() {
+      // animate slider while the content loads and the observer is initialized
+      // let sliderInit = setInterval(() => {
+      //   this.sliderTop = this.sliderTop - 5
+      //   this.sliderHeight = this.sliderHeight - 1
+      //   if (this.sliderTop < 100) clearInterval(sliderInit)
+      // }, 5)
+      // wait a second for stuff to fetch before initializing the observer
+      // setTimeout(() => {
       this.observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           const id = entry.target.getAttribute('id')
@@ -123,7 +133,15 @@ export default {
         .forEach((section) => {
           this.observer.observe(section)
         })
-    }, 1000)
+      // }, 1000)
+    },
+  },
+  mounted() {
+    this.startObserving()
+  },
+  updated() {
+    this.observer.disconnect()
+    this.startObserving()
   },
   // beforeDestroy() { // seems like it already gets distroyed? i got 'cannot read prop disconnect of null'
   //   this.observer.disconnect()
@@ -139,6 +157,14 @@ export default {
   overflow: hidden;
   background-color: #c4c4c4;
 }
+@media screen and (max-width: 959px) {
+  .toc-indicator {
+    position: fixed;
+    overflow: visible;
+    top: 65px;
+    left: 0;
+  }
+}
 .toc-indicator div {
   position: absolute;
   width: 5px;
@@ -150,5 +176,6 @@ export default {
 /* list */
 .toc-item * {
   transition: 0.2s;
+  min-width: 150px;
 }
 </style>
