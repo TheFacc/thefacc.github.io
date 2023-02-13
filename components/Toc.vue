@@ -2,16 +2,7 @@
   <div>
     <!-- <p style="text-align: center">💆‍♂️</p> -->
     <p class="uppercase text-black font-h2 text-lg lg:mt-16 tracking-wider">
-      Table of contents &nbsp;&nbsp;
-      <v-tooltip right>
-        <template v-slot:activator="{ on, attrs }">
-          <span v-bind="attrs" v-on="on">
-            <v-icon>mdi-timeline-question</v-icon>
-          </span>
-        </template>
-        If it gets stuck, click an item or refresh the page. <br />Sorry the
-        observer is tricky with dynamic website, will try to fix!
-      </v-tooltip>
+      Table of contents
     </p>
     <nav v-if="$store.state.article" class="v-navigation-drawer">
       <!-- items indicator -->
@@ -145,7 +136,7 @@ export default {
     }, 1000)
   },
   beforeDestroy() {
-    this.observer.disconnect()
+    if (this.observer) this.observer.disconnect()
   },
 }
 </script>
