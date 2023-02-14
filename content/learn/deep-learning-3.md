@@ -53,7 +53,7 @@ Recurrent Neural Networks (RNN) are a type of neural network designed to process
 * **What is an LSTM?**
     * An <h-def>LSTM</h-def> (Long Short-Term Memory) is a type of RNN architecture that is capable of learning long-term dependencies in sequential data. Unlike traditional RNNs, LSTMs have memory cells that can store information for longer periods of time. The idea is to have some gate mechanism where you can write/keep/read the information in the memory cells whenever the corresponding gate is turned on. The gates are based on the [CEC](#vanishing-gradient). Decisions are based on the output of a sigmoid, while the loop is ruled by a ReLU.
     * <span style="text-decoration:underline;">Tasks</span>: natural language processing and other sequential data tasks - speech recognition, time series prediction.
-        <v-img src="/learn/deep-learning_rnn_lstm.jpg" width="500"></v-img>
+        <md-img src="/learn/deep-learning_rnn_lstm.jpg" width="500"></md-img>
     * Input gate: decide what to write to memory. Write if sigmoid~1
     * Forget gate: decide when to erase memory (erase if ~0)
     * Output gate: nonlinear function (tanh of memory content)
@@ -64,8 +64,8 @@ Recurrent Neural Networks (RNN) are a type of neural network designed to process
     * They're both well suited for processing sequential data, but:
     <table>
     <tr>
-    <td><h-pro><v-icon>mdi-check-circle-outline</v-icon></h-pro></td>
-    <td><h-con><v-icon>mdi-close-circle-outline</v-icon></h-con></td>
+    <td><h-pro><md-icon>mdi-check-circle-outline</md-icon></h-pro></td>
+    <td><h-con><md-icon>mdi-close-circle-outline</md-icon></h-con></td>
     </tr>
     <tr>
     <td>
@@ -83,7 +83,7 @@ Recurrent Neural Networks (RNN) are a type of neural network designed to process
     </table>
 
 * **Why do we need an attention mechanism? Aren't LSTM enough?**
-    * LSTMs are powerful, but may not be enough to fully capture the complexity of the data. An attention mechanism allows the model to focus on specific parts of the input when making predictions, by assigning a weight to each input and creating a weighted sum as the input of the next layer. Moreover, LSTM suffer from [VG problem](#vanishing-gradient), like any recurrence mechanism, so there exist recurrence-free approaches that use only attention, like the [Transformers](#transformers) <v-icon dense>mdi-robot-angry-outline</v-icon>.
+    * LSTMs are powerful, but may not be enough to fully capture the complexity of the data. An attention mechanism allows the model to focus on specific parts of the input when making predictions, by assigning a weight to each input and creating a weighted sum as the input of the next layer. Moreover, LSTM suffer from [VG problem](#vanishing-gradient), like any recurrence mechanism, so there exist recurrence-free approaches that use only attention, like the [Transformers](#transformers) <md-icon dense>mdi-robot-angry-outline</md-icon>.
 * **Why do we need a recurrence mechanism? Isn't the attention mechanism enough?**
     * Recurrent mechanisms, such as RNNs and LSTMs, allow the model to maintain an internal hidden state that can be used to remember information from previous time steps. This hidden state is updated at each time step, allowing the model to maintain a kind of 'memory' of the previous inputs, useful for capturing long-term dependencies. They can be used in conjunction with attention mechanisms to allow the model to both focus on specific parts of the input and also maintain memory of previous inputs.
 * **How to initialize the internal state?**
@@ -103,7 +103,7 @@ Recurrent Neural Networks (RNN) are a type of neural network designed to process
 * **Why does <span style="text-decoration:underline;">LSTM</span> help with VG?**
     * LSTM fixes VG by the use of S <span style="text-decoration:underline;">linear activation layer</span> in the hidden node and a <span style="text-decoration:underline;">recursion weight fixed to 1</span> (no issue with VG/EG, and not trainable). Also the linear activation function, having gradient 1, does not shrink the gradient. The only thing to learn is the nonlinear gates, which gradient is <span style="text-decoration:underline;">not affected</span> by the many possible unfoldings of bptt - it's now standard backprop!
     * In detail: the solution is in the <h-def>CEC</h-def> (Circular Error Carousel), a memory cell with a recursion weight fixed to 1. Information is written in the memory cell based on the input and the value of the cell itself through gates. It includes direct access to the forget gate’s activations, enabling the network to encourage desired behavior from the error gradient using frequent gates update at every time step of the learning process.
-        <v-img src="/learn/deep-learning_cec.jpg" width="500"></v-img>
+        <md-img src="/learn/deep-learning_cec.jpg" width="500"></md-img>
     * It is a sort of skip connection: in [U-Net](/learn/deep-learning-2#segmentation)/ResNet, skip is used to let the gradient flow past without reductions, here the CEC lets the gradient flow from any time to any past.
     * [Read more](https://www.codingninjas.com/codestudio/library/solving-the-vanishing-gradient-problem-with-lstm)
 
@@ -125,7 +125,7 @@ Recurrent Neural Networks (RNN) are a type of neural network designed to process
     * The <span style="text-decoration:underline;">decoder</span> takes in the context vector and generates a sentence in the target language, one word at a time, using another LSTM cell. At each time step, the cell takes in the previous word's embedding, the context vector, and the previous hidden state, then updates its internal hidden state and produces an output vector, which is then passed to a FC layer with a softmax activation to produce a probability distribution over the vocabulary. The word with the highest probability is chosen as output and passed to the next time step.
     * The <span style="text-decoration:underline;">training</span> involves passing a pair of sentences (in src/target language) to the model, and comparing the predicted output to the actual target. The model's params are updated using backprop and an optimizer to minimize the difference, and a loss function, typically cross-entropy. At inference time, since there's no target, the output guess is directly fed as input of the next timestep.
 * **For each of the models, provide its description and make an example of it.**
-        <v-img src="/learn/deep-learning_rnnmodels.jpg" width="500"></v-img>
+        <md-img src="/learn/deep-learning_rnnmodels.jpg" width="500"></md-img>
     * One-to-one: translates one input into one output (e.g Image Classification)
     * One-to-many: one input and you want to predict many outputs. (e.g. Captioning)
     * Many-to-one: sequence of input and you want one output (e.g. Text Classification)
@@ -143,7 +143,7 @@ Recurrent Neural Networks (RNN) are a type of neural network designed to process
 ### WordEmbedding
 * **What is embedding?**
     * <h-def>Embedding</h-def> is the collective name for a set of language modeling and feature learning techniques in Natural Language Processing (NLP) where words or phrases from the vocabulary are mapped to vectors of real numbers. Conceptually it involves a mathematical embedding from a space with many dimensions per word to a continuous vector space with a much lower dimension.
-    * <v-icon>mdi-close-circle-outline</v-icon> The problem with one-hot encoding is that words that are semantically similar will still be orthogonal, the similarity information is not captured. <v-icon>mdi-check-circle-outline</v-icon> The concept of embedding is to place words in some lower-dim (numerical) space where words similar in meaning have a smaller distance.
+    * <md-icon>mdi-close-circle-outline</md-icon> The problem with one-hot encoding is that words that are semantically similar will still be orthogonal, the similarity information is not captured. <md-icon>mdi-check-circle-outline</md-icon> The concept of embedding is to place words in some lower-dim (numerical) space where words similar in meaning have a smaller distance.
     * In numbers: usually we work with $\gt 10^6$ words, sparse space. We map it to a dense 100/500-dim space
 * **What is <h-def>N-grams</h-def>?**
     * It's another text representation alternative to BOW, that attempts to make a LanguageModel, i.e. telling how a word/sentence/paragraph is likely to happen. Each language has its own distribution, it's not straightforward to convert between models. In a sentence, the probability of the given sentence is the product of the probability of each word given the previous word - but the full language model is not feasible in this way. <span style="text-decoration:underline;">N-grams: assume that a word depends only on the previous N-1 words.</span> So the history is long N.
@@ -164,11 +164,11 @@ Recurrent Neural Networks (RNN) are a type of neural network designed to process
     * The sentence means that a word alone has little to no meaning without context (surrounding words)
     * SkipGram architecture: onehot -> embedding -> set of words (prev and past words wrt onehot input)
     * CBOW architecture (~inverse): set of words -> project them and sum using same embedding -> predict next
-    * <h-pro><v-icon>mdi-check-circle-outline</v-icon> Compared to NNML, there's <span style="text-decoration:underline;">no hidden layer</span>, making it much less complex and 1000x faster to train.</h-pro> Another difference is that it also uses future words.
+    * <h-pro><md-icon>mdi-check-circle-outline</md-icon> Compared to NNML, there's <span style="text-decoration:underline;">no hidden layer</span>, making it much less complex and 1000x faster to train.</h-pro> Another difference is that it also uses future words.
     * <span style="text-decoration:underline;">Applications</span>: info retrieval, doc classification/similarity, capture semantic of text: sentiment analysis
 * **Why Word2Vec represents an efficient and effective way to encode words?**
-    *  One-hot encoding: <v-icon>mdi-close-circle-outline</v-icon> embeds words in high-dim space where words are orthogonal. Fitting a language model in this space has to face the curse of dimensionality (huge space but mostly empty).
-    * WE: <h-pro><v-icon>mdi-check-circle-outline</v-icon> compresses the text representation</h-pro> in such a way that the embedding space has <h-pro>reduced dimensionality</h-pro> and words which are close in space share similar meaning (<h-pro>semantic similarity</h-pro>). The space is 'converted' sparse to dense, discrete to continuous. Also,<h-pro><v-icon>mdi-check-circle-outline</v-icon> vector operations are supported</h-pro> and make 'intuitive sense' (eg. king-man+woman = queen)
+    *  One-hot encoding: <md-icon>mdi-close-circle-outline</md-icon> embeds words in high-dim space where words are orthogonal. Fitting a language model in this space has to face the curse of dimensionality (huge space but mostly empty).
+    * WE: <h-pro><md-icon>mdi-check-circle-outline</md-icon> compresses the text representation</h-pro> in such a way that the embedding space has <h-pro>reduced dimensionality</h-pro> and words which are close in space share similar meaning (<h-pro>semantic similarity</h-pro>). The space is 'converted' sparse to dense, discrete to continuous. Also,<h-pro><md-icon>mdi-check-circle-outline</md-icon> vector operations are supported</h-pro> and make 'intuitive sense' (eg. king-man+woman = queen)
 * **How is the WordEmbedding loss function defined?**
 * **Text encoding problems and solution?**
 * **Describe the LSTM cell and the architectures which can be used when inference is done online (ie. one word at a time) and batch (ie when the entire cell is available)**
@@ -180,7 +180,7 @@ Recurrent Neural Networks (RNN) are a type of neural network designed to process
 ### Neural Turing Machines
 * **What is <h-def>NTM</h-def>?**
   * This model describes the functioning of a Neural Turing Machine from a high level perspective.
-        <v-img src="/learn/deep-learning_ntm.jpg" width="500"></v-img>
+        <md-img src="/learn/deep-learning_ntm.jpg" width="500"></md-img>
 * **How does a NTM work?**
     * NTM are models derived from Turing Machines that combine a traditional FFNN with a memory component, which allows the NTM to store and retrieve information (like RAM in ur pc).
     * In detail, NTMs have 2 main components: the <span style="text-decoration:underline;">controller</span> (FFNN that takes input and produces a set of read and write weights, which determine which parts of the memory matrix the NTM should read from and write to), and the <span style="text-decoration:underline;">memory matrix</span> (2D array to store data).
@@ -207,9 +207,9 @@ Recurrent Neural Networks (RNN) are a type of neural network designed to process
 <br>
 
 ### Transformers
-* **What is it?** <v-icon>mdi-robot-angry-outline</v-icon>
+* **What is it?** <md-icon>mdi-robot-angry-outline</md-icon>
     * The <h-def>Transformer</h-def> is ~~a cool robot~~ a model that improves the performance of RNN or LSTM using attention. It uses exclusively attention building blocks, and no recurrence, thus is not affected by vanishing nor exploding gradient. It's the current state-of-the-art in text modeling and prediction.
-        <v-img src="/learn/deep-learning_transformers.jpg" width="500"></v-img>
+        <md-img src="/learn/deep-learning_transformers.jpg" width="500"></md-img>
 * **How does the transformer model work?**
     * The transformer utilizes residual learning both in encoder and the decoder, which together with ReLU activation and attention, make it resilient to vanishing gradient. Of course, residual learning affects the gradient flow through the network since it allows the gradient at the output of a residual block to directly contribute to the gradient at any layer below it, since each of those layers adds something to the output.
     * It's composed of a stack of encoders and a stack of decoders built this way. The <span style="text-decoration:underline;">encoder</span> has a self-attention layer that puts attention on all input data, and a FFNN that gets the self-attention output as its input. The <span style="text-decoration:underline;">decoder</span> also has a self-attention and FFNN, but also has a encoder-decoder attention that puts attention on encoder data.

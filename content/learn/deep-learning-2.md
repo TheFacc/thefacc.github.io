@@ -45,19 +45,19 @@ Convolutional Neural Networks (CNN) are characterized by the presence of Convolu
 * **What is the Inception Net module?**
     * It reduces computational load of the network, by reducing conv inputs by 1x1 conv layers before bigger convs.
     * It uses multiple conv filters of different sizes in parallel.
-* <v-icon>mdi-check</v-icon> **True:** CNN can be seen as a special MLP network, having shared weights and sparse connectivity.
+* <md-icon>mdi-check</md-icon> **True:** CNN can be seen as a special MLP network, having shared weights and sparse connectivity.
 
 <br>
 
 ### GlobalAvgPooling
 * **What does GAP do?**
   * It is a pooling operation. The <h-def>GAP</h-def> layer takes in the activations from the final convolutional layer and reduces the spatial dimensions of the feature map by computing the average of the activations across all positions. This results in a single feature vector that represents the whole image.
-  * <h-pro><v-icon>mdi-check-circle-outline</v-icon> It reduces overfitting, makes the network more robust to translations, and reduces the number of parameters in the model. Additionally, it provides a compact representation of the image and helps the network to focus on the most important features in the image, which helps to improve the accuracy of the model</h-pro>.
+  * <h-pro><md-icon>mdi-check-circle-outline</md-icon> It reduces overfitting, makes the network more robust to translations, and reduces the number of parameters in the model. Additionally, it provides a compact representation of the image and helps the network to focus on the most important features in the image, which helps to improve the accuracy of the model</h-pro>.
 * **Where do you usually put GAP?**
   * In a CNN it's typically used between the convolutional part and the final FC part.
 * **What's the key difference with Max Pooling? Just average vs max?**
   * No! Max Pooling works on each feature map independently, thus outputs the same depth dimension (but reduced height and width), while GAP averages all features so it outputs depth 1 (keeping same height and width)!
-* <v-icon>mdi-check</v-icon> **True**: GAP has no trainable params / GAP can be used in networks containing a batchnorm layer / GAP is not used in OD networks / networks provided with GAP need to be trained to return class activation mapping / including a GAP in a CNN is a good way to make the CNN invariant to input size
+* <md-icon>mdi-check</md-icon> **True**: GAP has no trainable params / GAP can be used in networks containing a batchnorm layer / GAP is not used in OD networks / networks provided with GAP need to be trained to return class activation mapping / including a GAP in a CNN is a good way to make the CNN invariant to input size
 
 <br>
 
@@ -78,11 +78,11 @@ Convolutional Neural Networks (CNN) are characterized by the presence of Convolu
     * The <span style="text-decoration:underline;">contracting</span> path follows the typical architecture of a CNN. It consists of the repeated application of two 3x3 convolutions (unpadded convolutions), each followed by a ReLU and a 2x2 max pooling operation with stride 2 for downsampling. At each downsampling step we double the number of feature channels.
     * Every step in the <span style="text-decoration:underline;">expansive</span> path consists of an upsampling of the feature map followed by a 2x2 convolution (“up-convolution”) that halves the number of feature channels, a <span style="text-decoration:underline;">concatenation</span> with the correspondingly cropped feature map from the contracting path, and two 3x3 convolutions, each followed by a ReLU.
     * The <span style="text-decoration:underline;">cropping</span> is necessary due to the loss of border pixels in every convolution. At the final layer a 1x1 convolution is used to map each 64-component feature vector to the desired number of classes. The network has 23 conv layers in total.
-        <v-img src="/learn/deep-learning_unet.jpg" width="500"></v-img>
+        <md-img src="/learn/deep-learning_unet.jpg" width="500"></md-img>
     * Note that the net is symmetric, and that the skip connections are used in the upsampling path, they're concatenated and mixed in a learnable manner using convolution!
     * _Combining fine layers and coarse layers lets the model make <span style="text-decoration:underline;">local</span> predictions that respect <span style="text-decoration:underline;">global</span> structure._
-* <v-icon>mdi-check</v-icon> **True**: InstanceSegm network returns both segments and bounding boxes / architectures for semantic segmentation can have a shape similar to a convolutional autoencoder
-* <v-icon>mdi-close</v-icon> **False**: InstSegm and SemSegm are different problems solved by the same networks / in order to train a InstSegm network, it is necessary to finetune a SemSegm network first / Fully convolutionalization is a way to modify without training a classifier, to become a (very coarse) InstSegm network
+* <md-icon>mdi-check</md-icon> **True**: InstanceSegm network returns both segments and bounding boxes / architectures for semantic segmentation can have a shape similar to a convolutional autoencoder
+* <md-icon>mdi-close</md-icon> **False**: InstSegm and SemSegm are different problems solved by the same networks / in order to train a InstSegm network, it is necessary to finetune a SemSegm network first / Fully convolutionalization is a way to modify without training a classifier, to become a (very coarse) InstSegm network
 
 <br>
 

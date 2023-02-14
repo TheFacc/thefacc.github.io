@@ -175,7 +175,7 @@ Matrix <bold>operator* (</bold>const Matrix& M1, const Matrix& M2<bold>)</bold>;
 
 ## upper/lower_bound
 
-<v-img src="/learn/cpp_upperbound.jpg"></v-img>
+<md-img src="/learn/cpp_upperbound.jpg"></md-img>
 
 <br>
 
@@ -209,7 +209,7 @@ std::map&lt;T,U&gt; <pp>myMap</pp>;
 <table>
   <tr>
    <td>
-<v-img src="/learn/cpp_pointers.jpg"></v-img>
+<md-img src="/learn/cpp_pointers.jpg"></md-img>
    </td>
    <td> 
     <br> 
